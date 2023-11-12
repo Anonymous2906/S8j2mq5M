@@ -317,6 +317,41 @@ class BDMedia:
         cur.close()
         cnx.close()
 
+class PopupWindowNew(xbmcgui.WindowDialog):
+    def __init__(self, image, films=[], series=[]):
+        ajoutSerie = max([0, 7 - len(films)])
+        ajoutFilm = max([0, 7 - len(series)])
+        l = 70
+        lc = 100
+        if series:
+            lc += 55
+        if films:
+            lc += 55
+        lc += min(14, len(films) + len(series)) * (l + 5)
+        self.addControl(xbmcgui.ControlImage(x=20, y=15, width=lc, height=100, filename=xbmcvfs.translatePath('special://home/addons/plugin.video.sendtokodiU2P/back.png')))
+        self.addControl(xbmcgui.ControlImage(x=20, y=15, width=100, height=100, filename=image))
+        x = 125
+        if films:
+            self.addControl(xbmcgui.ControlLabel(x=125, y=20, width=100, height=80, label="Last\nFilms"))
+            x = 180
+            for i, img in enumerate(films[: 7 + ajoutSerie]):
+                if img:
+                    image2 = "http://image.tmdb.org/t/p/w185" + img
+                else:
+                    image2 = ""
+                pos = (x + (i * l) + (5 * i))
+                self.addControl(xbmcgui.ControlImage(x=pos, y=15, width=l, height=100, filename=image2))
+            pos += (l + 5)
+        else:
+            pos = x
+        if series:
+            self.addControl(xbmcgui.ControlLabel(x=pos, y=20, width=100, height=80, label="Last\nSeries"))
+            x = pos + 55
+            for i, img in enumerate(series[: 7 + ajoutSerie]):
+                image2 = "http://image.tmdb.org/t/p/w185" + img
+                pos = (x + (i * l) + (5 * i))
+                self.addControl(xbmcgui.ControlImage(x=pos, y=15, width=l, height=100, filename=image2))
+
 
 
 class CryptLink:
@@ -332,6 +367,7 @@ class CryptLink:
 
     def crypt(self, tx, tab0, tab1):
         texCrypt = ""
+        tx = tx.strip()
         for j, t in enumerate(tx):
             try:
                 tab0 = self._swapKey(tab0, j)
@@ -342,6 +378,8 @@ class CryptLink:
 
     def decrypt(self, tx, tab0, tab1):
         texCrypt = ""
+        tx = tx.strip()
+        #notice(tx)
         for j, t in enumerate(tx):
             tab0 = self._swapKey(tab0, j)
             d = {x: tab0[i] for i, x in enumerate(tab1)}
@@ -559,14 +597,18 @@ def idRentry(lePaste, d=0):
     return x.decode().splitlines()
 
 def getLinks():
-    pDialog2 = xbmcgui.DialogProgressBG()
-    pDialog2.create('M.A.J', 'Import Pastes...')
+    #pDialog2 = xbmcgui.DialogProgressBG()
+    #pDialog2.create('M.A.J', 'Import Pastes...')
+    if not xbmc.Player().isPlaying():
+        showInfoNotification("M.a.j...")
+    ajoutFilm = False
+    ajoutSerie = False
 
     a = time.time()
     bd = BDMedia(BDREPONEW)
     #tabFilms  = bd.getNumid()
     pastesImport = bd.getMaj()
-    notice(pastesImport)
+    #notice(pastesImport)
     if NUMHEBERG:
         if HEBERG == "Rentry":
             tab = idRentry(NUMHEBERG)
@@ -588,15 +630,17 @@ def getLinks():
                     links = idRentry(paste, d=1)
                     links = [x for x in links if x not in linksRecup]
                     for i, link in enumerate(links):
-                        if i % 51 == 0:
-                            pos = int(((i + 1) / len(links)) * 100)
-                            pDialog2.update(pos, "M.A.J", message=paste)
+                        #if i % 51 == 0 and ADDON.getSetting("affmaj") != "false":
+                        #    pos = int(((i + 1) / len(links)) * 100)
+                        #    pDialog2.update(pos, "M.A.J", message=paste)
                         try:
                             typM, numId, group, saison, episode, taille, filecode, release = link.split(",")
                             taille = int("0x" + taille, 16)
                             if typM.strip() == "M":
+                                ajoutFilm = True
                                 threading.Thread(name="getInfos", target=mdb.insertMovie, args=(numId, release, filecode, group, taille,)).start()
                             else:
+                                ajoutSerie = True
                                 threading.Thread(name="getInfos", target=mdb.insertSerie, args=(numId, release, filecode, group, saison, episode, taille,)).start()
                         except: pass
                         time.sleep(0.01)
@@ -609,7 +653,44 @@ def getLinks():
 
 
     notice(time.time() - a)
-    pDialog2.close()
+    #pDialog2.close()
+
+    cnx = sqlite3.connect(BDREPONEW)
+    cur = cnx.cursor()
+
+    if ajoutFilm:
+        sql = "SELECT poster FROM filmsPub ORDER BY id DESC LIMIT 14 OFFSET 0"
+        cur.execute(sql)
+        listeTest = [x[0] for x in cur.fetchall()]
+    else:
+        listeTest = []
+
+    if ajoutSerie:
+        sql = "SELECT poster FROM seriesPub ORDER BY id DESC LIMIT 14 OFFSET 0"
+        cur.execute(sql)
+        listeTest1 = [x[0] for x in cur.fetchall()]
+    else:
+        listeTest1 = []
+
+    cur.close()
+    cnx.close()
+
+    if  ajoutSerie or ajoutFilm:
+        if ADDON.getSetting("rskin") != "false":
+            if not xbmc.Player().isPlaying():
+                xbmc.executebuiltin('ReloadSkin')
+                time.sleep(0.5)
+                xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"back"},"id":1}')
+            else:
+                with open(xbmcvfs.translatePath('special://home/addons/plugin.video.sendtokodiU2P/rskin.txt'), "w") as f:
+                    f.write("reload")
+        #window = PopupWindowNew(xbmcvfs.translatePath('special://home/addons/plugin.video.sendtokodiU2P/icon.png'), list(set(newListeFilm)), list(set(newListeSerie)))
+        if ADDON.getSetting("affmaj") != "false":
+            window = PopupWindowNew(xbmcvfs.translatePath('special://home/addons/plugin.video.sendtokodiU2P/icon.png'), listeTest, listeTest1)
+            window.show()
+            xbmc.sleep(15000)
+            window.close()
+            del window
 
 
 def joinBlocker():
