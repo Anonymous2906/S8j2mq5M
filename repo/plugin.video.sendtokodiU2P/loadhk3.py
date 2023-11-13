@@ -596,11 +596,13 @@ def idRentry(lePaste, d=0):
 
     return x.decode().splitlines()
 
-def getLinks():
-    #pDialog2 = xbmcgui.DialogProgressBG()
-    #pDialog2.create('M.A.J', 'Import Pastes...')
-    if not xbmc.Player().isPlaying():
-        showInfoNotification("M.a.j...")
+def getLinks(visu=0):
+    if visu:
+        pDialog2 = xbmcgui.DialogProgressBG()
+        pDialog2.create('M.A.J', 'Import Pastes...')
+    else:
+        if not xbmc.Player().isPlaying():
+            showInfoNotification("M.a.j...")
     ajoutFilm = False
     ajoutSerie = False
 
@@ -630,9 +632,9 @@ def getLinks():
                     links = idRentry(paste, d=1)
                     links = [x for x in links if x not in linksRecup]
                     for i, link in enumerate(links):
-                        #if i % 51 == 0 and ADDON.getSetting("affmaj") != "false":
-                        #    pos = int(((i + 1) / len(links)) * 100)
-                        #    pDialog2.update(pos, "M.A.J", message=paste)
+                        if i % 51 == 0 and visu:
+                            pos = int(((i + 1) / len(links)) * 100)
+                            pDialog2.update(pos, "M.A.J", message=paste)
                         try:
                             typM, numId, group, saison, episode, taille, filecode, release = link.split(",")
                             taille = int("0x" + taille, 16)
@@ -653,24 +655,20 @@ def getLinks():
 
 
     notice(time.time() - a)
-    #pDialog2.close()
+    if visu:
+        pDialog2.close()
+    #ajoutSerie, ajoutFilm = True, True
 
     cnx = sqlite3.connect(BDREPONEW)
     cur = cnx.cursor()
 
-    if ajoutFilm:
-        sql = "SELECT poster FROM filmsPub ORDER BY id DESC LIMIT 14 OFFSET 0"
-        cur.execute(sql)
-        listeTest = [x[0] for x in cur.fetchall()]
-    else:
-        listeTest = []
+    sql = "SELECT poster FROM filmsPub ORDER BY id DESC LIMIT 7 OFFSET 0"
+    cur.execute(sql)
+    listeTest = [x[0] for x in cur.fetchall()]
 
-    if ajoutSerie:
-        sql = "SELECT poster FROM seriesPub ORDER BY id DESC LIMIT 14 OFFSET 0"
-        cur.execute(sql)
-        listeTest1 = [x[0] for x in cur.fetchall()]
-    else:
-        listeTest1 = []
+    sql = "SELECT poster FROM seriesPub ORDER BY id DESC LIMIT 7 OFFSET 0"
+    cur.execute(sql)
+    listeTest1 = [x[0] for x in cur.fetchall()]
 
     cur.close()
     cnx.close()

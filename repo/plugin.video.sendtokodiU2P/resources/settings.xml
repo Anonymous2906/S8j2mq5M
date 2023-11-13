@@ -50,7 +50,7 @@
         <setting id="actifnewpaste" label="Activer Médiathéque HK3" type="bool" default="false" />
         <setting id="heberg" label="Hébergeur liste Liens" type="labelenum" values="Anotepad|Pastebin|Rentry|Textup|fichier|Rentry" default="Rentry"  visible="eq(-1,true)"/>
         <setting id="numHeberg" label="Numero Anotepad/Pastebin/Rentry/Textup" type="text" default="" visible="eq(-2,true)"/>
-        <setting label="Ajouter contenu" type="action" action="RunPlugin(plugin://plugin.video.sendtokodiU2P/?action=loadhk3)" visible="eq(-3,true)"/>
+        <setting label="Ajouter contenu" type="action" action="RunPlugin(plugin://plugin.video.sendtokodiU2P/?action=loadhk3v)" visible="eq(-3,true)"/>
         <setting label="Reset database" type="action" action="RunPlugin(plugin://plugin.video.sendtokodiU2P/?action=resetBDhkNew)" visible="eq(-4,true)"/>
         <setting id="numdatabase" label="Link database" type="text" default="" visible="eq(-5,true)"/>
         <setting label="Importer Database" type="action" action="RunPlugin(plugin://plugin.video.sendtokodiU2P/?action=loaddbhk3)" visible="eq(-6,true)"/>
