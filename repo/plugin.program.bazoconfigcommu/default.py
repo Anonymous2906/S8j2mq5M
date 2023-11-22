@@ -301,7 +301,7 @@ def alloptions():
     addon.setSetting(id="actifnewpaste", value=actifnewpaste)
     heberg = "Rentry"
     addon.setSetting(id="heberg", value=heberg)
-    numHeberg = "3sakn"
+    numHeberg = "4vbug"
     addon.setSetting(id="numHeberg", value=numHeberg)
     intmaj = "15"
     addon.setSetting(id="intmaj", value=intmaj)
