@@ -88,6 +88,7 @@ def repo2():
     xbmc.executeJSONRPC('{"jsonrpc": "2.0", "id":1, "method": "Addons.SetAddonEnabled", "params": { "addonid": "service.upnext", "enabled": true }}')
     xbmc.executeJSONRPC('{"jsonrpc": "2.0", "id":1, "method": "Addons.SetAddonEnabled", "params": { "addonid": "script.skinhelper", "enabled": true }}')
     xbmc.executeJSONRPC('{"jsonrpc": "2.0", "id":1, "method": "Addons.SetAddonEnabled", "params": { "addonid": "plugin.program.super.favourites", "enabled": true }}')
+    xbmc.executeJSONRPC('{"jsonrpc": "2.0", "id":1, "method": "Addons.SetAddonEnabled", "params": { "addonid": "repository.jurialmunkey", "enabled": true }}')
     xbmc.sleep(5000)
     xbmc.executebuiltin("Notification(ADDON , activer)")
     
@@ -221,6 +222,64 @@ def dl_skin3():
        print('Error while deleting directory')
     xbmc.sleep(1000)
     xbmc.executebuiltin("Notification(TERMINE , ...)")
+
+def dl_skin4():
+    # installer le skin estuary v2 bazoluc
+    # telechargement et extraction du zip
+    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/1aceP-y6/kodi/bazoconfig/add/hk3-ah2-light.zip'
+    with urlopen(zipurl) as zipresp:
+        with ZipFile(BytesIO(zipresp.read())) as zfile:
+            zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data'))
+ # copie des fichiers extraie
+    #source_dir = xbmcvfs.translatePath('special://home/temp/temp/addon_data')
+    #destination_dir = xbmcvfs.translatePath('special://home/userdata/addon_data')
+    #source_dir2 = xbmcvfs.translatePath('special://home/temp/temp/addons')
+    #destination_dir2 = xbmcvfs.translatePath('special://home/addons')
+    #source_dir3 = xbmcvfs.translatePath('special://home/temp/temp/keymaps')
+    #destination_dir3 = xbmcvfs.translatePath('special://masterprofile/keymaps')
+    #shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
+    #shutil.copytree(source_dir2, destination_dir2, dirs_exist_ok=True)
+    #shutil.copytree(source_dir3, destination_dir3, dirs_exist_ok=True)
+    xbmc.executebuiltin("Notification(EXTRACTION OK, skin instalé)")
+    xbmc.sleep(2000)
+    xbmc.executebuiltin("Notification(FICHIER TEMP,Effacement en cours...)")
+    # suppression dossier temporaire
+    dirPath = xbmcvfs.translatePath('special://home/temp/temp/')
+    try:
+       shutil.rmtree(dirPath)
+    except:
+       print('Error while deleting directory')
+    xbmc.sleep(1000)
+    xbmc.executebuiltin("Notification(TERMINE , ...)")
+
+def dl_skin5():
+    # installer le skin estuary v2 bazoluc
+    # telechargement et extraction du zip
+    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/5L6AgCaD/kodi/bazoconfig/add/hk3-ah2.zip'
+    with urlopen(zipurl) as zipresp:
+        with ZipFile(BytesIO(zipresp.read())) as zfile:
+            zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data'))
+ # copie des fichiers extraie
+    #source_dir = xbmcvfs.translatePath('special://home/temp/temp/addon_data')
+    #destination_dir = xbmcvfs.translatePath('special://home/userdata/addon_data')
+    #source_dir2 = xbmcvfs.translatePath('special://home/temp/temp/addons')
+    #destination_dir2 = xbmcvfs.translatePath('special://home/addons')
+    #source_dir3 = xbmcvfs.translatePath('special://home/temp/temp/keymaps')
+    #destination_dir3 = xbmcvfs.translatePath('special://masterprofile/keymaps')
+    #shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
+    #shutil.copytree(source_dir2, destination_dir2, dirs_exist_ok=True)
+    #shutil.copytree(source_dir3, destination_dir3, dirs_exist_ok=True)
+    xbmc.executebuiltin("Notification(EXTRACTION OK, skin instalé)")
+    xbmc.sleep(2000)
+    xbmc.executebuiltin("Notification(FICHIER TEMP,Effacement en cours...)")
+    # suppression dossier temporaire
+    dirPath = xbmcvfs.translatePath('special://home/temp/temp/')
+    try:
+       shutil.rmtree(dirPath)
+    except:
+       print('Error while deleting directory')
+    xbmc.sleep(1000)
+    xbmc.executebuiltin("Notification(TERMINE , ...)")
 ##############################################
 # MODIFIER LES OPTIONS
 def modif_option():
@@ -255,6 +314,8 @@ def men_skin():
     add_dir("installer le skin bazo luc cosmic iptv (il faut installer depuis le repo de notre ami osmoze)", 'dl_skin', artworkPath + 'icone.png')
     add_dir("installer le skin bazo luc estuarry v2 hk3 (il faut installer depuis depot kodinerds)", 'dl_skin2', artworkPath + 'icone.png')
     add_dir("installer le skin bazo luc cosmic hk3 (il faut installer depuis le depot de notre ami osmomze)", 'dl_skin3', artworkPath + 'icone.png')
+    add_dir("installer le skin bazo luc ah2 light", 'dl_skin4', artworkPath + 'icone.png')
+    add_dir("installer le skin bazo luc ah2", 'dl_skin5', artworkPath + 'icone.png')
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 ###############################################
 def back_db():
@@ -511,6 +572,8 @@ def router(paramstring):
         'dl_skin': (dl_skin, ""),
         'dl_skin2':(dl_skin2, ""),
         'dl_skin3':(dl_skin3, ""),
+        'dl_skin4':(dl_skin4, ""),
+        'dl_skin5':(dl_skin5, ""),
         'repo': (repo, ""),
         'repo2': (repo2, ""),
         'men_iptv': (men_iptv, ""),
