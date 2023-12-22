@@ -280,6 +280,35 @@ def dl_skin5():
        print('Error while deleting directory')
     xbmc.sleep(1000)
     xbmc.executebuiltin("Notification(TERMINE , ...)")
+
+def dl_skin6():
+    # installer le skin estuary v2 bazoluc
+    # telechargement et extraction du zip
+    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/xZ1i0UZB/kodi/bazoconfig/add/ah2-foxx.zip'
+    with urlopen(zipurl) as zipresp:
+        with ZipFile(BytesIO(zipresp.read())) as zfile:
+            zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data'))
+ # copie des fichiers extraie
+    #source_dir = xbmcvfs.translatePath('special://home/temp/temp/addon_data')
+    #destination_dir = xbmcvfs.translatePath('special://home/userdata/addon_data')
+    #source_dir2 = xbmcvfs.translatePath('special://home/temp/temp/addons')
+    #destination_dir2 = xbmcvfs.translatePath('special://home/addons')
+    #source_dir3 = xbmcvfs.translatePath('special://home/temp/temp/keymaps')
+    #destination_dir3 = xbmcvfs.translatePath('special://masterprofile/keymaps')
+    #shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
+    #shutil.copytree(source_dir2, destination_dir2, dirs_exist_ok=True)
+    #shutil.copytree(source_dir3, destination_dir3, dirs_exist_ok=True)
+    xbmc.executebuiltin("Notification(EXTRACTION OK, skin instalé)")
+    xbmc.sleep(2000)
+    xbmc.executebuiltin("Notification(FICHIER TEMP,Effacement en cours...)")
+    # suppression dossier temporaire
+    dirPath = xbmcvfs.translatePath('special://home/temp/temp/')
+    try:
+       shutil.rmtree(dirPath)
+    except:
+       print('Error while deleting directory')
+    xbmc.sleep(1000)
+    xbmc.executebuiltin("Notification(TERMINE , ...)")
 ##############################################
 # MODIFIER LES OPTIONS
 def modif_option():
@@ -316,6 +345,7 @@ def men_skin():
     add_dir("installer le skin bazo luc cosmic hk3 (il faut installer depuis le depot de notre ami osmomze)", 'dl_skin3', artworkPath + 'icone.png')
     add_dir("installer le skin bazo luc ah2 light", 'dl_skin4', artworkPath + 'icone.png')
     add_dir("installer le skin bazo luc ah2", 'dl_skin5', artworkPath + 'icone.png')
+    add_dir("installer le skin bazo luc ah2 foxx", 'dl_skin6', artworkPath + 'icone.png')
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 ###############################################
 def back_db():
@@ -574,6 +604,7 @@ def router(paramstring):
         'dl_skin3':(dl_skin3, ""),
         'dl_skin4':(dl_skin4, ""),
         'dl_skin5':(dl_skin5, ""),
+        'dl_skin6':(dl_skin6, ""),
         'repo': (repo, ""),
         'repo2': (repo2, ""),
         'men_iptv': (men_iptv, ""),

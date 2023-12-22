@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<addons><addon id="plugin.program.bazoconfigcommu" version="1.0.3" name="bazo config commu" provider-name="bazo">
+<addons><addon id="plugin.program.bazoconfigcommu" version="1.0.4" name="bazo config commu" provider-name="bazo">
 	<requires>
         <import addon="script.module.requests" />
 	</requires>
@@ -24,8 +24,10 @@ VERTION 1.0.1 - 20/11/2023
 - ajout du support hk3
 VERTION 1.0.2 - 22/11/2023
 -correction mineur
-VERTION 1.0.3 - 11/12/2023*
+VERTION 1.0.3 - 11/12/2023
 ajout config ah2 et ah2 light bazoluc
+VERTION 1.0.4 - 22/12/2023
+ajout config ah2 foxx
     </news>		
         <assets>
             <icon>icon.png</icon>
