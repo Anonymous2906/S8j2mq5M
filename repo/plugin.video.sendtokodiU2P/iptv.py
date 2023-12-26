@@ -2247,8 +2247,11 @@ def mapEpg(params):
 
 def playMedia(params):
     #notice("playmedia iptv")
-    #notice(params)
-    typM = ""
+    notice(params)
+    try:
+        typM = params["typM"]
+    except:
+        typM = "live"
     fournisseur = params["fourn"]
     if fournisseur != "xtream":
         bd = BookmarkIPTV(BDBOOKMARK)
@@ -2281,10 +2284,13 @@ def playMedia(params):
                 #    cmd = quote(linkCMD)
                 #    link = iptv.getInfos(iptv.createLink.format(cmd)).json()["js"]["cmd"].split(" ")[1]
     else:
-        if "noos" in params["lien"]:
-            link = params["lien"] + ".mp4"
+        if typM == "live":
+                if "noos" in params["lien"]:
+                    link = params["lien"] + ".mp4"
+                else:
+                    link = params["lien"] + ".ts"
         else:
-            link = params["lien"] + ".mkv"
+            link = params["lien"]
 
     #infinity ott
     #{'user_info': {'username': 'rY24nReEhXAxxMwx', 'password': 'YpGq3Ua4WEmbHNTD', 'message': '', 'auth': 1, 'status': 'Active', 'exp_date': '1685788532', 'is_trial': '1', 'active_cons': '0', 'created_at': '1685702132', 'max_connections': '1', 'allowed_output_formats': ['m3u8', 'ts', 'rtmp']}, 'server_info': {'url': 'vbn123.com', 'port': '8080', 'https_port': '25463', 'server_protocol': 'http', 'rtmp_port': '25462', 'timezone': 'Europe/Paris', 'timestamp_now': 1685717604, 'time_now': '2023-06-02 16:53:24'}}
@@ -2302,7 +2308,7 @@ def playMedia(params):
         listIt = createListItemFromVideo(result)
         #mplay = MyDialog()
         #mplay.play(result["url"])
-        typM = params["typM"]
+
         notice(typM)
         if "replay" in params.keys() or typM in ["vod", "episode", "VOD"]:
             xbmcplugin.setResolvedUrl(HANDLE, True, listitem=listIt)
