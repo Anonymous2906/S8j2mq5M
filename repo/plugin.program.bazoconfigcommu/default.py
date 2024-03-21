@@ -1,6 +1,8 @@
 # Module: default
-# Author: bazo
+# Author: Bazo, Osmoze06
 # Created on: 19.01.2022
+# Edited on: 17.03.2024
+
 import xbmcplugin
 from urllib.parse import quote_plus, unquote_plus, parse_qsl
 import xbmc
@@ -29,7 +31,7 @@ def log(msg, level=xbmc.LOGINFO):
     xbmc.log('%s: %s' % (addonID, msg), level)
 
 def showErrorNotification(message):
-    xbmcgui.Dialog().notification("bazo skin", message,
+    xbmcgui.Dialog().notification("BAZOLAND", message,
                                   xbmcgui.NOTIFICATION_ERROR, 5000)
 def showInfoNotification(message):
     xbmcgui.Dialog().notification("bazo skin", message, xbmcgui.NOTIFICATION_INFO, 15000)
@@ -42,64 +44,164 @@ def add_dir(name, mode, thumb):
     ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u, listitem=liz, isFolder=True)
     return ok
 
-##############################################
-
-# MENU PRINCIPAL
+############################################## LISTE DES MENUS ###############################################
 def main_menu():
     xbmcplugin.setPluginCategory(__handle__, "Choix bazo")
     xbmcplugin.setContent(__handle__, 'files')
     add_dir("Installation - Modifier les options", 'modif_option', artworkPath + 'icone.png')
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
-##############################################
+
+def modif_option():
+    #Menu Principal
+    xbmcplugin.setPluginCategory(__handle__, "MENU PRINCIPAL")
+    xbmcplugin.setContent(__handle__, 'files')
+    add_dir("[B]1. Référenciels :[/B] Installation de tous les Depôts nécéssaires", 'repo', artworkPath + 'icone.png')
+    add_dir("[B]2. U2Pplay :[/B] Installation / Paramétrage", 'men_ext', artworkPath + 'icone.png')
+    add_dir("[B]3. VStream :[/B] Installation / Paramétrage", 'vodt', artworkPath + 'icone.png')
+    add_dir("[B]4. TV & Replay :[/B] Installation / Paramétrage", 'men_pvr', artworkPath + 'icone.png')
+    add_dir("[B]5. Menu IPTV :[/B] Mode Stalker & Xtream", 'men_iptv', artworkPath + 'icone.png')
+    add_dir("[B]6. Menu Skins :[/B] Base de données de Skin", 'men_skin', artworkPath + 'icone.png')   
+    add_dir("[COLOR red]Nettoyer KODI[/COLOR]", 'vider_cache', artworkPath + 'icone.png')
+    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
+
+###############################################
+def men_ext():
+    #Menu U2Pplay
+    xbmcplugin.setPluginCategory(__handle__, "MENU U2PPLAY")
+    xbmcplugin.setContent(__handle__, 'files')
+    add_dir("[B]1.[/B] Installation de U2Pplay", 'addons', artworkPath + 'icone.png')
+    add_dir("[B]2.[/B] Import du Paramétrage", 'alloptions', artworkPath + 'icone.png')
+    add_dir("[B]3.[/B] Installer ou Mettre à jour le Backup DB", 'back_db', artworkPath +'icone.png')
+    add_dir("[B]4.[/B] Construire ou Mettre à jour la DB", 'const_db', artworkPath +'icone.png')
+    add_dir("[B]5.[/B] Installer le Service de Mise à Jour Automatique", 'serv_maj', artworkPath + 'icone.png')
+    add_dir("[B]6.[/B] Installer UPNext (Enchaînement auto. des épisodes)", 'upnext', artworkPath + 'icone.png')
+    add_dir("Ouvrir les Paramètres de U2Pplay", 'ref_import', artworkPath + 'icone.png')
+    add_dir("[COLOR red]Effacer la DB[/COLOR]", 'del_db', artworkPath +'icone.png')
+    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
+
+###############################################
+def vodt():
+    #Menu VStream
+    xbmcplugin.setPluginCategory(__handle__, "MENU VSTREAM")
+    xbmcplugin.setContent(__handle__, 'files')
+    add_dir("[B]1.[/B] Installation de VStream", 'addons2', artworkPath + 'icone.png')    
+    add_dir("[B]2.[/B] Importer le Paramétrage",'mv', artworkPath + 'icone.png')
+    add_dir("[B]3.[/B] Installer la DB Torrent", 'dbt', artworkPath + 'icone.png')
+    add_dir("Ouvrir les Paramètres de VStream", 'pv', artworkPath + 'icone.png')
+    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
+
+###############################################
+def men_pvr():
+    #Menu TV PVR
+    xbmcplugin.setPluginCategory(__handle__, "MENU TV PVR & REPLAY TV")
+    xbmcplugin.setContent(__handle__, 'files')
+    add_dir("[B]1.[/B] Installation du PVR Simple Client", 'pvr', artworkPath + 'icone.png')    
+    add_dir("[B]2.[/B] Installation de VAVOOTO",'vavooto', artworkPath + 'icone.png')
+    #add_dir("[B]3.[/B] Import du Paramétrage PVR + VAVOOTO", 'dbt', artworkPath + 'icone.png')
+    add_dir("[B]3.[/B] Installation de Catchup TV & More",'catchuptv', artworkPath + 'icone.png')
+    #add_dir("[B]5.[/B] Ajouter les Comptes Catchup TV & More", 'ajout_cpt_ctv', artworkPath + 'icone.png')    
+    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
+
+###############################################
+def men_skin():
+    #Menu Skins
+    xbmcplugin.setPluginCategory(__handle__, "menu pour les skins")
+    xbmcplugin.setContent(__handle__, 'files')
+    add_dir("Mettre à jour les icônes", 'au_maj', artworkPath + 'icone.png')
+    add_dir("[B]AutoWidget :[/B] Installer l'addon", 'autowidget', artworkPath + 'icone.png')
+    add_dir("[B]Estuary v2[/B] - IPTV - by Bazo & Luc", 'dl_skin', artworkPath + 'icone.png')
+    add_dir("[B]Estuary v2[/B] - HK3 - by Bazo & Luc", 'dl_skin2', artworkPath + 'icone.png')
+    add_dir("[B]Estuary v2[/B] - HK3 Light - by Bazo & Luc", 'dl_skin3', artworkPath + 'icone.png')
+    add_dir("[B]Arctic Horizon 2[/B] - IPTV - by Bazo & Luc", 'dl_skin6', artworkPath + 'icone.png')
+    add_dir("[B]Arctic Horizon 2[/B] - HK3 - by Bazo & Luc", 'dl_skin5', artworkPath + 'icone.png')
+    add_dir("[B]Arctic Horizon 2[/B] - HK3 Light - by Bazo & Luc", 'dl_skin4', artworkPath + 'icone.png')
+    add_dir("[B]Arctic Horizon 2[/B] - BazoLand [COLOR red][PROCHAINEMENT][/COLOR]", 'dl_skin7', artworkPath + 'icone.png')
+    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
+
+###############################################
+
+def men_iptv():
+     #Menu
+    xbmcplugin.setPluginCategory(__handle__, "MENU IPTV")
+    xbmcplugin.setContent(__handle__, 'files')
+    add_dir("[B]1.[/B] Mode [B]STALKER[/B]", 'men_iptv_stalker', artworkPath + 'icone.png')
+    add_dir("[B]2.[/B] Mode [B]XTREAM[/B]", 'men_iptv_xtream', artworkPath + 'icone.png')
+    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
+
+###############################################
+
+def men_iptv_stalker():
+     #Menu
+    xbmcplugin.setPluginCategory(__handle__, "MENU IPTV STALKER")
+    xbmcplugin.setContent(__handle__, 'files')
+    add_dir("[B]1.[/B] Ajouter un Compte unique ou une Bank", 'iptv_tobal', artworkPath + 'icone.png')
+    add_dir("[B]2.[/B] Sélectionner une Adresse MAC", 'iptv_tobal2', artworkPath + 'icone.png')
+    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
+
+################################################
+
+def men_iptv_xtream():
+     #Menu
+    xbmcplugin.setPluginCategory(__handle__, "MENU IPTV XTREAM")
+    xbmcplugin.setContent(__handle__, 'files')
+    add_dir("[B]1.[/B]Ajouter le compte - Fournisseur 1", 'iptv_xt1', artworkPath + 'icone.png')
+    add_dir("[B]2.[/B]Ajouter le compte - Fournisseur 2", 'iptv_xt2', artworkPath + 'icone.png')
+    add_dir("[B]3.[/B]Ajouter le compte - Fournisseur 3", 'iptv_xt3', artworkPath + 'icone.png')
+    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
+
+############################################## FIN LISTE DES MENUS ###############################################
 
 def repo():
-    # mise a jour icone aura
-    # telechargement et extraction du zip
-    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/zNsnbCN5/kodi/bazoconfig/repo/repo.zip'
-    xbmc.sleep(5000)
-    with urlopen(zipurl) as zipresp:
-        with ZipFile(BytesIO(zipresp.read())) as zfile:
-            zfile.extractall(xbmcvfs.translatePath('special://home/temp/temp/repo'))
-    # copie des fichiers extraie
-    source_dir = xbmcvfs.translatePath('special://home/temp/temp/repo')
-    destination_dir = xbmcvfs.translatePath('special://home/addons')
-    shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
-    xbmc.executebuiltin("Notification(EXTRACTION OK, repos instalé)")
-    xbmc.sleep(5000)
-    xbmc.executebuiltin("Notification(FICHIER TEMP,Effacement en cours...)")
-    # suppression dossier temporaire
-    dirPath = xbmcvfs.translatePath('special://home/temp/temp/')
-    try:
-       shutil.rmtree(dirPath)
-    except:
-       print('Error while deleting directory')
-    xbmc.sleep(1000)
-    xbmc.executebuiltin("Notification(TERMINE , ...)")
-    xbmc.executebuiltin("Notification(ATTENTION KODI VA SE FERMER , retour au menu principal et relancez kodi)")
-    xbmc.sleep(2000)
-   # xbmc.executebuiltin('ReloadSkin')
-    xbmc.sleep(2000)
-    xbmc.executebuiltin('Quit')
-
-def repo2():
-    xbmc.executeJSONRPC('{"jsonrpc": "2.0", "id":1, "method": "Addons.SetAddonEnabled", "params": { "addonid": "repository.autowidget", "enabled": true }}')
-    xbmc.executeJSONRPC('{"jsonrpc": "2.0", "id":1, "method": "Addons.SetAddonEnabled", "params": { "addonid": "repo.S8j2mq5M", "enabled": true }}')
-    xbmc.executeJSONRPC('{"jsonrpc": "2.0", "id":1, "method": "Addons.SetAddonEnabled", "params": { "addonid": "repository.kodinerds", "enabled": true }}')
-    xbmc.executeJSONRPC('{"jsonrpc": "2.0", "id":1, "method": "Addons.SetAddonEnabled", "params": { "addonid": "service.upnext", "enabled": true }}')
-    xbmc.executeJSONRPC('{"jsonrpc": "2.0", "id":1, "method": "Addons.SetAddonEnabled", "params": { "addonid": "script.skinhelper", "enabled": true }}')
-    xbmc.executeJSONRPC('{"jsonrpc": "2.0", "id":1, "method": "Addons.SetAddonEnabled", "params": { "addonid": "plugin.program.super.favourites", "enabled": true }}')
-    xbmc.executeJSONRPC('{"jsonrpc": "2.0", "id":1, "method": "Addons.SetAddonEnabled", "params": { "addonid": "repository.jurialmunkey", "enabled": true }}')
-    xbmc.sleep(5000)
-    xbmc.executebuiltin("Notification(ADDON , activer)")
-    
-##############################################
+    #Installation de tous les référentiels nécéssaires
+    import install_repositories
 
 ##############################################
 
+def addons():
+    #Installation de l'addon U2Pplay (Script Externe)
+    import install_u2p
+
 ##############################################
 
-# INSTALLER LES ICONES
+def addons2():
+    #Installation de l'addon VStream (Script Externe)
+    import install_vstream
+
+##############################################    
+
+def pvr():
+    #Installation de l'addon PVR Simple Client (Script Externe)
+    import install_pvr
+
+##############################################  
+
+def vavooto():
+    #Installation de l'addon Vavooto (Script Externe)
+    import install_vavoo
+
+##############################################  
+
+def catchuptv():
+    #Installation de l'addon Catchup TV & More beta (Script Externe)
+    import install_catchuptv
+
+##############################################    
+
+def upnext():
+    #Installation de l'addon UPNext (Script Externe)
+    import install_upnext
+
+##############################################
+
+def autowidget():
+    #Installation de l'addon AutoWidget (Script Externe)
+    import install_autowidget
+
+##############################################
+
 def au_maj():
+    #Installation des Icônes
+    
     # mise a jour icone aura
     # telechargement et extraction du zip
     xbmc.sleep(5000)
@@ -163,6 +265,8 @@ def dl_skin():
        print('Error while deleting directory')
     xbmc.sleep(1000)
     xbmc.executebuiltin("Notification(TERMINE , ...)")
+
+##############################################
     
 def dl_skin2():
     # installer le skin estuary v2 bazoluc
@@ -193,9 +297,10 @@ def dl_skin2():
     xbmc.sleep(1000)
     xbmc.executebuiltin("Notification(TERMINE , ...)")
 
+##############################################
 
 def dl_skin3():
-    # installer le skin estuary v2 bazoluc
+    # installer le skin ???? v2 bazoluc
     # telechargement et extraction du zip
     zipurl = 'http://tobal.duckdns.org:805/api/public/dl/ykHRZ8Y1/kodi/bazoconfig/add/hk3-cosmic.zip'
     with urlopen(zipurl) as zipresp:
@@ -222,6 +327,8 @@ def dl_skin3():
        print('Error while deleting directory')
     xbmc.sleep(1000)
     xbmc.executebuiltin("Notification(TERMINE , ...)")
+
+##############################################
 
 def dl_skin4():
     # installer le skin estuary v2 bazoluc
@@ -252,6 +359,8 @@ def dl_skin4():
     xbmc.sleep(1000)
     xbmc.executebuiltin("Notification(TERMINE , ...)")
 
+##############################################
+
 def dl_skin5():
     # installer le skin estuary v2 bazoluc
     # telechargement et extraction du zip
@@ -281,6 +390,8 @@ def dl_skin5():
     xbmc.sleep(1000)
     xbmc.executebuiltin("Notification(TERMINE , ...)")
 
+##############################################
+
 def dl_skin6():
     # installer le skin estuary v2 bazoluc
     # telechargement et extraction du zip
@@ -309,69 +420,206 @@ def dl_skin6():
        print('Error while deleting directory')
     xbmc.sleep(1000)
     xbmc.executebuiltin("Notification(TERMINE , ...)")
-##############################################
-# MODIFIER LES OPTIONS
-def modif_option():
-    #Menu
-    xbmcplugin.setPluginCategory(__handle__, "Modifier les options")
-    xbmcplugin.setContent(__handle__, 'files')
-    add_dir("1- extensions", 'men_ext', artworkPath + 'icone.png')
-    add_dir("2- skins", 'men_skin', artworkPath + 'icone.png')
-    add_dir("3- installer iptv", 'men_iptv', artworkPath + 'icone.png')
-    add_dir("Ajouter Compte CatchupTv", 'ajout_cpt_ctv', artworkPath + 'icone.png')
-    add_dir("Nettoyer Kodi", 'vider_cache', artworkPath + 'icone.png')
-    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
-###############################################
-def men_ext():
-    #Menu
-    xbmcplugin.setPluginCategory(__handle__, "menu pour les extensions")
-    xbmcplugin.setContent(__handle__, 'files')
-    add_dir("installer les depôts nécessaires", 'repo', artworkPath + 'icone.png')
-    add_dir("activer les depôts", 'repo2', artworkPath + 'icone.png')
-    add_dir("modifier options u2pplay", 'alloptions', artworkPath + 'icone.png')
-    add_dir("installer/mise a jour backup db", 'back_db', artworkPath +'icone.png')
-    add_dir("paramètres", 'ref_import', artworkPath + 'icone.png')
-    add_dir("activer service maj", 'serv_maj', artworkPath + 'icone.png')
-    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
-###############################################
-def men_skin():
-    #Menu
-    xbmcplugin.setPluginCategory(__handle__, "menu pour les skins")
-    xbmcplugin.setContent(__handle__, 'files')
-    add_dir("Mettre a jour les icones", 'au_maj', artworkPath + 'icone.png')
-    add_dir("installer le skin bazo luc cosmic iptv (il faut installer depuis le repo de notre ami osmoze)", 'dl_skin', artworkPath + 'icone.png')
-    add_dir("installer le skin bazo luc estuarry v2 hk3 (il faut installer depuis depot kodinerds)", 'dl_skin2', artworkPath + 'icone.png')
-    add_dir("installer le skin bazo luc cosmic hk3 (il faut installer depuis le depot de notre ami osmomze)", 'dl_skin3', artworkPath + 'icone.png')
-    add_dir("installer le skin bazo luc ah2 light", 'dl_skin4', artworkPath + 'icone.png')
-    add_dir("installer le skin bazo luc ah2", 'dl_skin5', artworkPath + 'icone.png')
-    add_dir("installer le skin bazo luc ah2 foxx", 'dl_skin6', artworkPath + 'icone.png')
-    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
-###############################################
-def back_db():
-    # installer le skin cosmic bazoluc iptv
+##############################################
+
+def dl_skin7():
+    # installer le skin estuary v2 bazoluc
     # telechargement et extraction du zip
-    xbmc.sleep(5000)
-    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/bDj_Ruq9/kodi/bazoconfig/backup_db/mediasNewSauve.bd.zip'
+    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/F5DZg7Ne/kodi/bazoconfig/add/bazoland.zip'
+    with urlopen(zipurl) as zipresp:
+        with ZipFile(BytesIO(zipresp.read())) as zfile:
+            zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data'))
+ # copie des fichiers extraie
+    #source_dir = xbmcvfs.translatePath('special://home/temp/temp/addon_data')
+    #destination_dir = xbmcvfs.translatePath('special://home/userdata/addon_data')
+    #source_dir2 = xbmcvfs.translatePath('special://home/temp/temp/addons')
+    #destination_dir2 = xbmcvfs.translatePath('special://home/addons')
+    #source_dir3 = xbmcvfs.translatePath('special://home/temp/temp/keymaps')
+    #destination_dir3 = xbmcvfs.translatePath('special://masterprofile/keymaps')
+    #shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
+    #shutil.copytree(source_dir2, destination_dir2, dirs_exist_ok=True)
+    #shutil.copytree(source_dir3, destination_dir3, dirs_exist_ok=True)
+    xbmc.executebuiltin("Notification(EXTRACTION OK, skin instalé)")
+    xbmc.sleep(2000)
+    xbmc.executebuiltin("Notification(FICHIER TEMP,Effacement en cours...)")
+    # suppression dossier temporaire
+    dirPath = xbmcvfs.translatePath('special://home/temp/temp/')
+    try:
+       shutil.rmtree(dirPath)
+    except:
+       print('Error while deleting directory')
+    xbmc.sleep(1000)
+    xbmc.executebuiltin("Notification(TERMINE , ...)")
+
+##############################################
+
+def dbt():
+    settings_to_update = {
+        'dossier1': 'pastebin_label_1',
+        'past1': 'pastebin_id_1',
+        'dossier2': 'pastebin_label_2',
+        'past2': 'pastebin_id_2',
+        'dossier3': 'pastebin_label_3',
+        'past3': 'pastebin_id_3',
+        'dossier4': 'pastebin_label_4',
+        'past4': 'pastebin_id_4',
+        'dossier5': 'pastebin_label_5',
+        'past5': 'pastebin_id_5',
+        'dossier6': 'pastebin_label_6',
+        'past6': 'pastebin_id_6',
+        'dossier7': 'pastebin_label_7',
+        'past7': 'pastebin_id_7',
+    }
+
+    key_alldebrid = dbtd()
+
+    if key_alldebrid:
+        key_values = key_alldebrid.split('\n')
+        for key_value in key_values:
+            key, value = key_value.split('=')
+            key = key.strip().lower()
+            value = value.strip()
+
+            if key in settings_to_update:
+                try:
+                    addon = xbmcaddon.Addon("plugin.video.vstream")
+                    addon.setSetting(id=settings_to_update[key], value=value)
+                    showInfoNotification(f"{key.capitalize()} ajouté(e)")
+                except Exception as e:
+                    notice("Erreur : " + str(e))
+            else:
+                showInfoNotification(f"Clé inconnue : {key}")
+    else:
+        showInfoNotification("Aucune clé Anotepad trouvée")
+
+def dbtd():
+    dbtd = __addon__.getSetting("dbtd")
+    url = f"https://anotepad.com/note/read/{dbtd.strip()}"
+
+    try:
+        rec = requests.get(url, verify=False)
+        match = re.search(r'<\s*div\s*class\s*=\s*"\s*plaintext\s*"\s*>(?P<txAnote>.+?)</div>', rec.text, re.MULTILINE | re.DOTALL)
+        if match:
+            key_alldebrid = match.group("txAnote").strip()
+            return key_alldebrid
+        else:
+            showInfoNotification("Échec de la correspondance du motif pour le contenu Anotepad")
+            return None
+    except Exception as e:
+        showInfoNotification("Erreur lors de l'extraction du contenu Anotepad : " + str(e))
+        return None
+
+##############################################
+
+def pv():
+    xbmc.executebuiltin('RunPlugin(plugin://plugin.video.vstream/?function=opensetting&sFav=opensetting&site=cHome&siteUrl=http%3a%2f%2fvenom&title=Ouvrir%20les%20param%c3%a8tres)')
+
+##############################################
+
+def mv():
+    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/Gj0ArcN9/kodi/bazoconfig/config_vstream/sites.zip'
     xbmc.sleep(5000)
     with urlopen(zipurl) as zipresp:
         with ZipFile(BytesIO(zipresp.read())) as zfile:
-            zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data/plugin.video.sendtokodiU2P'))
-    showInfoNotification("db telechargé pensez a restaurer dans parametres")
+            zfile.extractall(xbmcvfs.translatePath('special://home/temp/temp/repo'))
+    # copie des fichiers extraie
+    source_dir = xbmcvfs.translatePath('special://home/temp/temp/repo')
+    destination_dir = xbmcvfs.translatePath('special://home/userdata/addon_data/plugin.video.vstream')
+    shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
+    xbmc.executebuiltin("Notification(EXTRACTION OK, source configurer)")
+    xbmc.sleep(5000)
+    xbmc.executebuiltin("Notification(FICHIER TEMP,Effacement en cours...)")
+    # suppression dossier temporaire
+    dirPath = xbmcvfs.translatePath('special://home/temp/temp/')
+    try:
+       shutil.rmtree(dirPath)
+    except:
+       print('Error while deleting directory')
+    xbmc.sleep(1000)
+    xbmc.executebuiltin("Notification(TERMINE , ...)")
+    xbmc.sleep(2000)
+   # xbmc.executebuiltin('ReloadSkin')
+    xbmc.sleep(2000)
+    settings_to_update = {
+        'hpast': 'pastebin_url',
+        'aalldeb': 'hoster_alldebrid_premium',
+        'talldeb': 'hoster_alldebrid_token',
+    }
+
+    key_alldebrid = vm()
+
+    if key_alldebrid:
+        key_values = key_alldebrid.split('\n')
+        for key_value in key_values:
+            key, value = key_value.split('=')
+            key = key.strip().lower()
+            value = value.strip()
+
+            if key in settings_to_update:
+                try:
+                    addon = xbmcaddon.Addon("plugin.video.vstream")
+                    addon.setSetting(id=settings_to_update[key], value=value)
+                    showInfoNotification(f"{key.capitalize()} ajouté(e)")
+                except Exception as e:
+                    notice("Erreur HK: " + str(e))
+            else:
+                showInfoNotification(f"Clé inconnue : {key}")
+    else:
+        showInfoNotification("Aucune clé Anotepad trouvée")
+    xbmc.executebuiltin("Notification(TERMINE , ...)")
+
+def vm():
+    vm = __addon__.getSetting("vm")
+    url = f"https://anotepad.com/note/read/{vm.strip()}"
+
+    try:
+        rec = requests.get(url, verify=False)
+        match = re.search(r'<\s*div\s*class\s*=\s*"\s*plaintext\s*"\s*>(?P<txAnote>.+?)</div>', rec.text, re.MULTILINE | re.DOTALL)
+        if match:
+            key_alldebrid = match.group("txAnote").strip()
+            return key_alldebrid
+        else:
+            showInfoNotification("Échec de la correspondance du motif pour le contenu Anotepad")
+            return None
+    except Exception as e:
+        showInfoNotification("Erreur lors de l'extraction du contenu Anotepad : " + str(e))
+        return None
+
+##############################################
+
+def back_db():
+    # installer le skin cosmic bazoluc iptv
+    # telechargement et extraction du zip
+    #xbmc.sleep(5000)
+    #zipurl = 'http://tobal.duckdns.org:805/api/public/dl/bDj_Ruq9/kodi/bazoconfig/backup_db/mediasNewSauve.bd.zip'
+    #xbmc.sleep(5000)
+    #with urlopen(zipurl) as zipresp:
+        #with ZipFile(BytesIO(zipresp.read())) as zfile:
+            #zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data/plugin.video.sendtokodiU2P'))
+    #xbmc.executebuiltin( 'RunPlugin(plugin://plugin.video.sendtokodiU2P/?action=gestiondb)')
+    #showInfoNotification("db telechargé cliquez sur restauration")
+    import back_db
+    
 ###############################################
+
 def serv_maj():
+    #import install_servicemaj
     xbmc.sleep(1000)
     xbmc.executebuiltin('RunPlugin(plugin://plugin.video.sendtokodiU2P/?action=mepautostart2)')
     showInfoNotification("maj auto activé")
-###############################################
-def men_iptv():
-     #Menu
-    xbmcplugin.setPluginCategory(__handle__, "menu pour les iptv")
-    xbmcplugin.setContent(__handle__, 'files')
-    add_dir("iptv etape 1", 'iptv_tobal', artworkPath + 'icone.png')
-    add_dir("iptv etape 2", 'iptv_tobal2', artworkPath + 'icone.png')
-    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
+###############################################
+
+def const_db ():
+    xbmc.executebuiltin('RunPlugin(plugin://plugin.video.sendtokodiU2P/?action=loadhk3v)')
+
+###############################################
+
+def del_db():
+    xbmc.executebuiltin('RunPlugin(plugin://plugin.video.sendtokodiU2P/?action=resetBDhkNew)')
+    
+################################################
 def iptv_tobal():
        xbmc.sleep(2000)
        addon = xbmcaddon.Addon("plugin.video.sendtokodiU2P")
@@ -379,33 +627,228 @@ def iptv_tobal():
        addon.setSetting(id="iptv", value=iptv)
        xbmc.sleep(2000)
        xbmc.executebuiltin('RunPlugin(plugin://plugin.video.sendtokodiU2P/?action=ajoutIPTV&reload=$INFO[Window(Home).Property(widgetreload)]$INFO[Window(Home).Property(widgetreload2')
+
+###############################################
+
 def iptv_tobal2():
        xbmc.sleep(2000)
        xbmc.executebuiltin('RunPlugin(plugin://plugin.video.sendtokodiU2P/?action=IPTVbank&reload=$INFO[Window(Home).Property(widgetreload)]$INFO[Window(Home).Property(widgetreload2)')
+
+###############################################
+
 def alloptions():
-    addon = xbmcaddon.Addon("plugin.video.sendtokodiU2P")
-    nb_items = "50"
-    addon.setSetting(id="nb_items", value=nb_items)
-    thumbnails = "3000"
-    addon.setSetting(id="thumbnails", value=thumbnails)
-    actifnewpaste = "true"
-    addon.setSetting(id="actifnewpaste", value=actifnewpaste)
-    heberg = "Rentry"
-    addon.setSetting(id="heberg", value=heberg)
-    numHeberg = "4vbug"
-    addon.setSetting(id="numHeberg", value=numHeberg)
-    intmaj = "15"
-    addon.setSetting(id="intmaj", value=intmaj)
-    delaimaj = "0"
-    addon.setSetting(id="delaimaj", value=delaimaj)
-    iptv = "true"
-    addon.setSetting(id="iptv", value=iptv)
-    showInfoNotification("Toutes les options activé")
+    settings_to_update = {
+        'activer-hk3': 'actifnewpaste',
+        'cle-alldeb': 'keyalldebrid',
+        'dbrentry': 'numHeberg',
+        'linkdatabase': 'numdatabase',
+        'maj-hk': 'intmaj',
+        'delai-majhk': 'delaimaj',
+        'activer-bookmark': 'bookonline',
+        'bookmark-online': 'bookonline_name',
+        'activer-trakt': 'traktperso',
+        'compte-trakt' : 'usertrakt',
+        'bookmark-trakt': 'profiltrakt',
+    }
+
+    key_alldebrid = anote()
+
+    if key_alldebrid:
+        key_values = key_alldebrid.split('\n')
+        for key_value in key_values:
+            key, value = key_value.split('=')
+            key = key.strip().lower()
+            value = value.strip()
+
+            if key in settings_to_update:
+                try:
+                    addon = xbmcaddon.Addon("plugin.video.sendtokodiU2P")
+                    addon.setSetting(id=settings_to_update[key], value=value)
+                    showInfoNotification(f"{key.capitalize()} ajouté(e)")
+                except Exception as e:
+                    notice("Erreur HK: " + str(e))
+            else:
+                showInfoNotification(f"Clé inconnue : {key}")
+    else:
+        showInfoNotification("Aucune clé Anotepad trouvée")
+
+###############################################
+
+def iptv_xt1():
+    settings_to_update = {
+        'iptv': 'iptv',
+        'adr_xt1': 'serverx1',
+        'u_xt1': 'userx1',
+        'p_xt1': 'passx1',
+        'n_xt1': 'nomx1',
+    }
+
+    key_alldebrid = iptvx1()
+
+    if key_alldebrid:
+        key_values = key_alldebrid.split('\n')
+        for key_value in key_values:
+            key, value = key_value.split('=')
+            key = key.strip().lower()
+            value = value.strip()
+
+            if key in settings_to_update:
+                try:
+                    addon = xbmcaddon.Addon("plugin.video.sendtokodiU2P")
+                    addon.setSetting(id=settings_to_update[key], value=value)
+                    showInfoNotification(f"{key.capitalize()} ajouté(e)")
+                except Exception as e:
+                    notice("Erreur HK: " + str(e))
+            else:
+                showInfoNotification(f"Clé inconnue : {key}")
+    else:
+        showInfoNotification("Aucune clé Anotepad trouvée")
+
+###############################################
+
+def iptv_xt2():
+    settings_to_update = {
+        'iptv': 'iptv',
+        'adr_xt2': 'serverx1',
+        'u_xt2': 'userx1',
+        'p_xt2': 'passx1',
+        'n_xt2': 'nomx1',
+    }
+
+    key_alldebrid = iptvx2()
+
+    if key_alldebrid:
+        key_values = key_alldebrid.split('\n')
+        for key_value in key_values:
+            key, value = key_value.split('=')
+            key = key.strip().lower()
+            value = value.strip()
+
+            if key in settings_to_update:
+                try:
+                    addon = xbmcaddon.Addon("plugin.video.sendtokodiU2P")
+                    addon.setSetting(id=settings_to_update[key], value=value)
+                    showInfoNotification(f"{key.capitalize()} ajouté(e)")
+                except Exception as e:
+                    notice("Erreur HK: " + str(e))
+            else:
+                showInfoNotification(f"Clé inconnue : {key}")
+    else:
+        showInfoNotification("Aucune clé Anotepad trouvée")
+
+###############################################
+
+def iptv_xt3():
+    settings_to_update = {
+        'iptv': 'iptv',
+        'adr_xt3': 'serverx1',
+        'u_xt3': 'userx1',
+        'p_xt3': 'passx1',
+        'n_xt3': 'nomx1',
+    }
+
+    key_alldebrid = iptvx3()
+
+    if key_alldebrid:
+        key_values = key_alldebrid.split('\n')
+        for key_value in key_values:
+            key, value = key_value.split('=')
+            key = key.strip().lower()
+            value = value.strip()
+
+            if key in settings_to_update:
+                try:
+                    addon = xbmcaddon.Addon("plugin.video.sendtokodiU2P")
+                    addon.setSetting(id=settings_to_update[key], value=value)
+                    showInfoNotification(f"{key.capitalize()} ajouté(e)")
+                except Exception as e:
+                    notice("Erreur HK: " + str(e))
+            else:
+                showInfoNotification(f"Clé inconnue : {key}")
+    else:
+        showInfoNotification("Aucune clé Anotepad trouvée")
+
+###############################################
+
+def anote():
+    numAnotepad0 = __addon__.getSetting("numAnotepad0")
+    url = f"https://anotepad.com/note/read/{numAnotepad0.strip()}"
+
+    try:
+        rec = requests.get(url, verify=False)
+        match = re.search(r'<\s*div\s*class\s*=\s*"\s*plaintext\s*"\s*>(?P<txAnote>.+?)</div>', rec.text, re.MULTILINE | re.DOTALL)
+        if match:
+            key_alldebrid = match.group("txAnote").strip()
+            return key_alldebrid
+        else:
+            showInfoNotification("Échec de la correspondance du motif pour le contenu Anotepad")
+            return None
+    except Exception as e:
+        showInfoNotification("Erreur lors de l'extraction du contenu Anotepad : " + str(e))
+        return None
+def iptvx1():
+    iptvx1 = __addon__.getSetting("iptvx1")
+    url = f"https://anotepad.com/note/read/{iptvx1.strip()}"
+
+    try:
+        rec = requests.get(url, verify=False)
+        match = re.search(r'<\s*div\s*class\s*=\s*"\s*plaintext\s*"\s*>(?P<txAnote>.+?)</div>', rec.text, re.MULTILINE | re.DOTALL)
+        if match:
+            key_alldebrid = match.group("txAnote").strip()
+            return key_alldebrid
+        else:
+            showInfoNotification("Échec de la correspondance du motif pour le contenu Anotepad")
+            return None
+    except Exception as e:
+        showInfoNotification("Erreur lors de l'extraction du contenu Anotepad : " + str(e))
+        return None
+
+###############################################
+
+def iptvx2():
+    iptvx2 = __addon__.getSetting("iptvx2")
+    url = f"https://anotepad.com/note/read/{iptvx2.strip()}"
+
+    try:
+        rec = requests.get(url, verify=False)
+        match = re.search(r'<\s*div\s*class\s*=\s*"\s*plaintext\s*"\s*>(?P<txAnote>.+?)</div>', rec.text, re.MULTILINE | re.DOTALL)
+        if match:
+            key_alldebrid = match.group("txAnote").strip()
+            return key_alldebrid
+        else:
+            showInfoNotification("Échec de la correspondance du motif pour le contenu Anotepad")
+            return None
+    except Exception as e:
+        showInfoNotification("Erreur lors de l'extraction du contenu Anotepad : " + str(e))
+        return None
+
+###############################################
+
+def iptvx3():
+    iptvx3 = __addon__.getSetting("iptvx3")
+    url = f"https://anotepad.com/note/read/{iptvx3.strip()}"
+
+    try:
+        rec = requests.get(url, verify=False)
+        match = re.search(r'<\s*div\s*class\s*=\s*"\s*plaintext\s*"\s*>(?P<txAnote>.+?)</div>', rec.text, re.MULTILINE | re.DOTALL)
+        if match:
+            key_alldebrid = match.group("txAnote").strip()
+            return key_alldebrid
+        else:
+            showInfoNotification("Échec de la correspondance du motif pour le contenu Anotepad")
+            return None
+    except Exception as e:
+        showInfoNotification("Erreur lors de l'extraction du contenu Anotepad : " + str(e))
+        return None
+
+###############################################
 
 def ref_import():
     # refaire l'immport
     # reset database
     xbmc.executebuiltin('RunPlugin(plugin://plugin.video.sendtokodiU2P/?action=setting)')
+
+###############################################
 
 # AJOUTER COMPTES CATCHUP TV
 def ajout_cpt_ctv():
@@ -424,15 +867,6 @@ def ajout_cpt_ctv():
     showInfoNotification("Config Comptes ok")
 
 ##############################################
-
-##############################################
-
-
-##############################################
-
-##############################################
-
-
     
 def actuskin():
     # actualiser 
@@ -497,7 +931,6 @@ def vider_cache():
     xbmc.executebuiltin('ReloadSkin')
     xbmc.sleep(2000)
     xbmc.executebuiltin('Quit')
-###########################
 
 ##############################################
 
@@ -606,13 +1039,39 @@ def router(paramstring):
         'dl_skin5':(dl_skin5, ""),
         'dl_skin6':(dl_skin6, ""),
         'repo': (repo, ""),
-        'repo2': (repo2, ""),
+        'addons': (addons, ""),
+        'addons2': (addons2, ""),
         'men_iptv': (men_iptv, ""),
+        'men_pvr': (men_pvr, ""),        
+        'pvr': (pvr, ""),
+        'vavooto': (vavooto, ""),
+        'pvr': (pvr, ""),
+        'catchuptv': (catchuptv, ""),
+        'upnext': (upnext, ""),        
+        'autowidget': (autowidget, ""), 
         'iptv_tobal': (iptv_tobal, ""),
         'iptv_tobal2': (iptv_tobal2, ""),
         'back_db': (back_db, ""),
         'serv_maj': (serv_maj, ""),
-        }
+        'anote': (anote, ""),
+        'const_db': (const_db,""),
+        'del_db': (del_db, ""),
+        'men_iptv_stalker': (men_iptv_stalker, ""),
+        'men_iptv_xtream': (men_iptv_xtream,""),
+        'iptv_xt1': (iptv_xt1, ""),
+        'iptvx1': (iptvx1, ""),
+        'iptvx2': (iptvx2, ""),
+        'iptvx3': (iptvx3, ""),
+        'iptv_xt2': (iptv_xt2, ""),
+        'iptv_xt3': (iptv_xt3, ""),
+        'vodt': (vodt, ""),
+        'pv': (pv, ""),
+        'mv': (mv,""),
+        'vm': (vm, ""),
+        'dbt': (dbt, ""),
+        'dbtd': (dbtd, ""),
+        'dl_skin7': (dl_skin7, ""),
+            }
     if params:
         fn = params['action']
         if fn in dictActions.keys():

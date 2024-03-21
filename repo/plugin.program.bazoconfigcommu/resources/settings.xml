@@ -1,3 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <settings>
+    <!-- Général -->
+    <category label="Général">
+        <setting label="Injecter vos comptes" type="lsep" />
+        <setting id="numAnotepad0" label="config hk3" type="text" values="" default="xxxxxx" />
+        <setting id="vm" label="config torrent bazoland" type="text" values="" default="xxxxxx" />
+        <setting id="dbtd" label="db torrent" type="text" values="" default="xxxxxx" />
+        <setting id="iptvx1" label="anote iptvx1" type="text" values="" default="xxxxxx" />
+        <setting id="iptvx2" label="anote iptvx2" type="text" values="" default="xxxxxx" />
+        <setting id="iptvx3" label="anote iptvx3" type="text" values="" default="xxxxxx" />
+        </category>
+    
 </settings>
