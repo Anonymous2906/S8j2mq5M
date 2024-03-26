@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.bazoconfigcommu" version="1.0.6" name="bazo config commu" provider-name="bazo">
+<addon id="plugin.program.bazoconfigcommu" version="1.0.7" name="bazo config commu" provider-name="bazo osomoze">
 	<requires>
         <import addon="script.module.requests" />
 	</requires>
@@ -8,8 +8,8 @@
     </extension>
     <extension point="xbmc.addon.metadata">
         <summary lang="en">bazo config</summary>
-        <description lang="fr">Configuration automatique de KODI en 10 min pour HK3 / VStream pour notre communauté.</description>
-        <disclaimer lang="fr">En cas de bugs : Voir Bazo ou Osmoze06</disclaimer>
+        <description lang="fr">configurer kodi en 10 min pour hk3 pour notre commu.</description>
+        <disclaimer lang="fr">si sa bug vois avec bazo</disclaimer>
         <language>en</language>
         <platform>all</platform>
         <forum></forum>
@@ -28,8 +28,6 @@ VERTION 1.0.3 - 11/12/2023
 ajout config ah2 et ah2 light bazoluc
 VERTION 1.0.4 - 22/12/2023
 ajout config ah2 foxx
-VERTION 1.0.6 - 21/03/2024
-Refonte de l'addon by Osmoze06
     </news>		
         <assets>
             <icon>icon.png</icon>

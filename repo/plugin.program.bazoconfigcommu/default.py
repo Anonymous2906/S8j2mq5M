@@ -18,6 +18,7 @@ import shutil
 import requests
 import random
 import re
+import urllib.request
 
 artworkPath = xbmcvfs.translatePath('special://home/addons/plugin.program.bazoconfigcommu/resources/media/')
 fanart = artworkPath + "fanart.jpg"
@@ -55,12 +56,15 @@ def modif_option():
     #Menu Principal
     xbmcplugin.setPluginCategory(__handle__, "MENU PRINCIPAL")
     xbmcplugin.setContent(__handle__, 'files')
-    add_dir("[B]1. Référenciels :[/B] Installation de tous les Depôts nécéssaires", 'repo', artworkPath + 'icone.png')
-    add_dir("[B]2. U2Pplay :[/B] Installation / Paramétrage", 'men_ext', artworkPath + 'icone.png')
-    add_dir("[B]3. VStream :[/B] Installation / Paramétrage", 'vodt', artworkPath + 'icone.png')
-    add_dir("[B]4. TV & Replay :[/B] Installation / Paramétrage", 'men_pvr', artworkPath + 'icone.png')
-    add_dir("[B]5. Menu IPTV :[/B] Mode Stalker & Xtream", 'men_iptv', artworkPath + 'icone.png')
-    add_dir("[B]6. Menu Skins :[/B] Base de données de Skin", 'men_skin', artworkPath + 'icone.png')   
+    add_dir("[B]1. Entrer code unique[/B]", 'pbazo', artworkPath +'icone.png')
+    add_dir("[B]2. Import/Gestion  codes secondaires[/B]", 'cuu', artworkPath +'icone.png')
+    add_dir("[B]3. Référenciels :[/B] Installation des Depôts nécéssaires", 'repo', artworkPath + 'icone.png')
+    add_dir("[B]4. U2Pplay :[/B] Installation / Paramétrage", 'men_ext', artworkPath + 'icone.png')
+    add_dir("[B]5. VStream :[/B] Installation / Paramétrage", 'vodt', artworkPath + 'icone.png')
+    add_dir("[B]6. TV & Replay :[/B] Installation / Paramétrage", 'men_pvr', artworkPath + 'icone.png')
+    add_dir("[B]7. Menu IPTV :[/B] Mode Stalker & Xtream", 'men_iptv', artworkPath + 'icone.png')
+    add_dir("[B]8. Menu Skins :[/B] Base de données de Skin", 'men_skin', artworkPath + 'icone.png')
+    add_dir("[B] Activer le stop avec retour[/B]", 'sr', artworkPath + 'icone.png')
     add_dir("[COLOR red]Nettoyer KODI[/COLOR]", 'vider_cache', artworkPath + 'icone.png')
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
@@ -115,7 +119,8 @@ def men_skin():
     add_dir("[B]Arctic Horizon 2[/B] - IPTV - by Bazo & Luc", 'dl_skin6', artworkPath + 'icone.png')
     add_dir("[B]Arctic Horizon 2[/B] - HK3 - by Bazo & Luc", 'dl_skin5', artworkPath + 'icone.png')
     add_dir("[B]Arctic Horizon 2[/B] - HK3 Light - by Bazo & Luc", 'dl_skin4', artworkPath + 'icone.png')
-    add_dir("[B]Arctic Horizon 2[/B] - BazoLand [COLOR red][PROCHAINEMENT][/COLOR]", 'dl_skin7', artworkPath + 'icone.png')
+    add_dir("[B]Arctic Horizon 2[/B] - BazoLand", 'dl_skin7', artworkPath + 'icone.png')
+    add_dir("[B]Estuary v2 [/B] - Bazoland", 'dl_skin8', artworkPath + 'icone.png')
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 ###############################################
@@ -150,6 +155,22 @@ def men_iptv_xtream():
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 ############################################## FIN LISTE DES MENUS ###############################################
+
+def sr():
+    settings_download2 = 'http://tobal.duckdns.org:805/api/public/dl/qoDhshil/kodi/bazoconfig/stopretour/keyboard.xml'
+    settings_loc2 = xbmcvfs.translatePath('special://home/userdata/keymaps/keyboard.xml')
+    urllib.request.urlretrieve(settings_download2, settings_loc2)
+    xbmc.executebuiltin("Notification(INSTALLATION, Téléchargements terminés)")
+    xbmc.sleep(2000)
+    xbmc.executebuiltin('Quit')
+
+
+
+def pbazo():
+    addon_id = "plugin.program.bazoconfigcommu"
+    addons = xbmcaddon.Addon(addon_id)
+    xbmcaddon.Addon(addon_id).openSettings()
+
 
 def repo():
     #Installation de tous les référentiels nécéssaires
@@ -198,6 +219,57 @@ def autowidget():
     import install_autowidget
 
 ##############################################
+
+def cuu():
+    settings_to_update = {
+        'code_hk3': 'numAnotepad0',
+        'code_config_vt': 'vm',
+        'code_db_torrent': 'dbtd',
+        'code_iptvx1': 'iptvx1',
+        'code_iptvx2': 'iptvx2',
+        'code_iptvx3': 'iptvx3',
+
+    }
+
+    key_alldebrid = cuuu()
+
+    if key_alldebrid:
+        key_values = key_alldebrid.split('\n')
+        for key_value in key_values:
+            key, value = key_value.split('=')
+            key = key.strip().lower()
+            value = value.strip()
+
+            if key in settings_to_update:
+                try:
+                    addon = xbmcaddon.Addon("plugin.program.bazoconfigcommu")
+                    addon.setSetting(id=settings_to_update[key], value=value)
+                    showInfoNotification(f"{key.capitalize()} ajouté(e)")
+                except Exception as e:
+                    notice("Erreur HK: " + str(e))
+            else:
+                showInfoNotification(f"Clé inconnue : {key}")
+    else:
+        showInfoNotification("Aucune clé Anotepad trouvée")
+
+def cuuu():
+    numAnotepad0 = __addon__.getSetting("cu")
+    url = f"https://anotepad.com/note/read/{numAnotepad0.strip()}"
+
+    try:
+        rec = requests.get(url, verify=False)
+        match = re.search(r'<\s*div\s*class\s*=\s*"\s*plaintext\s*"\s*>(?P<txAnote>.+?)</div>', rec.text, re.MULTILINE | re.DOTALL)
+        if match:
+            key_alldebrid = match.group("txAnote").strip()
+            return key_alldebrid
+        else:
+            showInfoNotification("Échec de la correspondance du motif pour le contenu Anotepad")
+            return None
+    except Exception as e:
+        showInfoNotification("Erreur lors de l'extraction du contenu Anotepad : " + str(e))
+        return None
+
+
 
 def au_maj():
     #Installation des Icônes
@@ -452,6 +524,38 @@ def dl_skin7():
     xbmc.sleep(1000)
     xbmc.executebuiltin("Notification(TERMINE , ...)")
 
+
+def dl_skin8():
+    # installer le skin cosmic bazoluc iptv
+    # telechargement et extraction du zip
+    xbmc.sleep(5000)
+    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/Rf_0qxq-/kodi/bazoconfig/add/bazoland2.zip'
+    xbmc.sleep(5000)
+    with urlopen(zipurl) as zipresp:
+        with ZipFile(BytesIO(zipresp.read())) as zfile:
+            zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data'))
+ # copie des fichiers extraie
+    #source_dir = xbmcvfs.translatePath('special://home/temp/temp/addon_data')
+    #destination_dir = xbmcvfs.translatePath('special://home/userdata/addon_data')
+    #source_dir2 = xbmcvfs.translatePath('special://home/temp/temp/addons')
+    #destination_dir2 = xbmcvfs.translatePath('special://home/addons')
+    #source_dir3 = xbmcvfs.translatePath('special://home/temp/temp/keymaps')
+    #destination_dir3 = xbmcvfs.translatePath('special://masterprofile/keymaps')
+    #shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
+    #shutil.copytree(source_dir2, destination_dir2, dirs_exist_ok=True)
+    #shutil.copytree(source_dir3, destination_dir3, dirs_exist_ok=True)
+    xbmc.executebuiltin("Notification(EXTRACTION OK, skin instalé)")
+    xbmc.sleep(2000)
+    xbmc.executebuiltin("Notification(FICHIER TEMP,Effacement en cours...)")
+    # suppression dossier temporaire
+    dirPath = xbmcvfs.translatePath('special://home/temp/temp/')
+    try:
+       shutil.rmtree(dirPath)
+    except:
+       print('Error while deleting directory')
+    xbmc.sleep(1000)
+    xbmc.executebuiltin("Notification(TERMINE , ...)")
+
 ##############################################
 
 def dbt():
@@ -649,6 +753,7 @@ def alloptions():
         'activer-trakt': 'traktperso',
         'compte-trakt' : 'usertrakt',
         'bookmark-trakt': 'profiltrakt',
+        'delai-maj': 'delaimaj'
     }
 
     key_alldebrid = anote()
@@ -1071,6 +1176,12 @@ def router(paramstring):
         'dbt': (dbt, ""),
         'dbtd': (dbtd, ""),
         'dl_skin7': (dl_skin7, ""),
+        'cuu': (cuu, ""),
+        'cuuu': (cuuu,""),
+        'pbazo': (pbazo,""),
+        'dl_skin8': (dl_skin8, ""),
+        'sr': (sr, ""),
+
             }
     if params:
         fn = params['action']
