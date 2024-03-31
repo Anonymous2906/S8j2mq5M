@@ -16,7 +16,7 @@
     <platform>all</platform>  
     <website>https://catch-up-tv-and-more.github.io/</website>
   </extension>
-</addon><addon id="plugin.program.bazoconfigcommu" version="1.0.7" name="bazo config commu" provider-name="bazo osomoze">
+</addon><addon id="plugin.program.bazoconfigcommu" version="1.0.8" name="bazo config commu" provider-name="bazo osomoze">
 	<requires>
         <import addon="script.module.requests" />
 	</requires>
