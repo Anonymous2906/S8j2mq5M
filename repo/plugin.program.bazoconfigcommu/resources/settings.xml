@@ -8,7 +8,7 @@
 
     <category label="code secondaire">
         <setting id="numAnotepad0" label="config hk3" type="text" values="" default="xxxxxx" />
-        <setting id="vm" label="config torrent bazoland" type="text" values="" default="xxxxxx" />
+        <setting id="vst" label="config torrent bazoland" type="text" values="" default="xxxxxx" />
         <setting id="dbtd" label="db torrent" type="text" values="" default="xxxxxx" />
         <setting id="iptvx1" label="anote iptvx1" type="text" values="" default="xxxxxx" />
         <setting id="iptvx2" label="anote iptvx2" type="text" values="" default="xxxxxx" />

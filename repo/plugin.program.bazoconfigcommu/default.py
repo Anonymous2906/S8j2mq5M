@@ -66,6 +66,7 @@ def modif_option():
     add_dir("[B]8. Menu Skins :[/B] Base de données de Skin", 'men_skin', artworkPath + 'icone.png')
     add_dir("[B] Activer le stop avec retour[/B]", 'sr', artworkPath + 'icone.png')
     add_dir("[COLOR red]Nettoyer KODI[/COLOR]", 'vider_cache', artworkPath + 'icone.png')
+    add_dir("vider cache vst ", 'cache_vst', artworkPath + 'icone.png')
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 ###############################################
@@ -73,6 +74,7 @@ def men_ext():
     #Menu U2Pplay
     xbmcplugin.setPluginCategory(__handle__, "MENU U2PPLAY")
     xbmcplugin.setContent(__handle__, 'files')
+    add_dir("[B]0.[/B] j ai kodi 21 donc je clique ici", 'kodi21', artworkPath + 'icone.png')
     add_dir("[B]1.[/B] Installation de U2Pplay", 'addons', artworkPath + 'icone.png')
     add_dir("[B]2.[/B] Import du Paramétrage", 'alloptions', artworkPath + 'icone.png')
     add_dir("[B]3.[/B] Installer ou Mettre à jour le Backup DB", 'back_db', artworkPath +'icone.png')
@@ -89,8 +91,9 @@ def vodt():
     xbmcplugin.setPluginCategory(__handle__, "MENU VSTREAM")
     xbmcplugin.setContent(__handle__, 'files')
     add_dir("[B]1.[/B] Installation de VStream", 'addons2', artworkPath + 'icone.png')    
-    add_dir("[B]2.[/B] Importer le Paramétrage",'mv', artworkPath + 'icone.png')
-    add_dir("[B]3.[/B] Installer la DB Torrent", 'dbt', artworkPath + 'icone.png')
+    add_dir("[B]2.[/B] telecharger le Paramétrage",'mv', artworkPath + 'icone.png')
+    add_dir("[B]3.[/B] importer le parametrage", 'mv1', artworkPath + 'icone.png')
+    add_dir("[B]4.[/B] Installer la DB Torrent", 'dbt', artworkPath + 'icone.png')
     add_dir("Ouvrir les Paramètres de VStream", 'pv', artworkPath + 'icone.png')
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
@@ -111,6 +114,15 @@ def men_skin():
     #Menu Skins
     xbmcplugin.setPluginCategory(__handle__, "menu pour les skins")
     xbmcplugin.setContent(__handle__, 'files')
+    add_dir("[B]skin bazoluc[/B] - skin hk3 avec iptv ou juste iptv", 'men_skin_bazoluc', artworkPath + 'icone.png')
+    add_dir("[B]skin bazoland[/B] - HK3 + vst + iptv", 'men_skin_bazoland', artworkPath + 'icone.png')
+    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
+
+
+def men_skin_bazoluc():
+      #Menu Skins
+    xbmcplugin.setPluginCategory(__handle__, "menu pour les skins")
+    xbmcplugin.setContent(__handle__, 'files')
     add_dir("Mettre à jour les icônes", 'au_maj', artworkPath + 'icone.png')
     add_dir("[B]AutoWidget :[/B] Installer l'addon", 'autowidget', artworkPath + 'icone.png')
     add_dir("[B]Estuary v2[/B] - IPTV - by Bazo & Luc", 'dl_skin', artworkPath + 'icone.png')
@@ -119,10 +131,19 @@ def men_skin():
     add_dir("[B]Arctic Horizon 2[/B] - IPTV - by Bazo & Luc", 'dl_skin6', artworkPath + 'icone.png')
     add_dir("[B]Arctic Horizon 2[/B] - HK3 - by Bazo & Luc", 'dl_skin5', artworkPath + 'icone.png')
     add_dir("[B]Arctic Horizon 2[/B] - HK3 Light - by Bazo & Luc", 'dl_skin4', artworkPath + 'icone.png')
-    add_dir("[B]Arctic Horizon 2[/B] - BazoLand", 'dl_skin7', artworkPath + 'icone.png')
-    add_dir("[B]Estuary v2 [/B] - Bazoland", 'dl_skin8', artworkPath + 'icone.png')
+    add_dir("[B]detruire les icons et autowidget pour une mise a jour[/B]", 'del_icon_aw', artworkPath + 'icone.png')
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
+def men_skin_bazoland():
+      #Menu Skins
+    xbmcplugin.setPluginCategory(__handle__, "menu pour les skins")
+    xbmcplugin.setContent(__handle__, 'files')
+    add_dir("Mettre à jour les icônes", 'au_maj', artworkPath + 'icone.png')
+    add_dir("[B]AutoWidget :[/B] Installer l'addon", 'autowidget', artworkPath + 'icone.png')
+    add_dir("[B]Arctic Horizon 2[/B] - BazoLand", 'dl_skin7', artworkPath + 'icone.png')
+    add_dir("[B]Estuary v2 [/B] - Bazoland", 'dl_skin8', artworkPath + 'icone.png')
+    add_dir("[B]detruire les icons et autowidget pour une mise a jour[/B]", 'del_icon_aw', artworkPath + 'icone.png')
+    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 ###############################################
 
 def men_iptv():
@@ -164,13 +185,16 @@ def sr():
     xbmc.sleep(2000)
     xbmc.executebuiltin('Quit')
 
-
+def cache_vst():
+    xbmc.executebuiltin('RunScript(plugin.video.vstream, addon, ?site=globalRun&amp;function=addon)')
 
 def pbazo():
     addon_id = "plugin.program.bazoconfigcommu"
     addons = xbmcaddon.Addon(addon_id)
     xbmcaddon.Addon(addon_id).openSettings()
 
+def kodi21():
+    import kodi21
 
 def repo():
     #Installation de tous les référentiels nécéssaires
@@ -220,60 +244,19 @@ def autowidget():
 
 ##############################################
 
+import xbmcaddon
+import requests
+import re
+
 def cuu():
-    settings_to_update = {
-        'code_hk3': 'numAnotepad0',
-        'code_config_vt': 'vm',
-        'code_db_torrent': 'dbtd',
-        'code_iptvx1': 'iptvx1',
-        'code_iptvx2': 'iptvx2',
-        'code_iptvx3': 'iptvx3',
+    import codeunique
 
-    }
-
-    key_alldebrid = cuuu()
-
-    if key_alldebrid:
-        key_values = key_alldebrid.split('\n')
-        for key_value in key_values:
-            key, value = key_value.split('=')
-            key = key.strip().lower()
-            value = value.strip()
-
-            if key in settings_to_update:
-                try:
-                    addon = xbmcaddon.Addon("plugin.program.bazoconfigcommu")
-                    addon.setSetting(id=settings_to_update[key], value=value)
-                    showInfoNotification(f"{key.capitalize()} ajouté(e)")
-                except Exception as e:
-                    notice("Erreur HK: " + str(e))
-            else:
-                showInfoNotification(f"Clé inconnue : {key}")
-    else:
-        showInfoNotification("Aucune clé Anotepad trouvée")
-
-def cuuu():
-    numAnotepad0 = __addon__.getSetting("cu")
-    url = f"https://anotepad.com/note/read/{numAnotepad0.strip()}"
-
-    try:
-        rec = requests.get(url, verify=False)
-        match = re.search(r'<\s*div\s*class\s*=\s*"\s*plaintext\s*"\s*>(?P<txAnote>.+?)</div>', rec.text, re.MULTILINE | re.DOTALL)
-        if match:
-            key_alldebrid = match.group("txAnote").strip()
-            return key_alldebrid
-        else:
-            showInfoNotification("Échec de la correspondance du motif pour le contenu Anotepad")
-            return None
-    except Exception as e:
-        showInfoNotification("Erreur lors de l'extraction du contenu Anotepad : " + str(e))
-        return None
-
+    # Appeler la fonction code() de codeunique.py
+    codeunique.code()
 
 
 def au_maj():
     #Installation des Icônes
-    
     # mise a jour icone aura
     # telechargement et extraction du zip
     xbmc.sleep(5000)
@@ -308,311 +291,46 @@ def au_maj():
 
 # INSTALLER LE SKIN estuarry v2 bazoluc
 def dl_skin():
-    # installer le skin cosmic bazoluc iptv
-    # telechargement et extraction du zip
-    xbmc.sleep(5000)
-    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/sfv-6Eg6/kodi/bazoconfig/add/add.zip'
-    xbmc.sleep(5000)
-    with urlopen(zipurl) as zipresp:
-        with ZipFile(BytesIO(zipresp.read())) as zfile:
-            zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data'))
- # copie des fichiers extraie
-    #source_dir = xbmcvfs.translatePath('special://home/temp/temp/addon_data')
-    #destination_dir = xbmcvfs.translatePath('special://home/userdata/addon_data')
-    #source_dir2 = xbmcvfs.translatePath('special://home/temp/temp/addons')
-    #destination_dir2 = xbmcvfs.translatePath('special://home/addons')
-    #source_dir3 = xbmcvfs.translatePath('special://home/temp/temp/keymaps')
-    #destination_dir3 = xbmcvfs.translatePath('special://masterprofile/keymaps')
-    #shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
-    #shutil.copytree(source_dir2, destination_dir2, dirs_exist_ok=True)
-    #shutil.copytree(source_dir3, destination_dir3, dirs_exist_ok=True)
-    xbmc.executebuiltin("Notification(EXTRACTION OK, skin instalé)")
-    xbmc.sleep(2000)
-    xbmc.executebuiltin("Notification(FICHIER TEMP,Effacement en cours...)")
-    # suppression dossier temporaire
-    dirPath = xbmcvfs.translatePath('special://home/temp/temp/')
-    try:
-       shutil.rmtree(dirPath)
-    except:
-       print('Error while deleting directory')
-    xbmc.sleep(1000)
-    xbmc.executebuiltin("Notification(TERMINE , ...)")
+    import estuary_iptv
 
 ##############################################
     
 def dl_skin2():
-    # installer le skin estuary v2 bazoluc
-    # telechargement et extraction du zip
-    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/AWs5w6HT/kodi/bazoconfig/add/hk3-estuary.zip'
-    with urlopen(zipurl) as zipresp:
-        with ZipFile(BytesIO(zipresp.read())) as zfile:
-            zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data'))
- # copie des fichiers extraie
-    #source_dir = xbmcvfs.translatePath('special://home/temp/temp/addon_data')
-    #destination_dir = xbmcvfs.translatePath('special://home/userdata/addon_data')
-    #source_dir2 = xbmcvfs.translatePath('special://home/temp/temp/addons')
-    #destination_dir2 = xbmcvfs.translatePath('special://home/addons')
-    #source_dir3 = xbmcvfs.translatePath('special://home/temp/temp/keymaps')
-    #destination_dir3 = xbmcvfs.translatePath('special://masterprofile/keymaps')
-    #shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
-    #shutil.copytree(source_dir2, destination_dir2, dirs_exist_ok=True)
-    #shutil.copytree(source_dir3, destination_dir3, dirs_exist_ok=True)
-    xbmc.executebuiltin("Notification(EXTRACTION OK, skin instalé)")
-    xbmc.sleep(2000)
-    xbmc.executebuiltin("Notification(FICHIER TEMP,Effacement en cours...)")
-    # suppression dossier temporaire
-    dirPath = xbmcvfs.translatePath('special://home/temp/temp/')
-    try:
-       shutil.rmtree(dirPath)
-    except:
-       print('Error while deleting directory')
-    xbmc.sleep(1000)
-    xbmc.executebuiltin("Notification(TERMINE , ...)")
+    import estuary_hk3
 
 ##############################################
 
 def dl_skin3():
-    # installer le skin ???? v2 bazoluc
-    # telechargement et extraction du zip
-    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/ykHRZ8Y1/kodi/bazoconfig/add/hk3-cosmic.zip'
-    with urlopen(zipurl) as zipresp:
-        with ZipFile(BytesIO(zipresp.read())) as zfile:
-            zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data'))
- # copie des fichiers extraie
-    #source_dir = xbmcvfs.translatePath('special://home/temp/temp/addon_data')
-    #destination_dir = xbmcvfs.translatePath('special://home/userdata/addon_data')
-    #source_dir2 = xbmcvfs.translatePath('special://home/temp/temp/addons')
-    #destination_dir2 = xbmcvfs.translatePath('special://home/addons')
-    #source_dir3 = xbmcvfs.translatePath('special://home/temp/temp/keymaps')
-    #destination_dir3 = xbmcvfs.translatePath('special://masterprofile/keymaps')
-    #shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
-    #shutil.copytree(source_dir2, destination_dir2, dirs_exist_ok=True)
-    #shutil.copytree(source_dir3, destination_dir3, dirs_exist_ok=True)
-    xbmc.executebuiltin("Notification(EXTRACTION OK, skin instalé)")
-    xbmc.sleep(2000)
-    xbmc.executebuiltin("Notification(FICHIER TEMP,Effacement en cours...)")
-    # suppression dossier temporaire
-    dirPath = xbmcvfs.translatePath('special://home/temp/temp/')
-    try:
-       shutil.rmtree(dirPath)
-    except:
-       print('Error while deleting directory')
-    xbmc.sleep(1000)
-    xbmc.executebuiltin("Notification(TERMINE , ...)")
+    import estuary_hk3_light
 
 ##############################################
 
 def dl_skin4():
-    # installer le skin estuary v2 bazoluc
-    # telechargement et extraction du zip
-    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/1aceP-y6/kodi/bazoconfig/add/hk3-ah2-light.zip'
-    with urlopen(zipurl) as zipresp:
-        with ZipFile(BytesIO(zipresp.read())) as zfile:
-            zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data'))
- # copie des fichiers extraie
-    #source_dir = xbmcvfs.translatePath('special://home/temp/temp/addon_data')
-    #destination_dir = xbmcvfs.translatePath('special://home/userdata/addon_data')
-    #source_dir2 = xbmcvfs.translatePath('special://home/temp/temp/addons')
-    #destination_dir2 = xbmcvfs.translatePath('special://home/addons')
-    #source_dir3 = xbmcvfs.translatePath('special://home/temp/temp/keymaps')
-    #destination_dir3 = xbmcvfs.translatePath('special://masterprofile/keymaps')
-    #shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
-    #shutil.copytree(source_dir2, destination_dir2, dirs_exist_ok=True)
-    #shutil.copytree(source_dir3, destination_dir3, dirs_exist_ok=True)
-    xbmc.executebuiltin("Notification(EXTRACTION OK, skin instalé)")
-    xbmc.sleep(2000)
-    xbmc.executebuiltin("Notification(FICHIER TEMP,Effacement en cours...)")
-    # suppression dossier temporaire
-    dirPath = xbmcvfs.translatePath('special://home/temp/temp/')
-    try:
-       shutil.rmtree(dirPath)
-    except:
-       print('Error while deleting directory')
-    xbmc.sleep(1000)
-    xbmc.executebuiltin("Notification(TERMINE , ...)")
-
+    import ah2_hk3_light
 ##############################################
 
 def dl_skin5():
-    # installer le skin estuary v2 bazoluc
-    # telechargement et extraction du zip
-    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/5L6AgCaD/kodi/bazoconfig/add/hk3-ah2.zip'
-    with urlopen(zipurl) as zipresp:
-        with ZipFile(BytesIO(zipresp.read())) as zfile:
-            zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data'))
- # copie des fichiers extraie
-    #source_dir = xbmcvfs.translatePath('special://home/temp/temp/addon_data')
-    #destination_dir = xbmcvfs.translatePath('special://home/userdata/addon_data')
-    #source_dir2 = xbmcvfs.translatePath('special://home/temp/temp/addons')
-    #destination_dir2 = xbmcvfs.translatePath('special://home/addons')
-    #source_dir3 = xbmcvfs.translatePath('special://home/temp/temp/keymaps')
-    #destination_dir3 = xbmcvfs.translatePath('special://masterprofile/keymaps')
-    #shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
-    #shutil.copytree(source_dir2, destination_dir2, dirs_exist_ok=True)
-    #shutil.copytree(source_dir3, destination_dir3, dirs_exist_ok=True)
-    xbmc.executebuiltin("Notification(EXTRACTION OK, skin instalé)")
-    xbmc.sleep(2000)
-    xbmc.executebuiltin("Notification(FICHIER TEMP,Effacement en cours...)")
-    # suppression dossier temporaire
-    dirPath = xbmcvfs.translatePath('special://home/temp/temp/')
-    try:
-       shutil.rmtree(dirPath)
-    except:
-       print('Error while deleting directory')
-    xbmc.sleep(1000)
-    xbmc.executebuiltin("Notification(TERMINE , ...)")
+    import ah2_hk3
 
 ##############################################
 
 def dl_skin6():
-    # installer le skin estuary v2 bazoluc
-    # telechargement et extraction du zip
-    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/xZ1i0UZB/kodi/bazoconfig/add/ah2-foxx.zip'
-    with urlopen(zipurl) as zipresp:
-        with ZipFile(BytesIO(zipresp.read())) as zfile:
-            zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data'))
- # copie des fichiers extraie
-    #source_dir = xbmcvfs.translatePath('special://home/temp/temp/addon_data')
-    #destination_dir = xbmcvfs.translatePath('special://home/userdata/addon_data')
-    #source_dir2 = xbmcvfs.translatePath('special://home/temp/temp/addons')
-    #destination_dir2 = xbmcvfs.translatePath('special://home/addons')
-    #source_dir3 = xbmcvfs.translatePath('special://home/temp/temp/keymaps')
-    #destination_dir3 = xbmcvfs.translatePath('special://masterprofile/keymaps')
-    #shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
-    #shutil.copytree(source_dir2, destination_dir2, dirs_exist_ok=True)
-    #shutil.copytree(source_dir3, destination_dir3, dirs_exist_ok=True)
-    xbmc.executebuiltin("Notification(EXTRACTION OK, skin instalé)")
-    xbmc.sleep(2000)
-    xbmc.executebuiltin("Notification(FICHIER TEMP,Effacement en cours...)")
-    # suppression dossier temporaire
-    dirPath = xbmcvfs.translatePath('special://home/temp/temp/')
-    try:
-       shutil.rmtree(dirPath)
-    except:
-       print('Error while deleting directory')
-    xbmc.sleep(1000)
-    xbmc.executebuiltin("Notification(TERMINE , ...)")
+   import ah2_foxx
 
 ##############################################
 
 def dl_skin7():
-    # installer le skin estuary v2 bazoluc
-    # telechargement et extraction du zip
-    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/F5DZg7Ne/kodi/bazoconfig/add/bazoland.zip'
-    with urlopen(zipurl) as zipresp:
-        with ZipFile(BytesIO(zipresp.read())) as zfile:
-            zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data'))
- # copie des fichiers extraie
-    #source_dir = xbmcvfs.translatePath('special://home/temp/temp/addon_data')
-    #destination_dir = xbmcvfs.translatePath('special://home/userdata/addon_data')
-    #source_dir2 = xbmcvfs.translatePath('special://home/temp/temp/addons')
-    #destination_dir2 = xbmcvfs.translatePath('special://home/addons')
-    #source_dir3 = xbmcvfs.translatePath('special://home/temp/temp/keymaps')
-    #destination_dir3 = xbmcvfs.translatePath('special://masterprofile/keymaps')
-    #shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
-    #shutil.copytree(source_dir2, destination_dir2, dirs_exist_ok=True)
-    #shutil.copytree(source_dir3, destination_dir3, dirs_exist_ok=True)
-    xbmc.executebuiltin("Notification(EXTRACTION OK, skin instalé)")
-    xbmc.sleep(2000)
-    xbmc.executebuiltin("Notification(FICHIER TEMP,Effacement en cours...)")
-    # suppression dossier temporaire
-    dirPath = xbmcvfs.translatePath('special://home/temp/temp/')
-    try:
-       shutil.rmtree(dirPath)
-    except:
-       print('Error while deleting directory')
-    xbmc.sleep(1000)
-    xbmc.executebuiltin("Notification(TERMINE , ...)")
+   import bazoland
 
 
 def dl_skin8():
-    # installer le skin cosmic bazoluc iptv
-    # telechargement et extraction du zip
-    xbmc.sleep(5000)
-    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/Rf_0qxq-/kodi/bazoconfig/add/bazoland2.zip'
-    xbmc.sleep(5000)
-    with urlopen(zipurl) as zipresp:
-        with ZipFile(BytesIO(zipresp.read())) as zfile:
-            zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data'))
- # copie des fichiers extraie
-    #source_dir = xbmcvfs.translatePath('special://home/temp/temp/addon_data')
-    #destination_dir = xbmcvfs.translatePath('special://home/userdata/addon_data')
-    #source_dir2 = xbmcvfs.translatePath('special://home/temp/temp/addons')
-    #destination_dir2 = xbmcvfs.translatePath('special://home/addons')
-    #source_dir3 = xbmcvfs.translatePath('special://home/temp/temp/keymaps')
-    #destination_dir3 = xbmcvfs.translatePath('special://masterprofile/keymaps')
-    #shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
-    #shutil.copytree(source_dir2, destination_dir2, dirs_exist_ok=True)
-    #shutil.copytree(source_dir3, destination_dir3, dirs_exist_ok=True)
-    xbmc.executebuiltin("Notification(EXTRACTION OK, skin instalé)")
-    xbmc.sleep(2000)
-    xbmc.executebuiltin("Notification(FICHIER TEMP,Effacement en cours...)")
-    # suppression dossier temporaire
-    dirPath = xbmcvfs.translatePath('special://home/temp/temp/')
-    try:
-       shutil.rmtree(dirPath)
-    except:
-       print('Error while deleting directory')
-    xbmc.sleep(1000)
-    xbmc.executebuiltin("Notification(TERMINE , ...)")
+    import bazoland2
 
 ##############################################
 
 def dbt():
-    settings_to_update = {
-        'dossier1': 'pastebin_label_1',
-        'past1': 'pastebin_id_1',
-        'dossier2': 'pastebin_label_2',
-        'past2': 'pastebin_id_2',
-        'dossier3': 'pastebin_label_3',
-        'past3': 'pastebin_id_3',
-        'dossier4': 'pastebin_label_4',
-        'past4': 'pastebin_id_4',
-        'dossier5': 'pastebin_label_5',
-        'past5': 'pastebin_id_5',
-        'dossier6': 'pastebin_label_6',
-        'past6': 'pastebin_id_6',
-        'dossier7': 'pastebin_label_7',
-        'past7': 'pastebin_id_7',
-    }
-
-    key_alldebrid = dbtd()
-
-    if key_alldebrid:
-        key_values = key_alldebrid.split('\n')
-        for key_value in key_values:
-            key, value = key_value.split('=')
-            key = key.strip().lower()
-            value = value.strip()
-
-            if key in settings_to_update:
-                try:
-                    addon = xbmcaddon.Addon("plugin.video.vstream")
-                    addon.setSetting(id=settings_to_update[key], value=value)
-                    showInfoNotification(f"{key.capitalize()} ajouté(e)")
-                except Exception as e:
-                    notice("Erreur : " + str(e))
-            else:
-                showInfoNotification(f"Clé inconnue : {key}")
-    else:
-        showInfoNotification("Aucune clé Anotepad trouvée")
-
-def dbtd():
-    dbtd = __addon__.getSetting("dbtd")
-    url = f"https://anotepad.com/note/read/{dbtd.strip()}"
-
-    try:
-        rec = requests.get(url, verify=False)
-        match = re.search(r'<\s*div\s*class\s*=\s*"\s*plaintext\s*"\s*>(?P<txAnote>.+?)</div>', rec.text, re.MULTILINE | re.DOTALL)
-        if match:
-            key_alldebrid = match.group("txAnote").strip()
-            return key_alldebrid
-        else:
-            showInfoNotification("Échec de la correspondance du motif pour le contenu Anotepad")
-            return None
-    except Exception as e:
-        showInfoNotification("Erreur lors de l'extraction du contenu Anotepad : " + str(e))
-        return None
+    import dbt
+    dbt.code()
 
 ##############################################
 
@@ -622,73 +340,13 @@ def pv():
 ##############################################
 
 def mv():
-    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/Gj0ArcN9/kodi/bazoconfig/config_vstream/sites.zip'
-    xbmc.sleep(5000)
-    with urlopen(zipurl) as zipresp:
-        with ZipFile(BytesIO(zipresp.read())) as zfile:
-            zfile.extractall(xbmcvfs.translatePath('special://home/temp/temp/repo'))
-    # copie des fichiers extraie
-    source_dir = xbmcvfs.translatePath('special://home/temp/temp/repo')
-    destination_dir = xbmcvfs.translatePath('special://home/userdata/addon_data/plugin.video.vstream')
-    shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
-    xbmc.executebuiltin("Notification(EXTRACTION OK, source configurer)")
-    xbmc.sleep(5000)
-    xbmc.executebuiltin("Notification(FICHIER TEMP,Effacement en cours...)")
-    # suppression dossier temporaire
-    dirPath = xbmcvfs.translatePath('special://home/temp/temp/')
-    try:
-       shutil.rmtree(dirPath)
-    except:
-       print('Error while deleting directory')
-    xbmc.sleep(1000)
-    xbmc.executebuiltin("Notification(TERMINE , ...)")
-    xbmc.sleep(2000)
-   # xbmc.executebuiltin('ReloadSkin')
-    xbmc.sleep(2000)
-    settings_to_update = {
-        'hpast': 'pastebin_url',
-        'aalldeb': 'hoster_alldebrid_premium',
-        'talldeb': 'hoster_alldebrid_token',
-    }
+    import config_vst
+    # Appeler la fonction code() de config_hk3.py
+    config_vst.dl()
+def mv1():
+    import config_vst2
+    config_vst2.code()
 
-    key_alldebrid = vm()
-
-    if key_alldebrid:
-        key_values = key_alldebrid.split('\n')
-        for key_value in key_values:
-            key, value = key_value.split('=')
-            key = key.strip().lower()
-            value = value.strip()
-
-            if key in settings_to_update:
-                try:
-                    addon = xbmcaddon.Addon("plugin.video.vstream")
-                    addon.setSetting(id=settings_to_update[key], value=value)
-                    showInfoNotification(f"{key.capitalize()} ajouté(e)")
-                except Exception as e:
-                    notice("Erreur HK: " + str(e))
-            else:
-                showInfoNotification(f"Clé inconnue : {key}")
-    else:
-        showInfoNotification("Aucune clé Anotepad trouvée")
-    xbmc.executebuiltin("Notification(TERMINE , ...)")
-
-def vm():
-    vm = __addon__.getSetting("vm")
-    url = f"https://anotepad.com/note/read/{vm.strip()}"
-
-    try:
-        rec = requests.get(url, verify=False)
-        match = re.search(r'<\s*div\s*class\s*=\s*"\s*plaintext\s*"\s*>(?P<txAnote>.+?)</div>', rec.text, re.MULTILINE | re.DOTALL)
-        if match:
-            key_alldebrid = match.group("txAnote").strip()
-            return key_alldebrid
-        else:
-            showInfoNotification("Échec de la correspondance du motif pour le contenu Anotepad")
-            return None
-    except Exception as e:
-        showInfoNotification("Erreur lors de l'extraction du contenu Anotepad : " + str(e))
-        return None
 
 ##############################################
 
@@ -741,137 +399,28 @@ def iptv_tobal2():
 ###############################################
 
 def alloptions():
-    settings_to_update = {
-        'activer-hk3': 'actifnewpaste',
-        'cle-alldeb': 'keyalldebrid',
-        'dbrentry': 'numHeberg',
-        'linkdatabase': 'numdatabase',
-        'maj-hk': 'intmaj',
-        'delai-majhk': 'delaimaj',
-        'activer-bookmark': 'bookonline',
-        'bookmark-online': 'bookonline_name',
-        'activer-trakt': 'traktperso',
-        'compte-trakt' : 'usertrakt',
-        'bookmark-trakt': 'profiltrakt',
-        'delai-maj': 'delaimaj'
-    }
+    import config_hk3
 
-    key_alldebrid = anote()
-
-    if key_alldebrid:
-        key_values = key_alldebrid.split('\n')
-        for key_value in key_values:
-            key, value = key_value.split('=')
-            key = key.strip().lower()
-            value = value.strip()
-
-            if key in settings_to_update:
-                try:
-                    addon = xbmcaddon.Addon("plugin.video.sendtokodiU2P")
-                    addon.setSetting(id=settings_to_update[key], value=value)
-                    showInfoNotification(f"{key.capitalize()} ajouté(e)")
-                except Exception as e:
-                    notice("Erreur HK: " + str(e))
-            else:
-                showInfoNotification(f"Clé inconnue : {key}")
-    else:
-        showInfoNotification("Aucune clé Anotepad trouvée")
+    # Appeler la fonction code() de config_hk3.py
+    config_hk3.code()
 
 ###############################################
 
 def iptv_xt1():
-    settings_to_update = {
-        'iptv': 'iptv',
-        'adr_xt1': 'serverx1',
-        'u_xt1': 'userx1',
-        'p_xt1': 'passx1',
-        'n_xt1': 'nomx1',
-    }
-
-    key_alldebrid = iptvx1()
-
-    if key_alldebrid:
-        key_values = key_alldebrid.split('\n')
-        for key_value in key_values:
-            key, value = key_value.split('=')
-            key = key.strip().lower()
-            value = value.strip()
-
-            if key in settings_to_update:
-                try:
-                    addon = xbmcaddon.Addon("plugin.video.sendtokodiU2P")
-                    addon.setSetting(id=settings_to_update[key], value=value)
-                    showInfoNotification(f"{key.capitalize()} ajouté(e)")
-                except Exception as e:
-                    notice("Erreur HK: " + str(e))
-            else:
-                showInfoNotification(f"Clé inconnue : {key}")
-    else:
-        showInfoNotification("Aucune clé Anotepad trouvée")
+    import iptvx1
+    iptvx1.code()
 
 ###############################################
 
 def iptv_xt2():
-    settings_to_update = {
-        'iptv': 'iptv',
-        'adr_xt2': 'serverx1',
-        'u_xt2': 'userx1',
-        'p_xt2': 'passx1',
-        'n_xt2': 'nomx1',
-    }
-
-    key_alldebrid = iptvx2()
-
-    if key_alldebrid:
-        key_values = key_alldebrid.split('\n')
-        for key_value in key_values:
-            key, value = key_value.split('=')
-            key = key.strip().lower()
-            value = value.strip()
-
-            if key in settings_to_update:
-                try:
-                    addon = xbmcaddon.Addon("plugin.video.sendtokodiU2P")
-                    addon.setSetting(id=settings_to_update[key], value=value)
-                    showInfoNotification(f"{key.capitalize()} ajouté(e)")
-                except Exception as e:
-                    notice("Erreur HK: " + str(e))
-            else:
-                showInfoNotification(f"Clé inconnue : {key}")
-    else:
-        showInfoNotification("Aucune clé Anotepad trouvée")
+   import iptvx2
+   iptvx2.code()
 
 ###############################################
 
 def iptv_xt3():
-    settings_to_update = {
-        'iptv': 'iptv',
-        'adr_xt3': 'serverx1',
-        'u_xt3': 'userx1',
-        'p_xt3': 'passx1',
-        'n_xt3': 'nomx1',
-    }
-
-    key_alldebrid = iptvx3()
-
-    if key_alldebrid:
-        key_values = key_alldebrid.split('\n')
-        for key_value in key_values:
-            key, value = key_value.split('=')
-            key = key.strip().lower()
-            value = value.strip()
-
-            if key in settings_to_update:
-                try:
-                    addon = xbmcaddon.Addon("plugin.video.sendtokodiU2P")
-                    addon.setSetting(id=settings_to_update[key], value=value)
-                    showInfoNotification(f"{key.capitalize()} ajouté(e)")
-                except Exception as e:
-                    notice("Erreur HK: " + str(e))
-            else:
-                showInfoNotification(f"Clé inconnue : {key}")
-    else:
-        showInfoNotification("Aucune clé Anotepad trouvée")
+    import iptvx3
+    iptvx3.code()
 
 ###############################################
 
@@ -891,60 +440,11 @@ def anote():
     except Exception as e:
         showInfoNotification("Erreur lors de l'extraction du contenu Anotepad : " + str(e))
         return None
-def iptvx1():
-    iptvx1 = __addon__.getSetting("iptvx1")
-    url = f"https://anotepad.com/note/read/{iptvx1.strip()}"
-
-    try:
-        rec = requests.get(url, verify=False)
-        match = re.search(r'<\s*div\s*class\s*=\s*"\s*plaintext\s*"\s*>(?P<txAnote>.+?)</div>', rec.text, re.MULTILINE | re.DOTALL)
-        if match:
-            key_alldebrid = match.group("txAnote").strip()
-            return key_alldebrid
-        else:
-            showInfoNotification("Échec de la correspondance du motif pour le contenu Anotepad")
-            return None
-    except Exception as e:
-        showInfoNotification("Erreur lors de l'extraction du contenu Anotepad : " + str(e))
-        return None
 
 ###############################################
 
-def iptvx2():
-    iptvx2 = __addon__.getSetting("iptvx2")
-    url = f"https://anotepad.com/note/read/{iptvx2.strip()}"
-
-    try:
-        rec = requests.get(url, verify=False)
-        match = re.search(r'<\s*div\s*class\s*=\s*"\s*plaintext\s*"\s*>(?P<txAnote>.+?)</div>', rec.text, re.MULTILINE | re.DOTALL)
-        if match:
-            key_alldebrid = match.group("txAnote").strip()
-            return key_alldebrid
-        else:
-            showInfoNotification("Échec de la correspondance du motif pour le contenu Anotepad")
-            return None
-    except Exception as e:
-        showInfoNotification("Erreur lors de l'extraction du contenu Anotepad : " + str(e))
-        return None
 
 ###############################################
-
-def iptvx3():
-    iptvx3 = __addon__.getSetting("iptvx3")
-    url = f"https://anotepad.com/note/read/{iptvx3.strip()}"
-
-    try:
-        rec = requests.get(url, verify=False)
-        match = re.search(r'<\s*div\s*class\s*=\s*"\s*plaintext\s*"\s*>(?P<txAnote>.+?)</div>', rec.text, re.MULTILINE | re.DOTALL)
-        if match:
-            key_alldebrid = match.group("txAnote").strip()
-            return key_alldebrid
-        else:
-            showInfoNotification("Échec de la correspondance du motif pour le contenu Anotepad")
-            return None
-    except Exception as e:
-        showInfoNotification("Erreur lors de l'extraction du contenu Anotepad : " + str(e))
-        return None
 
 ###############################################
 
@@ -1037,6 +537,24 @@ def vider_cache():
     xbmc.sleep(2000)
     xbmc.executebuiltin('Quit')
 
+def del_icon_aw():
+#nettoyer tout
+    xbmc.executebuiltin("Notification(ICON,Effacement en cours...)")
+    # suppression dossier temporaire
+    dirPath = xbmcvfs.translatePath('special://home/userdata/addon_data/iconvod')
+    try:
+       shutil.rmtree(dirPath)
+    except:
+       print('Error while deleting directory')
+    xbmc.sleep(1000)
+    xbmc.executebuiltin("Notification(autowidget,Effacement en cours...)")
+    # suppression dossier packages
+    dirPath = xbmcvfs.translatePath('special://home/userdata/addon-data/plugin.program.autowidget')
+    try:
+       shutil.rmtree(dirPath)
+    except:
+       print('Error while deleting directory')
+    xbmc.sleep(1000)
 ##############################################
 
 # VIDER CACHE
@@ -1164,24 +682,28 @@ def router(paramstring):
         'men_iptv_stalker': (men_iptv_stalker, ""),
         'men_iptv_xtream': (men_iptv_xtream,""),
         'iptv_xt1': (iptv_xt1, ""),
-        'iptvx1': (iptvx1, ""),
-        'iptvx2': (iptvx2, ""),
-        'iptvx3': (iptvx3, ""),
+        #'iptvx1': (iptvx1, ""),
+       # 'iptvx2': (iptvx2, ""),
         'iptv_xt2': (iptv_xt2, ""),
         'iptv_xt3': (iptv_xt3, ""),
         'vodt': (vodt, ""),
         'pv': (pv, ""),
         'mv': (mv,""),
-        'vm': (vm, ""),
+       # 'vm': (vm, ""),
         'dbt': (dbt, ""),
-        'dbtd': (dbtd, ""),
+        #'dbtd': (dbtd, ""),
         'dl_skin7': (dl_skin7, ""),
         'cuu': (cuu, ""),
-        'cuuu': (cuuu,""),
+        #'cuuu': (cuuu,""),
         'pbazo': (pbazo,""),
         'dl_skin8': (dl_skin8, ""),
         'sr': (sr, ""),
-
+        'del_icon_aw': (del_icon_aw, ""),
+        'cache_vst': (cache_vst, ""),
+        'mv1': (mv1,""),
+        'men_skin_bazoluc': (men_skin_bazoluc, ""),
+        'men_skin_bazoland': (men_skin_bazoland, ""),
+        'kodi21': (kodi21, ""),
             }
     if params:
         fn = params['action']
