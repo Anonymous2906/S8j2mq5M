@@ -13,6 +13,8 @@
         <setting id="iptvx1" label="anote iptvx1" type="text" values="" default="xxxxxx" />
         <setting id="iptvx2" label="anote iptvx2" type="text" values="" default="xxxxxx" />
         <setting id="iptvx3" label="anote iptvx3" type="text" values="" default="xxxxxx" />
+        <setting id="alldebrid_api_key" label="cle alldebbrid" type="text" values="" default="xxxxxx" />
+        <setting id="rentry_code" label="code rentry" type="text" values="" default="xxxxxx" />
     </category>
     
 </settings>

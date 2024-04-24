@@ -19,6 +19,7 @@ import requests
 import random
 import re
 import urllib.request
+import subprocess
 
 artworkPath = xbmcvfs.translatePath('special://home/addons/plugin.program.bazoconfigcommu/resources/media/')
 fanart = artworkPath + "fanart.jpg"
@@ -67,9 +68,24 @@ def modif_option():
     add_dir("[B] Activer le stop avec retour[/B]", 'sr', artworkPath + 'icone.png')
     add_dir("[COLOR red]Nettoyer KODI[/COLOR]", 'vider_cache', artworkPath + 'icone.png')
     add_dir("vider cache vst ", 'cache_vst', artworkPath + 'icone.png')
+    add_dir ("gestion backup", 'gb', artworkPath + 'icone.png')
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
+
+def gb():
+    add_dir("sauvegarde config", 'sav_serv', artworkPath + 'icone.png')
+    add_dir("restaure config", 'res_serv', artworkPath + 'icone.png')
+    add_dir("cree profil backup", 'cpb', artworkPath + 'icone.png')
+    add_dir("suprimer addon data avent restauration backup", 'sad', artworkPath + 'icone.png')
+    add_dir("gestion favoris", "fav", artworkPath + 'icone.png')
+    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 ###############################################
+def fav():
+    add_dir("sauvgarder fav vst", "fav_sync", artworkPath + 'icone.png')
+    add_dir("cree profil fav vst", "cpfav", artworkPath + 'icone.png')
+    add_dir("restaurer fav vst", "sfav", artworkPath + 'icone.png')
+    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
+
 def men_ext():
     #Menu U2Pplay
     xbmcplugin.setPluginCategory(__handle__, "MENU U2PPLAY")
@@ -176,7 +192,21 @@ def men_iptv_xtream():
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 ############################################## FIN LISTE DES MENUS ###############################################
+def sfav():
+    import rfav
+def cpfav():
+    import cree_pfav
+def fav_sync():
+    import fav
+def sad():
+    import sup_addon_data
+def res_serv():
+    import test_r
+def sav_serv():
 
+    import test
+def cpb():
+    import crea_compte
 def sr():
     settings_download2 = 'http://tobal.duckdns.org:805/api/public/dl/qoDhshil/kodi/bazoconfig/stopretour/keyboard.xml'
     settings_loc2 = xbmcvfs.translatePath('special://home/userdata/keymaps/keyboard.xml')
@@ -538,22 +568,18 @@ def vider_cache():
     xbmc.executebuiltin('Quit')
 
 def del_icon_aw():
-#nettoyer tout
-    xbmc.executebuiltin("Notification(ICON,Effacement en cours...)")
-    # suppression dossier temporaire
+    # Nettoyer tout
+    xbmc.executebuiltin("Notification(ICON, Effacement en cours...)")
+
+    # Suppression du dossier temporaire
     dirPath = xbmcvfs.translatePath('special://home/userdata/addon_data/iconvod')
     try:
-       shutil.rmtree(dirPath)
-    except:
-       print('Error while deleting directory')
+        shutil.rmtree(dirPath)
+    except Exception as e:
+        print('Erreur lors de la suppression du répertoire :', e)
+
     xbmc.sleep(1000)
-    xbmc.executebuiltin("Notification(autowidget,Effacement en cours...)")
-    # suppression dossier packages
-    dirPath = xbmcvfs.translatePath('special://home/userdata/addon-data/plugin.program.autowidget')
-    try:
-       shutil.rmtree(dirPath)
-    except:
-       print('Error while deleting directory')
+    xbmc.executebuiltin('RunPlugin(plugin://plugin.program.autowidget/?mode=wipe&refresh=&reload)')
     xbmc.sleep(1000)
 ##############################################
 
@@ -704,6 +730,15 @@ def router(paramstring):
         'men_skin_bazoluc': (men_skin_bazoluc, ""),
         'men_skin_bazoland': (men_skin_bazoland, ""),
         'kodi21': (kodi21, ""),
+        'sav_serv': (sav_serv, ""),
+        'res_serv': (res_serv, ""),
+        'cpb': (cpb, ""),
+        'sad': (sad, ""),
+        'gb': (gb, ""),
+        'fav_sync': (fav_sync, ""),
+        'cpfav': (cpfav, ""),
+        'sfav': (sfav, ""),
+        'fav': (fav, ""),
             }
     if params:
         fn = params['action']
