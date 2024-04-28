@@ -11,6 +11,8 @@ def code():
         'code_iptvx1': 'iptvx1',
         'code_iptvx2': 'iptvx2',
         'code_iptvx3': 'iptvx3',
+        'code_m3u_foxx': 'codem3u',
+        'code_m3u_vavoo': 'codem3u2',
     }
 
     addon = xbmcaddon.Addon("plugin.program.bazoconfigcommu")

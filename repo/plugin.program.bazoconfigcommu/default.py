@@ -52,14 +52,15 @@ def main_menu():
     xbmcplugin.setContent(__handle__, 'files')
     add_dir("Installation - Modifier les options", 'modif_option', artworkPath + 'icone.png')
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
-
+    
+###############################################
 def modif_option():
     #Menu Principal
     xbmcplugin.setPluginCategory(__handle__, "MENU PRINCIPAL")
     xbmcplugin.setContent(__handle__, 'files')
     add_dir("[B]1. Entrer code unique[/B]", 'pbazo', artworkPath +'Logo Codes.png')
     add_dir("[B]2. Import/Gestion  codes secondaires[/B]", 'cuu', artworkPath +'Logo Codes.png')
-    add_dir("[B]3. Référenciels :[/B] Installation des Depôts nécéssaires", 'repo', artworkPath + 'Logo Vierge Dépot.png')
+    add_dir("[B]3. Référenciels :[/B] Installation des Depôts nécessaires", 'repo', artworkPath + 'Logo Dépot.png')
     add_dir("[B]4. U2Pplay :[/B] Installation / Paramétrage", 'men_ext', artworkPath + 'Logo Installer.png')
     add_dir("[B]5. VStream :[/B] Installation / Paramétrage", 'vodt', artworkPath + 'Logo Installer.png')
     add_dir("[B]6. TV & Replay :[/B] Installation / Paramétrage", 'men_pvr', artworkPath + 'Logo TV.png')
@@ -71,23 +72,26 @@ def modif_option():
     add_dir ("Gestion backup", 'gb', artworkPath + 'Logo Gérer.png')
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
-
+###############################################
 def gb():
+    #Menu Profil & Sous-Menus
     add_dir("Profil bazoland", 'cpb', artworkPath + 'Logo Créer.png')
     add_dir("Gestion favoris", "fav", artworkPath + 'Logo Gérer.png')
     add_dir("Gestion config", "gconf", artworkPath + 'Logo Gérer.png')
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
-###############################################
+    
 def gconf():
-    add_dir("Sauvegarde config", 'sav_serv', artworkPath + 'Logo Sauver.png')
-    add_dir("Restaure config", 'res_serv', artworkPath + 'Logo Restaurer.png')
-    add_dir("Suprimer addon data avent restauration backup", 'sad', artworkPath + 'Logo Supprimer.png')
+    add_dir("Sauvegarder config", 'sav_serv', artworkPath + 'Logo Sauver.png')
+    add_dir("Restaurer config", 'res_serv', artworkPath + 'Logo Restaurer.png')
+    add_dir("Suprimer addon data avant restauration backup", 'sad', artworkPath + 'Logo Supprimer.png')
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
+    
 def fav():
     add_dir("Sauvgarder fav vst", "fav_sync", artworkPath + 'Logo Sauver.png')
     add_dir("Restaurer fav vst", "sfav", artworkPath + 'Logo Restaurer.png')
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
+###############################################
 def men_ext():
     #Menu U2Pplay
     xbmcplugin.setPluginCategory(__handle__, "MENU U2PPLAY")
@@ -109,8 +113,8 @@ def vodt():
     xbmcplugin.setPluginCategory(__handle__, "MENU VSTREAM")
     xbmcplugin.setContent(__handle__, 'files')
     add_dir("[B]1.[/B] Installation de VStream", 'addons2', artworkPath + 'Logo Installer.png')
-    add_dir("[B]2.[/B] telecharger le Paramétrage",'mv', artworkPath + 'Logo Importer.png')
-    add_dir("[B]3.[/B] Importer le parametrage", 'mv1', artworkPath + 'Logo Importer.png')
+    add_dir("[B]2.[/B] Télécharger le Paramétrage",'mv', artworkPath + 'Logo Importer.png')
+    add_dir("[B]3.[/B] Importer le Paramétrage", 'mv1', artworkPath + 'Logo Importer.png')
     add_dir("[B]4.[/B] Installer la DB Torrent", 'dbt', artworkPath + 'Logo Importer.png')
     add_dir("Ouvrir les Paramètres de VStream", 'pv', artworkPath + 'Logo Parametres.png')
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
@@ -122,9 +126,9 @@ def men_pvr():
     xbmcplugin.setContent(__handle__, 'files')
     add_dir("[B]1.[/B] Installation du PVR Simple Client", 'pvr', artworkPath + 'Logo Installer.png')
     add_dir("[B]2.[/B] Installation de VAVOOTO",'vavooto', artworkPath + 'Logo Installer.png')
-    #add_dir("[B]3.[/B] Import du Paramétrage PVR + VAVOOTO", 'dbt', artworkPath + 'icone.png')
-    add_dir("[B]3.[/B] Installation de Catchup TV & More",'catchuptv', artworkPath + 'Logo Installer.png')
-    #add_dir("[B]5.[/B] Ajouter les Comptes Catchup TV & More", 'ajout_cpt_ctv', artworkPath + 'icone.png')    
+    add_dir("[B]3.[/B] Liste TV M3U de VAVOOTO",'vavoopvr', artworkPath + 'Logo Importer.png')
+    add_dir("[B]4.[/B] Liste TV M3U de FOXX",'foxxpvr', artworkPath + 'Logo Importer.png')    
+    add_dir("[B]5.[/B] Installation de Catchup TV & More",'catchuptv', artworkPath + 'Logo Installer.png') 
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 ###############################################
@@ -258,6 +262,20 @@ def vavooto():
 
 ##############################################  
 
+def vavoopvr():
+    #Installation de la liste m3u Vavooto (Script Externe)
+    import vavoopvr
+    vavoopvr.code()
+    
+##############################################  
+
+def foxxpvr():
+    #Installation de la liste m3u FOXX (Script Externe)
+    import foxxpvr
+    foxxpvr.code()
+    
+##############################################  
+
 def catchuptv():
     #Installation de l'addon Catchup TV & More beta (Script Externe)
     import install_catchuptv
@@ -307,7 +325,7 @@ def au_maj():
     shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
     #shutil.copytree(source_dir2, destination_dir2, dirs_exist_ok=True)
     #shuexecutebuiltintil.copytree(source_dir3, destination_dir3, dirs_exist_ok=True)
-    xbmc.executebuiltin("Notification(EXTRACTION OK, icons instalé)")
+    xbmc.executebuiltin("Notification(EXTRACTION OK, icons installés)")
     xbmc.sleep(2000)
     xbmc.executebuiltin("Notification(FICHIER TEMP,Effacement en cours...)")
     # suppression dossier temporaire
@@ -696,7 +714,8 @@ def router(paramstring):
         'men_pvr': (men_pvr, ""),        
         'pvr': (pvr, ""),
         'vavooto': (vavooto, ""),
-        'pvr': (pvr, ""),
+        'vavoopvr': (vavoopvr, ""),
+        'foxxpvr': (foxxpvr, ""),        
         'catchuptv': (catchuptv, ""),
         'upnext': (upnext, ""),        
         'autowidget': (autowidget, ""), 

@@ -15,6 +15,8 @@
         <setting id="iptvx3" label="anote iptvx3" type="text" default="xxxxxx" />
         <setting id="alldebrid_api_key" label="cle alldebbrid" type="text" default="xxxxxx" />
         <setting id="rentry_code" label="code rentry" type="text" default="xxxxxx" />
+        <setting id="codem3u" label="fox" type="text" default="xxxxxx" />
+        <setting id="codem3u2" label="vavoo" type="text" default="xxxxxx" />
     </category>
     <category label="profil bazoland">
         <setting id="pseudo" label="pseudo" type="text" default="" />
