@@ -3,7 +3,8 @@ import xbmcgui
 import xbmcvfs
 import xbmc
 import zipfile
-import ftplib  # Import du module ftplib pour la connexion FTP
+import ftplib
+import xbmcaddon
 
 def connecter_ftp(hote, port, utilisateur, mot_de_passe):
     try:
@@ -14,9 +15,14 @@ def connecter_ftp(hote, port, utilisateur, mot_de_passe):
     except Exception as e:
         raise Exception("Impossible de se connecter au serveur FTP : {}".format(str(e)))
 
+def obtenir_pseudo():
+    addon = xbmcaddon.Addon("plugin.program.bazoconfigcommu")
+    pseudo = addon.getSetting("pseudo")
+    return pseudo
+
 def restaurer_donnees_utilisateur():
     try:
-        pseudo = xbmcgui.Dialog().input("Entrez votre pseudo :")
+        pseudo = obtenir_pseudo()
         if pseudo:
             destination_path = xbmcvfs.translatePath("special://home/userdata/addon_data")
 
@@ -34,7 +40,7 @@ def restaurer_donnees_utilisateur():
 
             xbmc.sleep(5000)
 
-            source_path = "/dossier_partager/Backups/{}/{}_addon_data.zip".format(pseudo, pseudo)
+            source_path = "/dossier_partager/profils/{}/backups/{}_addon_data.zip".format(pseudo, pseudo)
 
             # Vérifier si le fichier zip de sauvegarde existe sur le serveur FTP
             if not ftp.nlst(source_path):

@@ -4,6 +4,7 @@ import xbmcgui
 import xbmcvfs
 import xbmc
 import ftplib
+import xbmcaddon
 
 def connecter_ftp(hote, port, utilisateur, mot_de_passe):
     try:
@@ -23,9 +24,12 @@ def restaurer_donnees_utilisateur():
         mot_de_passe = "tobalbazo"
         ftp = connecter_ftp(hote, port, utilisateur, mot_de_passe)
 
-        pseudo = xbmcgui.Dialog().input("Entrez votre pseudo :")
+        # Récupérer le pseudo à partir des paramètres de l'addon
+        addon = xbmcaddon.Addon('plugin.program.bazoconfigcommu')
+        pseudo = addon.getSetting('pseudo')
+
         if pseudo:
-            source_path = "/dossier_partager/Favoris/{}/".format(pseudo)
+            source_path = "/dossier_partager/profils/{}/fav_vst/".format(pseudo)
             destination_path = xbmcvfs.translatePath("special://home/userdata/addon_data/plugin.video.vstream/")
 
             # Vérifier si le dossier source existe sur le serveur FTP
@@ -46,7 +50,10 @@ def restaurer_donnees_utilisateur():
 
         # Déconnexion du serveur FTP
         ftp.quit()
+
+        # Actualiser le skin
+        xbmc.executebuiltin("ReloadSkin()")
     except Exception as e:
-        xbmcgui.Dialog().ok("Erreur", "Une erreur est survenue lors de la connexion au serveur FTP : {}".format(str(e)))
+        xbmcgui.Dialog().ok("Erreur", "Une erreur est survenue : {}".format(str(e)))
 
 restaurer_donnees_utilisateur()

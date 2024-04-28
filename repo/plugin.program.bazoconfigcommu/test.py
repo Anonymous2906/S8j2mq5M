@@ -5,6 +5,7 @@ import xbmcgui
 import xbmcvfs
 import xbmc
 import ftplib
+import xbmcaddon
 
 def connecter_ftp(hote, port, utilisateur, mot_de_passe):
     try:
@@ -14,6 +15,23 @@ def connecter_ftp(hote, port, utilisateur, mot_de_passe):
         return ftp
     except Exception as e:
         raise Exception("Impossible de se connecter au serveur FTP : {}".format(str(e)))
+
+def obtenir_pseudo():
+    # Obtenez les paramètres du plugin 'plugin.program.bazoconfigcommu'
+    addon = xbmcaddon.Addon("plugin.program.bazoconfigcommu")
+    pseudo = addon.getSetting("pseudo")
+    return pseudo
+
+def creer_dossier_backups(ftp, destination_path):
+    if not ftp:
+        raise Exception("Connexion FTP non établie")
+
+    try:
+        # Créer le dossier de destination s'il n'existe pas
+        ftp.mkd(destination_path)
+    except ftplib.error_perm as e:
+        # Le dossier existe déjà, c'est normal, pas besoin de le créer
+        pass
 
 def sauvegarder_donnees_utilisateur():
     try:
@@ -28,17 +46,12 @@ def sauvegarder_donnees_utilisateur():
         xbmc.executeJSONRPC('{"jsonrpc": "2.0", "id":1, "method": "Addons.SetAddonEnabled", "params": { "addonid": "plugin.program.autowidget", "enabled": false }}')
         xbmc.sleep(5000)
 
-        pseudo = xbmcgui.Dialog().input("Entrez votre pseudo :")
+        pseudo = obtenir_pseudo()
         if pseudo:
             source_path = xbmcvfs.translatePath("special://home/userdata/addon_data")
-            destination_path = "/dossier_partager/Backups/{}/".format(pseudo)
+            destination_path = "/dossier_partager/profils/{}/backups/".format(pseudo)
 
-            try:
-                # Créer le dossier de destination s'il n'existe pas
-                ftp.mkd(destination_path)
-            except ftplib.error_perm as e:
-                # Le dossier existe déjà, c'est normal, pas besoin de le créer
-                pass
+            creer_dossier_backups(ftp, destination_path)
 
             # Chemin de fichier pour le zip
             zip_file_path = os.path.join(xbmcvfs.translatePath('special://temp'), "{}_addon_data.zip".format(pseudo))
