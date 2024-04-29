@@ -1,24 +1,24 @@
 <settings>
     <!-- Général -->
-    <category label="code principal">
+    <category label="Code Principal">
         <setting label="Injecter vos comptes" type="lsep" />
-        <setting id="cu" label="code unique" type="text" default="xxxxxx"/>
+        <setting id="cu" label="[B]Code Unique[/B]" type="text" default="xxxxxx"/>
     </category>
 
-    <category label="code secondaire">
+    <category label="Codes Secondaires">
         <setting label="Configuration des comptes" type="lsep" />
-        <setting id="numAnotepad0" label="config hk3" type="text" default="xxxxxx" />
-        <setting id="vst" label="config torrent bazoland" type="text" default="xxxxxx" />
-        <setting id="dbtd" label="db torrent" type="text" default="xxxxxx" />
-        <setting id="iptvx1" label="anote iptvx1" type="text" default="xxxxxx" />
-        <setting id="iptvx2" label="anote iptvx2" type="text" default="xxxxxx" />
-        <setting id="iptvx3" label="anote iptvx3" type="text" default="xxxxxx" />
-        <setting id="alldebrid_api_key" label="cle alldebbrid" type="text" default="xxxxxx" />
-        <setting id="rentry_code" label="code rentry" type="text" default="xxxxxx" />
-        <setting id="codem3u" label="fox" type="text" default="xxxxxx" />
-        <setting id="codem3u2" label="vavoo" type="text" default="xxxxxx" />
+        <setting id="numAnotepad0" label="Config HK3" type="text" default="xxxxxx" />
+        <setting id="vst" label="Config Torrent Bazoland" type="text" default="xxxxxx" />
+        <setting id="dbtd" label="Db Torrent" type="text" default="xxxxxx" />
+        <setting id="iptvx1" label="IPTVx1" type="text" default="xxxxxx" />
+        <setting id="iptvx2" label="IPTVx2" type="text" default="xxxxxx" />
+        <setting id="iptvx3" label="IPTVx3" type="text" default="xxxxxx" />
+        <setting id="alldebrid_api_key" label="Clé AllDebbrid" type="text" default="xxxxxx" />
+        <setting id="rentry_code" label="Code Rentry" type="text" default="xxxxxx" />
+        <setting id="codem3u" label="M3U TV Foxx" type="text" default="xxxxxx" />
+        <setting id="codem3u2" label="M3U TV Vavoo" type="text" default="xxxxxx" />
     </category>
-    <category label="profil bazoland">
-        <setting id="pseudo" label="pseudo" type="text" default="" />
+    <category label="Profil Bazoland">
+        <setting id="pseudo" label="Pseudo" type="text" default="" />
     </category>
 </settings>

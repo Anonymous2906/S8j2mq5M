@@ -19,6 +19,8 @@ def code():
         'past6': 'pastebin_id_6',
         'dossier7': 'pastebin_label_7',
         'past7': 'pastebin_id_7',
+        'dossier8': 'bazoland_label_1',
+        'past8': 'bazoland_id_1'
     }
 
     key_alldebrid = extract_anotpadall()

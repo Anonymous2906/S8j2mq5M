@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.bazoconfigcommu" version="1.1.1" name="BazoLand" provider-name="Bazo Osmoze Magnum Luc">
+<addon id="plugin.program.bazoconfigcommu" version="1.1.2" name="BazoLand" provider-name="Bazo, Osmoze, Magnum, Luc">
 	<requires>
         <import addon="script.module.requests" />
 	</requires>
@@ -7,9 +7,9 @@
         <provides>executable</provides>
     </extension>
     <extension point="xbmc.addon.metadata">
-        <summary lang="en">bazo config</summary>
-        <description lang="fr">configurer kodi en 10 min pour hk3 pour notre commu.</description>
-        <disclaimer lang="fr">si sa bug vois avec bazo</disclaimer>
+        <summary lang="en">BazoLand</summary>
+        <description lang="fr">Configurer KODI en quelques minutes, spécialement conçu pour notre communauté.</description>
+        <disclaimer lang="fr">En cas de bugs, voir avec Bazo ou Osmoze.</disclaimer>
         <language>en</language>
         <platform>all</platform>
         <forum></forum>

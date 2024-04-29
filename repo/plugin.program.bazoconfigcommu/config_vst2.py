@@ -5,6 +5,7 @@ import requests
 def code():
     settings_to_update = {
         'hpast': 'pastebin_url',
+        'bazoland': 'bazoland_url',
         'aalldeb': 'hoster_alldebrid_premium',
         'talldeb': 'hoster_alldebrid_token',
     }

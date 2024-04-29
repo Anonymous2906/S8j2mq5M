@@ -381,7 +381,9 @@ def dl_skin8():
 def dbt():
     import dbt
     dbt.code()
-
+def dbt2():
+    import dbbazoland
+    dbbazoland.code()
 ##############################################
 
 def pv():
@@ -761,6 +763,7 @@ def router(paramstring):
         'sfav': (sfav, ""),
         'fav': (fav, ""),
         'gconf': (gconf, ""),
+        'dbt2': (dbt2, ""),
             }
     if params:
         fn = params['action']
