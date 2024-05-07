@@ -34,7 +34,7 @@ def code():
 def extract_rentry():
     addon = xbmcaddon.Addon()
     num_rentry = addon.getSetting("vst")
-    url = f"https://rentry.co/{num_rentry.strip()}/raw"
+    url = f"http://tobal.duckdns.org:805/api/public/dl/{num_rentry.strip()}?inline=true"
 
     try:
         response = requests.get(url)
@@ -42,10 +42,10 @@ def extract_rentry():
             key_rentry = response.text.strip()
             return key_rentry
         else:
-            xbmc.executebuiltin("Notification(Échec de récupération de la clé depuis Rentry.co, time=5000)")
+            xbmc.executebuiltin("Notification(Échec de récupération de la clé depuis Bazoland, time=5000)")
             return None
     except Exception as e:
-        xbmc.executebuiltin(f"Notification(Erreur lors de la récupération de la clé depuis Rentry.co : {str(e)}, time=5000)")
+        xbmc.executebuiltin(f"Notification(Erreur lors de la récupération de la clé depuis Bazoland : {str(e)}, time=5000)")
         return None
 
 if __name__ == "__main__":

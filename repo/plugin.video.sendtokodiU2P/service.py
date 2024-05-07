@@ -5694,7 +5694,7 @@ if __name__ == '__main__':
     # Get the plugin handle as an integer number.
     __handle__ = int(sys.argv[1])
     #  database video kodi
-    bdKodis = ["MyVideos119.db", "MyVideos121.db", "MyVideos122.db", "MyVideos123.db"]
+    bdKodis = [x for x in sorted(os.listdir(xbmcvfs.translatePath("special://home/userdata/Database"))) if "MyVideos" in x]#["MyVideos119.db", "MyVideos121.db", "MyVideos122.db", "MyVideos123.db"]
     for bdKodi in bdKodis:
         if os.path.isfile(xbmcvfs.translatePath("special://home/userdata/Database/%s" %bdKodi)):
             __database__ = xbmcvfs.translatePath("special://home/userdata/Database/%s" %bdKodi)

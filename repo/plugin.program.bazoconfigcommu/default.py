@@ -89,6 +89,8 @@ def gconf():
 def fav():
     add_dir("Sauvgarder fav vst", "fav_sync", artworkPath + 'Logo Sauver.png')
     add_dir("Restaurer fav vst", "sfav", artworkPath + 'Logo Restaurer.png')
+    add_dir("Sauvegarder fav catchup", "fav_cat", artworkPath + 'Logo Sauver.png')
+    add_dir("restaurer fav catchup", "r_fav_cat", artworkPath + 'Logo Restaurer.png')
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 ###############################################
@@ -198,10 +200,17 @@ def men_iptv_xtream():
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 ############################################## FIN LISTE DES MENUS ###############################################
+def fav_auto_sav():
+    import sav_auto_fav
+    sav_auto_fav.sav_auto()
 def sfav():
     import rfav
 def cpfav():
     import cree_pfav
+def fav_cat():
+    import fav_catchup
+def r_fav_cat():
+    import r_fav_catchup
 def fav_sync():
     import fav
 def sad():
@@ -265,14 +274,14 @@ def vavooto():
 def vavoopvr():
     #Installation de la liste m3u Vavooto (Script Externe)
     import vavoopvr
-    vavoopvr.code()
+    vavoopvr.dl()
     
 ##############################################  
 
 def foxxpvr():
     #Installation de la liste m3u FOXX (Script Externe)
     import foxxpvr
-    foxxpvr.code()
+    foxxpvr.dl()
     
 ##############################################  
 
@@ -764,6 +773,9 @@ def router(paramstring):
         'fav': (fav, ""),
         'gconf': (gconf, ""),
         'dbt2': (dbt2, ""),
+        'fav_auto_sav': (fav_auto_sav, ""),
+        'fav_cat': (fav_cat, ""),
+        'r_fav_cat': (r_fav_cat, ""),
             }
     if params:
         fn = params['action']

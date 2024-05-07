@@ -29,6 +29,7 @@ def creer_dossier_pseudo():
             ftp.mkd("backups")
             ftp.mkd("fav_vst")
             ftp.mkd("fav_catchup")
+            ftp.mkd("past_config")
             ftp.quit()
 
             # Affichez un message de succès

@@ -30,13 +30,12 @@ def download_and_extract(url, save_path):
 # installer le skin cosmic bazoluc iptv
 # téléchargement et extraction du zip
 xbmc.sleep(5000)
-zipurl = 'http://tobal.duckdns.org:805/api/public/dl/bDj_Ruq9/kodi/bazoconfig/backup_db/mediasNewSauve.bd.zip'
-zip_save_path = xbmcvfs.translatePath('special://home/userdata/addon_data/plugin.video.sendtokodiU2P/mediasNewSauve.bd.zip')
+zipurl = 'http://tobal.duckdns.org:805/api/public/dl/8MXUVi67/kodi/bazoconfig/backup_db/mediasNew.bd.zip'
+zip_save_path = xbmcvfs.translatePath('special://home/userdata/addon_data/plugin.video.sendtokodiU2P/mediasNew.bd.zip')
 
 if download_and_extract(zipurl, zip_save_path):
     with ZipFile(zip_save_path) as zfile:
         zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data/plugin.video.sendtokodiU2P'))
-    xbmc.executebuiltin('RunPlugin(plugin://plugin.video.sendtokodiU2P/?action=gestiondb)')
     xbmcgui.Dialog().ok('Succès', 'La base de données a été téléchargée et extraite.')
 else:
     xbmcgui.Dialog().ok('Annulation', 'Le téléchargement a été annulé par l\'utilisateur.')

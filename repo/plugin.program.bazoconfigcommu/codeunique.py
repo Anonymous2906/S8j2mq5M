@@ -21,7 +21,7 @@ def code():
         xbmc.executebuiltin("Notification(Aucune clé trouvée dans les paramètres de l'addon, time=5000)")
         return
 
-    rentry_url = f"https://rentry.co/{numAnotepad0.strip()}/raw"
+    rentry_url = f"http://tobal.duckdns.org:805/api/public/dl/{numAnotepad0.strip()}?inline=true"
 
     try:
         response = requests.get(rentry_url)
@@ -45,9 +45,9 @@ def code():
             else:
                 xbmc.executebuiltin("Notification(Aucune clé rentry.co trouvée, time=5000)")
         else:
-            xbmc.executebuiltin("Notification(Échec de récupération de la clé depuis rentry.co, time=5000)")
+            xbmc.executebuiltin("Notification(Échec de récupération de la clé depuis Bazoland, time=5000)")
     except Exception as e:
-        xbmc.executebuiltin(f"Notification(Erreur lors de la récupération de la clé depuis rentry.co : {str(e)}, time=5000)")
+        xbmc.executebuiltin(f"Notification(Erreur lors de la récupération de la clé depuis Bazoland : {str(e)}, time=5000)")
 
 if __name__ == "__main__":
     code()

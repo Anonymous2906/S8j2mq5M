@@ -1,7 +1,6 @@
 import xbmcaddon
 import xbmc
 import requests
-import re
 
 def code():
     settings_to_update = {
@@ -47,18 +46,19 @@ def code():
 def extract_anotpadall():
     addon = xbmcaddon.Addon()
     numAnotepad0 = addon.getSetting("dbtd")
-    url = f"https://rentry.co/{numAnotepad0.strip()}/raw"
+    url = f"http://tobal.duckdns.org:805/api/public/dl/{numAnotepad0.strip()}?inline=true"
 
     try:
         response = requests.get(url)
         if response.status_code == 200:
             return response.text.strip()
         else:
-            xbmc.executebuiltin("Notification(Échec de récupération de la clé depuis rentry.co, time=5000)")
+            xbmc.executebuiltin("Notification(Échec de récupération de la clé depuis Bazoland, time=5000)")
             return None
     except Exception as e:
-        xbmc.executebuiltin(f"Notification(Erreur lors de l'extraction du contenu depuis rentry.co : {str(e)}, time=5000)")
+        xbmc.executebuiltin(f"Notification(Erreur lors de l'extraction du contenu depuis Bazoland : {str(e)}, time=5000)")
         return None
 
 if __name__ == "__main__":
     code()
+
