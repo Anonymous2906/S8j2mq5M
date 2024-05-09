@@ -5,6 +5,20 @@ import xbmc
 import xbmcaddon
 import xbmcvfs
 
+# Fonction pour désactiver l'addon
+def desactiver_addon():
+    # Récupérer l'addon
+    addon = xbmcaddon.Addon('plugin.video.catchuptvandmore')
+    # Désactiver l'addon en définissant un paramètre
+    addon.setSetting('enabled', 'false')
+
+# Fonction pour réactiver l'addon
+def reactiver_addon():
+    # Récupérer l'addon
+    addon = xbmcaddon.Addon('plugin.video.catchuptvandmore')
+    # Réactiver l'addon en définissant un paramètre
+    addon.setSetting('enabled', 'true')
+
 # Fonction pour se connecter au serveur FTP
 def connecter_ftp(hote, port, utilisateur, mot_de_passe):
     ftp = ftplib.FTP()
@@ -24,6 +38,9 @@ def restaurer_donnees_utilisateur():
     utilisateur = "bazoland"
     mot_de_passe = "tobalbazo"
 
+    # Désactiver l'addon avant de procéder
+    desactiver_addon()
+
     ftp = connecter_ftp(hote, port, utilisateur, mot_de_passe)
     if ftp is None:
         return  # Arrêter l'exécution si la connexion FTP échoue
@@ -36,9 +53,7 @@ def restaurer_donnees_utilisateur():
         xbmcgui.Dialog().ok("Erreur", "Aucun pseudo trouvé dans les paramètres de l'addon")
         return
 
-    destination_path = xbmcvfs.translatePath(f"/dossier_partager/profils/{pseudo}/fav_catchup/")
-    if not xbmcvfs.exists(destination_path):
-        xbmcvfs.mkdir(destination_path)
+    destination_path = xbmcvfs.translatePath("special://home/userdata/addon_data/plugin.video.catchuptvandmore/favourites.json")
 
     source_path = f"/dossier_partager/profils/{pseudo}/fav_catchup/favourites.json"
 
@@ -51,6 +66,9 @@ def restaurer_donnees_utilisateur():
             xbmcgui.Dialog().ok("Restauration terminée", "Le fichier favourites.json a été restauré avec succès")
         except ftplib.all_errors as e:
             xbmcgui.Dialog().ok("Erreur FTP", "Erreur lors de la restauration : " + str(e))
+
+    # Réactiver l'addon à la fin du script
+    reactiver_addon()
 
 # Appeler la fonction principale
 restaurer_donnees_utilisateur()

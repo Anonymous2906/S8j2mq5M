@@ -58,14 +58,15 @@ def modif_option():
     #Menu Principal
     xbmcplugin.setPluginCategory(__handle__, "MENU PRINCIPAL")
     xbmcplugin.setContent(__handle__, 'files')
-    add_dir("[B]1. Entrer code unique[/B]", 'pbazo', artworkPath +'Logo Codes.png')
-    add_dir("[B]2. Import/Gestion  codes secondaires[/B]", 'cuu', artworkPath +'Logo Codes.png')
-    add_dir("[B]3. Référenciels :[/B] Installation des Depôts nécessaires", 'repo', artworkPath + 'Logo Dépot.png')
-    add_dir("[B]4. U2Pplay :[/B] Installation / Paramétrage", 'men_ext', artworkPath + 'Logo Installer.png')
-    add_dir("[B]5. VStream :[/B] Installation / Paramétrage", 'vodt', artworkPath + 'Logo Installer.png')
-    add_dir("[B]6. TV & Replay :[/B] Installation / Paramétrage", 'men_pvr', artworkPath + 'Logo TV.png')
-    add_dir("[B]7. Menu IPTV :[/B] Mode Stalker & Xtream", 'men_iptv', artworkPath + 'Logo IPTV.png')
-    add_dir("[B]8. Menu Skins :[/B] Base de données de Skin", 'men_skin', artworkPath + 'Logo Skin.png')
+    add_dir("[B]1. Entrer code unique et profil bazoland[/B]", 'pbazo', artworkPath +'Logo Codes.png')
+    add_dir("[B]2. Profil bazoland[/B]", 'cpb', artworkPath + 'Logo Créer.png')
+    add_dir("[B]3. Import/Gestion  codes secondaires[/B]", 'cuu', artworkPath +'Logo Codes.png')
+    add_dir("[B]4. Référenciels :[/B] Installation des Depôts nécessaires", 'repo', artworkPath + 'Logo Dépot.png')
+    add_dir("[B]5. U2Pplay :[/B] Installation / Paramétrage", 'men_ext', artworkPath + 'Logo Installer.png')
+    add_dir("[B]6. VStream :[/B] Installation / Paramétrage", 'vodt', artworkPath + 'Logo Installer.png')
+    add_dir("[B]7. TV & Replay :[/B] Installation / Paramétrage", 'men_pvr', artworkPath + 'Logo TV.png')
+    add_dir("[B]8. Menu IPTV :[/B] Mode Stalker & Xtream", 'men_iptv', artworkPath + 'Logo IPTV.png')
+    add_dir("[B]9. Menu Skins :[/B] Base de données de Skin", 'men_skin', artworkPath + 'Logo Skin.png')
     add_dir("[B] Activer le stop avec retour[/B]", 'sr', artworkPath + 'Logo Installer.png')
     add_dir("[COLOR red]Nettoyer KODI[/COLOR]", 'vider_cache', artworkPath + 'Logo Supprimer.png')
     add_dir("Vider cache vst ", 'cache_vst', artworkPath + 'Logo Supprimer.png')
@@ -75,7 +76,7 @@ def modif_option():
 ###############################################
 def gb():
     #Menu Profil & Sous-Menus
-    add_dir("Profil bazoland", 'cpb', artworkPath + 'Logo Créer.png')
+
     add_dir("Gestion favoris", "fav", artworkPath + 'Logo Gérer.png')
     add_dir("Gestion config", "gconf", artworkPath + 'Logo Gérer.png')
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
@@ -90,7 +91,7 @@ def fav():
     add_dir("Sauvgarder fav vst", "fav_sync", artworkPath + 'Logo Sauver.png')
     add_dir("Restaurer fav vst", "sfav", artworkPath + 'Logo Restaurer.png')
     add_dir("Sauvegarder fav catchup", "fav_cat", artworkPath + 'Logo Sauver.png')
-    add_dir("restaurer fav catchup", "r_fav_cat", artworkPath + 'Logo Restaurer.png')
+    add_dir("Restaurer fav catchup", "r_fav_cat", artworkPath + 'Logo Restaurer.png')
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 ###############################################
