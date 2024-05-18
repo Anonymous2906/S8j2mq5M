@@ -123,13 +123,15 @@ addon = xbmcaddon.Addon('plugin.program.bazoconfigcommu')
 startup_delay = int(addon.getSetting('startup_delay'))
 backup_interval = int(addon.getSetting('backup_interval'))  # Nouveau paramètre pour l'intervalle de sauvegarde
 
-# Attendre le délai spécifié avant d'exécuter l'action
-time.sleep(startup_delay * 60)  # Convertir le délai de minutes en secondes
+# Vérifier si le script doit démarrer
+if addon.getSetting('script_status') == 'start':
+    # Attendre le délai spécifié avant d'exécuter l'action
+    time.sleep(startup_delay * 60)  # Convertir le délai de minutes en secondes
 
-# Exécuter la restauration des données utilisateur au démarrage
-restaurer_donnees_utilisateur()
+    # Exécuter la restauration des données utilisateur au démarrage
+    restaurer_donnees_utilisateur()
 
-# Boucle principale pour exécuter le script avec l'intervalle de sauvegarde spécifié
-while True:
-    sauvegarder_donnees_utilisateur()
-    time.sleep(backup_interval * 60)  # Attendre l'intervalle de sauvegarde en minutes avant la prochaine sauvegarde
+    # Boucle principale pour exécuter le script avec l'intervalle de sauvegarde spécifié
+    while True:
+        sauvegarder_donnees_utilisateur()
+        time.sleep(backup_interval * 60)  # Attendre l'intervalle de sauvegarde en minutes avant la prochaine sauvegarde

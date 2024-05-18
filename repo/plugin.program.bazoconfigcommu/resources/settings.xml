@@ -18,7 +18,7 @@
         <setting id="pseudo" label="Pseudo" type="text" default="" />
         <setting id="startup_delay" type="text" label="Délai au démarrage (minutes) service bazoland fav online" default="1" />
         <setting id="backup_interval" type="text" label="Intervalle de sauvegarde (minutes) service bazoland fav online" default="2" />
-        <setting id="script_status" type="enum" label="État du script" default="stop" values="stop|start" />
+        <setting id="script_status" type="text" label="État du service fav maj vst mettre start pour mettre en route" default="stop" />
 
     </category>
 </settings>
