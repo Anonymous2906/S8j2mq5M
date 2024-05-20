@@ -413,21 +413,6 @@ ajout config ah2 foxx
             <icon>icon.png</icon>
         </assets>
 	</extension>
-</addon><addon id="service.autosave" name="Autosave Service" version="1.0.1" provider-name="Service_Bazoland">
-	<requires>
-		<import addon="xbmc.python" version="3.0.0" />
-	</requires>
-	<extension point="xbmc.service" library="autoexec.py">
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="fr_FR">Exécute automatiquement un code python au démarrage de Kodi.</summary>
-		<description lang="fr_FR">Le service Autoexec sera automatiquement exécuté au démarrage de Kodi.</description>
-		<platform>all</platform>
-		<license>GNU GENERAL PUBLIC LICENSE Version 2</license>
-        <assets>
-            <icon>icon.png</icon>
-        </assets>
-	</extension>
 </addon><addon id="skin.arctic.horizon.2" name="Arctic Horizon 2" provider-name="jurialmunkey" version="0.8.29">
     <requires>
         <import addon="xbmc.gui" version="5.16.0" />
