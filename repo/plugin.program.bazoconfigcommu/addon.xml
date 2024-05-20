@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.bazoconfigcommu" version="1.1.6" name="BazoLand" provider-name="Bazo, Osmoze, Magnum, Luc">
+<addon id="plugin.program.bazoconfigcommu" version="1.1.7" name="BazoLand" provider-name="Bazo, Osmoze, Magnum, Luc">
 	<requires>
         <import addon="script.module.requests" />
 	</requires>

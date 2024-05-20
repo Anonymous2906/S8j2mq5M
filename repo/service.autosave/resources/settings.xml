@@ -1,6 +1,0 @@
-<settings>
-    <category label="Paramètres généraux">
-        <setting id="startup_delay" type="slider" label="Délai de démarrage (secondes)" default="60" range="0,300" step="10"/>
-    </category>
-</settings>
-

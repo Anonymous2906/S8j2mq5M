@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repo.S8j2mq5M" name="U2Pplay Addons Repository" version="0.0.1" provider-name="Anonymous2906">
-    <extension point="xbmc.addon.repository" name="Anonymous2906 Addons Repository">
+<addon id="repo.S8j2mq5M" name="BazoLand Addons Repository" version="0.0.2" provider-name="Osmoze06">
+    <extension point="xbmc.addon.repository" name="BazoLand Addons Repository">
         <dir>
             <info compressed="false">https://raw.githubusercontent.com/Anonymous2906/S8j2mq5M/master/repo/zips/addons.xml</info>
             <checksum>https://raw.githubusercontent.com/Anonymous2906/S8j2mq5M/master/repo/zips/addons.xml.md5</checksum>
@@ -8,8 +8,8 @@
         </dir>
     </extension>
     <extension point="xbmc.addon.metadata">
-        <summary>U2Pplay Addons Repository</summary>
-        <description>Repository U2Pplay.</description>
+        <summary>BazoLand Addons Repository</summary>
+        <description>Dépôt d'extension pour la communauté.</description>
         <disclaimer></disclaimer>
         <platform>all</platform>
         <assets>
