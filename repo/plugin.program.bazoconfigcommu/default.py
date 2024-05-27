@@ -1,7 +1,7 @@
 # Module: default
 # Author: Bazo, Osmoze06
 # Created on: 19.01.2022
-# Edited on: 17.03.2024
+# Edited on: 25.05.2024
 
 import xbmcplugin
 from urllib.parse import quote_plus, unquote_plus, parse_qsl
@@ -38,169 +38,201 @@ def showErrorNotification(message):
 def showInfoNotification(message):
     xbmcgui.Dialog().notification("bazo skin", message, xbmcgui.NOTIFICATION_INFO, 15000)
 
-def add_dir(name, mode, thumb):
+def add_dir(name, mode, thumb, description):
     u = sys.argv[0] + "?" + "action=" + str(mode)
     liz = xbmcgui.ListItem(name)
     liz.setArt({'icon': thumb})
     liz.setProperty("fanart_image", fanart)
+    liz.setInfo(type="Video", infoLabels={"Title": name, "Plot": description})  # Ajout de la description
     ok = xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=u, listitem=liz, isFolder=True)
     return ok
 
 ############################################## LISTE DES MENUS ###############################################
 def main_menu():
-    xbmcplugin.setPluginCategory(__handle__, "Choix bazo")
+    xbmcplugin.setPluginCategory(__handle__, "Choix Bazo")
     xbmcplugin.setContent(__handle__, 'files')
-    add_dir("Installation - Modifier les options", 'modif_option', artworkPath + 'icone.png')
+    add_dir("Installations & Modifications", 'modif_option', artworkPath + 'Logo Bazoland v2.png', "Menu principal de l'addon Bazoland.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
     
 ###############################################
 def modif_option():
     #Menu Principal
-    xbmcplugin.setPluginCategory(__handle__, "MENU PRINCIPAL")
+    xbmcplugin.setPluginCategory(__handle__, "Menu principal")
     xbmcplugin.setContent(__handle__, 'files')
-    add_dir("[B]1. Entrer code unique et profil bazoland[/B]", 'pbazo', artworkPath +'Logo Codes.png')
-    add_dir("[B]2. Profil bazoland[/B]", 'cpb', artworkPath + 'Logo Créer.png')
-    add_dir("[B]3. Import/Gestion  codes secondaires[/B]", 'cuu', artworkPath +'Logo Codes.png')
-    add_dir("[B]4. Référenciels :[/B] Installation des Depôts nécessaires", 'repo', artworkPath + 'Logo Dépot.png')
-    add_dir("[B]5. U2Pplay :[/B] Installation / Paramétrage", 'men_ext', artworkPath + 'Logo Installer.png')
-    add_dir("[B]6. VStream :[/B] Installation / Paramétrage", 'vodt', artworkPath + 'Logo Installer.png')
-    add_dir("[B]7. TV & Replay :[/B] Installation / Paramétrage", 'men_pvr', artworkPath + 'Logo TV.png')
-    add_dir("[B]8. Menu IPTV :[/B] Mode Stalker & Xtream", 'men_iptv', artworkPath + 'Logo IPTV.png')
-    add_dir("[B]9. Menu Skins :[/B] Base de données de Skin", 'men_skin', artworkPath + 'Logo Skin.png')
-    add_dir("[B] Activer le stop avec retour[/B]", 'sr', artworkPath + 'Logo Installer.png')
-    add_dir("[COLOR red]Nettoyer KODI[/COLOR]", 'vider_cache', artworkPath + 'Logo Supprimer.png')
-    add_dir("Vider cache vst ", 'cache_vst', artworkPath + 'Logo Supprimer.png')
-    add_dir ("Gestion backup", 'gb', artworkPath + 'Logo Gérer.png')
+    add_dir("[B]1. 1er Démarrage[/B]", 'pbazo', artworkPath +'Logo Codes.png', "Menu pour renseigner votre Code Unique, vos Codes Secondaires et de régler votre Profil Bazoland (Delai au démarrage, Intervalle de sauvegarde et le Service de Favoris).")
+    add_dir("[B]2. Profil Bazoland[/B]", 'cpb', artworkPath + 'Logo Profil.png', "Permet de créer un profil sur le serveur (Uniquement pour la première configuration).")
+    add_dir("[B]3. Codes Secondaires[/B]", 'cuu', artworkPath +'Logo Codes.png', "Permet d'importer et de gérer les Codes Secondaires afin de poursuivre la configuration.")
+    add_dir("[B]4. Référentiels :[/B] Installation des Dépôts nécessaires", 'men_repos', artworkPath + 'Logo Dépot.png', "Permet d'installer tous les dépôts en une fois, pour le bon fonctionnement du service Bazoland.")
+    add_dir("[B]5. U2Pplay :[/B] Installation/Paramétrage", 'men_ext', artworkPath + 'Logo U2Pplay.png', "Menu de configuration pour U2Pplay.")
+    add_dir("[B]6. vStream :[/B] Installation/Paramétrage", 'vodt', artworkPath + 'Logo Vstream.png', "Menu de configuration pour vStream.")
+    add_dir("[B]7. TV & Replay :[/B] Installation/Paramétrage", 'men_pvr', artworkPath + 'Logo TV.png', "Menu de configuration pour la TV & Replay.")
+    add_dir("[B]8. IPTV :[/B] Mode Stalker & Xtream", 'men_iptv', artworkPath + 'Logo IPTV.png', "Menu de configuration pour l'IPTV de U2pplay.")
+    add_dir("[B]9. Skins :[/B] Base de données de Skins", 'men_skin', artworkPath + 'Logo Skin.png', "Menu de Téléchargement et de Gestion des Skins.")
+    add_dir("[B] Activer le Stop avec retour[/B]", 'sr', artworkPath + 'Logo Installer.png', "Mise en place de l'arrêt des vidéos en avec la touche Retour de la télécommande.")
+    add_dir("[B][COLOR red]Nettoyer KODI[/COLOR][/B]", 'nettoye', artworkPath + 'Logo Nettoyer.png', "Menu pour nettoyer tous les dossiers de Kodi, en une fois ou séparément (Cache, Temp, Packages et Thumbnails).")
+    add_dir("Vider cache vStream ", 'cache_vst', artworkPath + 'Logo Vider.png', "Vider le cache de vStream.")
+    add_dir ("Gestion Backup", 'gb', artworkPath + 'Logo Backup.png', "Menu de gestion des Backups pour les Favoris et les Config.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 ###############################################
 def gb():
     #Menu Profil & Sous-Menus
 
-    add_dir("Gestion favoris", "fav", artworkPath + 'Logo Gérer.png')
-    add_dir("Gestion config", "gconf", artworkPath + 'Logo Gérer.png')
+    add_dir("Gestion Favoris", "fav", artworkPath + 'Logo Favoris.png', "Menu pour gérer les Backups des Favoris.")
+    add_dir("Gestion Config", "gconf", artworkPath + 'Logo Config.png', "Menu pour gérer les Backups des Configurations.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
     
 def gconf():
-    add_dir("Sauvegarder config", 'sav_serv', artworkPath + 'Logo Sauver.png')
-    add_dir("Restaurer config", 'res_serv', artworkPath + 'Logo Restaurer.png')
-    add_dir("Suprimer addon data avant restauration backup", 'sad', artworkPath + 'Logo Supprimer.png')
+    add_dir("Sauvegarder Config", 'sav_serv', artworkPath + 'Logo Sauvegarder.png', "Permet de sauvegarder une configuration (addon_data).")
+    add_dir("Restaurer Config", 'res_serv', artworkPath + 'Logo Restaurer.png', "Permet de restaurer une configuration (addon_data) - l'installation préalable des extensions est requise.")
+    add_dir("Vider Addon_data", 'sad', artworkPath + 'Logo Vider.png', "Permet de vider le dossier Addon_data avant de restaurer un Backup.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
     
 def fav():
-    add_dir("Sauvgarder fav vst", "fav_sync", artworkPath + 'Logo Sauver.png')
-    add_dir("Restaurer fav vst", "sfav", artworkPath + 'Logo Restaurer.png')
-    add_dir("Sauvegarder fav catchup", "fav_cat", artworkPath + 'Logo Sauver.png')
-    add_dir("Restaurer fav catchup", "r_fav_cat", artworkPath + 'Logo Restaurer.png')
+    add_dir("Sauvegarder Fav vStream", "fav_sync", artworkPath + 'Logo Sauvegarder.png', "Permet de sauvegarder les Favoris vStream.")
+    add_dir("Restaurer Fav vStream", "sfav", artworkPath + 'Logo Restaurer.png', "Permet de restaurer les Favoris vStream.")
+    add_dir("Sauvegarder Fav Catchup", "fav_cat", artworkPath + 'Logo Sauvegarder.png', "Permet de sauvegarder les Favoris Catchup.")
+    add_dir("Restaurer Fav Catchup", "r_fav_cat", artworkPath + 'Logo Restaurer.png', "Permet de restaurer les Favoris Catchup.")
+    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True,)
+
+###############################################
+
+def men_repos():
+    #Menu Repositories
+    xbmcplugin.setPluginCategory(__handle__, "Menu Référenciels")
+    xbmcplugin.setContent(__handle__, 'files')
+    add_dir("[B][COLOR green]Tout installer[/COLOR][/B]", 'repo', artworkPath + 'Logo Installer.png', "Permet d'installer tous les référentiels disponibles.")
+    add_dir("[B]1.[/B] Jurialmunkey", 'rep_jurialmunkey', artworkPath + 'Logo Installer.png', "Installation du référenciel de Jurialmunkey")
+    add_dir("[B]2.[/B] vStream", 'rep_vstream', artworkPath +'Logo Installer.png', "Installation du référenciel de vStream")
+    add_dir("[B]3.[/B] Autowidget", 'rep_autowidget', artworkPath +'Logo Installer.png', "Installation du référenciel de Autowidget")
+    add_dir("[B]4.[/B] Kodinerds", 'rep_kodinerds', artworkPath + 'Logo Installer.png', "Installation du référenciel de Kodinerds")
+    add_dir("[B]5.[/B] Michaz", 'rep_michaz', artworkPath + 'Logo Installer.png', "Installation du référenciel de Michaz.")
+    add_dir("[B]6.[/B] Catchup Tv & More", 'rep_catchuptv', artworkPath + 'Logo Installer.png', "Installation du référenciel béta de Catchup Tv & More.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 ###############################################
+
 def men_ext():
     #Menu U2Pplay
-    xbmcplugin.setPluginCategory(__handle__, "MENU U2PPLAY")
+    xbmcplugin.setPluginCategory(__handle__, "Menu U2Pplay")
     xbmcplugin.setContent(__handle__, 'files')
-    add_dir("[B]0.[/B] J ai kodi 21 donc je clique ici", 'kodi21', artworkPath + 'icone.png')
-    add_dir("[B]1.[/B] Installation de U2Pplay", 'addons', artworkPath + 'Logo Installer.png')
-    add_dir("[B]2.[/B] Import du Paramétrage", 'alloptions', artworkPath + 'Logo Importer.png')
-    add_dir("[B]3.[/B] Installer ou Mettre à jour le Backup DB", 'back_db', artworkPath +'Logo Importer.png')
-    add_dir("[B]4.[/B] Construire ou Mettre à jour la DB", 'const_db', artworkPath +'Logo Importer.png')
-    add_dir("[B]5.[/B] Installer le Service de Mise à Jour Automatique", 'serv_maj', artworkPath + 'Logo Installer.png')
-    add_dir("[B]6.[/B] Installer UPNext (Enchaînement auto. des épisodes)", 'upnext', artworkPath + 'Logo installer.png')
-    add_dir("Ouvrir les Paramètres de U2Pplay", 'ref_import', artworkPath + 'Logo Parametres.png')
-    add_dir("[COLOR red]Effacer la DB[/COLOR]", 'del_db', artworkPath +'Logo Suppression.png')
+    add_dir("[B]1.[/B] Installation de U2Pplay", 'addons', artworkPath + 'Logo Installer.png', "Permet d'installer U2Pplay.")
+    add_dir("[B]2.[/B] Importer Paramètres", 'alloptions', artworkPath + 'Logo Importer.png', "Permet d'importer les paramètres de U2Pplay en un clic.")
+    add_dir("[B]3.[/B] Importer/MaJ DB", 'back_db', artworkPath +'Logo Importer.png', "Permet d'importer ou de mettre à jour la Database de U2Pplay (afin de gagner du temps et ne pas avoir à tout reconstruire depuis le début).")
+    add_dir("[B]4.[/B] Ajouter Contenu", 'const_db', artworkPath +'Logo Importer.png', "Permet d'ajouter ou de mettre à jour le Contenu de U2Pplay (Téléchargement des fichiers Pastes).")
+    add_dir("[B]5.[/B] Installer le Service de MAJ Auto", 'serv_maj', artworkPath + 'Logo Installer.png', "Permet la mise en place du Service de mise à jour Automatique de U2Pplay (maj HK 0.3).")
+    add_dir("[B]6.[/B] Installer UpNext", 'upnext', artworkPath + 'Logo installer.png', "Permet d'installer l'addon UpNext (enchaînement des épisodes pour les séries).")
+    add_dir("Paramètres de U2Pplay", 'ref_import', artworkPath + 'Logo Parametres.png', "Permet d'ouvrir les paramètres de U2Pplay.")
+    add_dir("[B][COLOR red]Supprimer DB & Contenu[/COLOR][/B]", 'del_db', artworkPath +'Logo Supprimer.png', "Permet de supprimer la Database ainsi que tout le contenu (pastes) de U2Pplay.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 ###############################################
 def vodt():
     #Menu VStream
-    xbmcplugin.setPluginCategory(__handle__, "MENU VSTREAM")
+    xbmcplugin.setPluginCategory(__handle__, "Menu vStream")
     xbmcplugin.setContent(__handle__, 'files')
-    add_dir("[B]1.[/B] Installation de VStream", 'addons2', artworkPath + 'Logo Installer.png')
-    add_dir("[B]2.[/B] Télécharger le Paramétrage",'mv', artworkPath + 'Logo Importer.png')
-    add_dir("[B]3.[/B] Importer le Paramétrage", 'mv1', artworkPath + 'Logo Importer.png')
-    add_dir("[B]4.[/B] Installer la DB Torrent", 'dbt', artworkPath + 'Logo Importer.png')
-    add_dir("Ouvrir les Paramètres de VStream", 'pv', artworkPath + 'Logo Parametres.png')
+    add_dir("[B]1.[/B] Installation de vStream", 'addons2', artworkPath + 'Logo Installer.png', "Permet d'installer vStream.")
+    add_dir("[B]2.[/B] Patch Bazoland",'mv', artworkPath + 'Logo Importer.png', "Permet d'ajouter des modifications spéciales de Bazoland à vStream, l'addon d'origine ne les proposant pas (à effectuer après chaque MAJ de vStream).")
+    add_dir("[B]3.[/B] Importer Paramètres", 'mv1', artworkPath + 'Logo Importer.png', "Permet d'importer les paramètres de vStream en un clic.")
+    add_dir("[B]4.[/B] Importer DB Torrent", 'dbt', artworkPath + 'Logo Importer.png', "Permet d'importer la DB Torrent.")
+    add_dir("Paramètres de vStream", 'pv', artworkPath + 'Logo Parametres.png', "Permet d'ouvrir les paramètres de vStream.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 ###############################################
 def men_pvr():
     #Menu TV PVR
-    xbmcplugin.setPluginCategory(__handle__, "MENU TV PVR & REPLAY TV")
+    xbmcplugin.setPluginCategory(__handle__, "Menu TV - PVR - Replay")
     xbmcplugin.setContent(__handle__, 'files')
-    add_dir("[B]1.[/B] Installation du PVR Simple Client", 'pvr', artworkPath + 'Logo Installer.png')
-    add_dir("[B]2.[/B] Installation de VAVOOTO",'vavooto', artworkPath + 'Logo Installer.png')
-    add_dir("[B]3.[/B] Liste TV M3U de VAVOOTO",'vavoopvr', artworkPath + 'Logo Importer.png')
-    add_dir("[B]4.[/B] Liste TV M3U de FOXX",'foxxpvr', artworkPath + 'Logo Importer.png')    
-    add_dir("[B]5.[/B] Installation de Catchup TV & More",'catchuptv', artworkPath + 'Logo Installer.png') 
+    add_dir("[B]1.[/B] Installation de PVR Simple Client", 'pvr', artworkPath + 'Logo Installer.png', "Permet d'installer PVR Simple Client IPTV, pour regarder la TV en streaming, liste m3u, chaînes de radio et de l'EPG.")
+    add_dir("[B]2.[/B] Installation de Vavoo",'vavooto', artworkPath + 'Logo Installer.png', "Permet d'installer l'addon Vavoo TV qui propose gratuitement des chaînes TV en français.")
+    add_dir("[B]3.[/B] Importer liste TV m3u Vavoo",'vavoopvr', artworkPath + 'Logo Importer.png', "Permet d'importer une liste TV au format m3u pour Vavoo PVR.")
+    add_dir("[B]4.[/B] Importer liste TV m3u Foxx",'foxxpvr', artworkPath + 'Logo Importer.png', "Permet d'importer une liste TV au format m3u pour Foxx PVR.")
+    add_dir("[B]5.[/B] Installation de CatchupTV",'catchuptv', artworkPath + 'Logo Installer.png', "Permet d'installer l'addon Catchup TV pour le replay des chaînes TV.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 ###############################################
 def men_skin():
     #Menu Skins
-    xbmcplugin.setPluginCategory(__handle__, "menu pour les skins")
+    xbmcplugin.setPluginCategory(__handle__, "Menu Skins")
     xbmcplugin.setContent(__handle__, 'files')
-    add_dir("[B]Skin bazoluc[/B] - skin hk3 avec iptv ou juste iptv", 'men_skin_bazoluc', artworkPath + 'Logo Bazo-Luc.png')
-    add_dir("[B]Skin bazoland[/B] - HK3 + vst + iptv", 'men_skin_bazoland', artworkPath + 'icone.png')
+    add_dir("[B]Skins Bazo-luc :[/B] HK3 + IPTV ou juste IPTV", 'men_skin_bazoluc', artworkPath + 'Logo Bazo-Luc.png', "Menu skins Bazo-luc (Installation d'Autowidget - Estuary v2 - Artic Horizon 2 - Maj Icônes - Gestion Icônes et Autowidget).")
+    add_dir("[B]Skins Bazoland :[/B] HK3 + vStream + IPTV", 'men_skin_bazoland', artworkPath + 'Logo Bazoland v2.png', "Menu skins Bazoland (Installation d'Autowidget - Estuary v2 - Artic Horizon 2 - Maj Icônes - Gestion Icônes et Autowidget).")
+    add_dir("[B]Skins Osmoze :[/B] vStream + IPTV PVR", 'men_skin_osmoze', artworkPath + 'Logo Osmoze.png', "Menu skins Osmoze (Installation d'Autowidget - Artic Fuse Bazoland - Gestion Mises à jour).")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 
 def men_skin_bazoluc():
       #Menu Skins
-    xbmcplugin.setPluginCategory(__handle__, "menu pour les skins")
+    xbmcplugin.setPluginCategory(__handle__, "Menu Bazo-Luc")
     xbmcplugin.setContent(__handle__, 'files')
-    add_dir("Mettre à jour les icônes", 'au_maj', artworkPath + 'Logo Importer.png')
-    add_dir("[B]AutoWidget :[/B] Installer l'addon", 'autowidget', artworkPath + 'Logo Installer.png')
-    add_dir("[B]Estuary v2[/B] - IPTV - by Bazo & Luc", 'dl_skin', artworkPath + 'Logo Estuary V2.png')
-    add_dir("[B]Estuary v2[/B] - HK3 - by Bazo & Luc", 'dl_skin2', artworkPath + 'Logo Estuary V2.png')
-    add_dir("[B]Estuary v2[/B] - HK3 Light - by Bazo & Luc", 'dl_skin3', artworkPath + 'Logo Estuary V2.png')
-    add_dir("[B]Arctic Horizon 2[/B] - IPTV - by Bazo & Luc", 'dl_skin6', artworkPath + 'Logo AH 2.png')
-    add_dir("[B]Arctic Horizon 2[/B] - HK3 - by Bazo & Luc", 'dl_skin5', artworkPath + 'Logo AH 2.png')
-    add_dir("[B]Arctic Horizon 2[/B] - HK3 Light - by Bazo & Luc", 'dl_skin4', artworkPath + 'Logo AH 2.png')
-    add_dir("[B]Detruire les icons et autowidget pour une mise a jour[/B]", 'del_icon_aw', artworkPath + 'Logo Supprimer.png')
+    add_dir("Importer icônes", 'au_maj', artworkPath + 'Logo Importer.png', "Permet d'importer les icônes additionnelles pour les skins.")
+    add_dir("[B]AutoWidget :[/B] Installer l'addon", 'autowidget', artworkPath + 'Logo Installer.png', "Permet d'installer l'addon Autowidget pour les skins.")
+    add_dir("[B]Estuary v2[/B] avec IPTV", 'dl_skin', artworkPath + 'Logo Estuary V2.png', "Permet de télécharger une configuration du skin Estuary v2 avec IPTV seulement." )
+    add_dir("[B]Estuary v2[/B] avec HK3 + IPTV", 'dl_skin2', artworkPath + 'Logo Estuary V2.png', "Permet de télécharger une configuration du skin Estuary v2 avec HK3 + IPTV.")
+    add_dir("[B]Estuary v2[/B] avec HK3 Light", 'dl_skin3', artworkPath + 'Logo Estuary V2.png', "Permet de télécharger une configuration du skin Estuary v2 avec HK3 avec moins de Widgets (pour les petites Configs ou petites Box Android).")
+    add_dir("[B]Arctic Horizon 2[/B] avec IPTV", 'dl_skin6', artworkPath + 'Logo AH 2.png', "Permet de télécharger une configuration du skin Arctic Horizon 2 avec IPTV seulement.")
+    add_dir("[B]Arctic Horizon 2[/B] avec HK3 + IPTV", 'dl_skin5', artworkPath + 'Logo AH 2.png', "Permet de télécharger une configuration du Arctic Horizon 2 avec HK3 + IPTV.")
+    add_dir("[B]Arctic Horizon 2[/B] avec HK3 Light", 'dl_skin4', artworkPath + 'Logo AH 2.png', "Permet de télécharger une configuration du Arctic Horizon 2 avec HK3 avec moins de Widgets (pour les petites Configs ou petites Box Android).")
+    add_dir("[B][COLOR red]Supprimer Icônes et Autowidget pour mise à jour[/COLOR][/B]", 'del_icon_aw', artworkPath + 'Logo Supprimer.png', "Supprimer les dossiers Icônes additionnelles et Autowidget des skins afin de réinstaller un skin proprement.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 def men_skin_bazoland():
       #Menu Skins
-    xbmcplugin.setPluginCategory(__handle__, "menu pour les skins")
+    xbmcplugin.setPluginCategory(__handle__, "Menu Bazoland")
     xbmcplugin.setContent(__handle__, 'files')
-    add_dir("Mettre à jour les icônes", 'au_maj', artworkPath + 'Logo Importer.png')
-    add_dir("[B]AutoWidget :[/B] Installer l'addon", 'autowidget', artworkPath + 'Logo Installer.png')
-    add_dir("[B]Arctic Horizon 2[/B] - BazoLand", 'dl_skin7', artworkPath + 'Logo AH 2.png')
-    add_dir("[B]Estuary v2 [/B] - Bazoland", 'dl_skin8', artworkPath + 'Logo Estuary V2.png')
-    add_dir("[B]Detruire les icons et autowidget pour une mise a jour[/B]", 'del_icon_aw', artworkPath + 'Logo Supprimer.png')
+    add_dir("Importer icônes", 'au_maj', artworkPath + 'Logo Importer.png', "Permet d'importer les icônes additionnelles pour les skins.")
+    add_dir("[B]AutoWidget :[/B] Installer l'addon", 'autowidget', artworkPath + 'Logo Installer.png', "Permet d'installer l'addon Autowidget pour les skins.")
+    add_dir("[B]Arctic Horizon 2[/B] avec HK3 + vStream + IPTV", 'dl_skin7', artworkPath + 'Logo AH 2.png', "Permet de télécharger une configuration du skin Arctic Horizon 2 avec HK3 + vStream + IPTV.")
+    add_dir("[B]Estuary v2 [/B] avec HK3 + vStream + IPTV", 'dl_skin8', artworkPath + 'Logo Estuary V2.png', "Permet de télécharger une configuration du skin Estuary v2 avec HK3 + vStream + IPTV.")
+    add_dir("[B][COLOR red]Supprimer Icônes et Autowidget pour mise à jour[/COLOR][/B]", 'del_icon_aw', artworkPath + 'Logo Supprimer.png', "Supprimer les dossiers Icônes additionnelles et Autowidget des skins afin de réinstaller un skin proprement.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
+
+def men_skin_osmoze():
+      #Menu Skins
+    xbmcplugin.setPluginCategory(__handle__, "Menu Bazoland - Arctic Fuse")
+    xbmcplugin.setContent(__handle__, 'files')
+    add_dir("[B]1. AutoWidget :[/B] Installer l'addon", 'autowidget', artworkPath + 'Logo Installer.png', "Permet d'installer l'addon Autowidget requis.")
+    add_dir("[B]2. PVR Simple Client :[/B] Installer l'addon", 'pvr', artworkPath + 'Logo Installer.png', "Permet d'installer PVR Simple Client requis.")
+    add_dir("[B]3. Importer liste m3u :[/B] Liste intégrée pour Foxx",'foxxpvr', artworkPath + 'Logo Importer.png', "Permet d'importer la liste TV au format m3u pour Foxx PVR.")
+    add_dir("[B]4. Arctic Fuse :[/B] Installation", 'install_af', artworkPath + 'Logo Arctic Fuse.png', "Installation du skin Arctic Fuse.")
+    add_dir("[B]5. Paramétrage : [/B] Arctic Fuse pour vStream + IPTV PVR", 'dl_skin9', artworkPath + 'Logo Importer.png', "Permet de télécharger la configuration du skin Arctic Fuse avec vStream + IPTV PVR, version pour Bazoland.")
+    add_dir("[B]Mise à Jour[/B] du Skin", 'dl_skin9', artworkPath + 'Logo MAJ.png', "Permet de mettre à jour les modifications du skin.")
+    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
+
 ###############################################
 
 def men_iptv():
      #Menu
-    xbmcplugin.setPluginCategory(__handle__, "MENU IPTV")
+    xbmcplugin.setPluginCategory(__handle__, "Menu IPTV")
     xbmcplugin.setContent(__handle__, 'files')
-    add_dir("[B]1.[/B] Mode [B]STALKER[/B]", 'men_iptv_stalker', artworkPath + 'Logo Stalker.png')
-    add_dir("[B]2.[/B] Mode [B]XTREAM[/B]", 'men_iptv_xtream', artworkPath + 'Logo Xtream.png')
+    add_dir("[B]1.[/B] Mode [B]STALKER[/B]", 'men_iptv_stalker', artworkPath + 'Logo Stalker.png', "Menu pour configurer l'IPTV en mode Stalker.")
+    add_dir("[B]2.[/B] Mode [B]XTREAM[/B]", 'men_iptv_xtream', artworkPath + 'Logo Xtream.png', "Menu pour configurer l'IPTV en mode Xtream.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 ###############################################
 
 def men_iptv_stalker():
      #Menu
-    xbmcplugin.setPluginCategory(__handle__, "MENU IPTV STALKER")
+    xbmcplugin.setPluginCategory(__handle__, "Menu IPTV Stalker")
     xbmcplugin.setContent(__handle__, 'files')
-    add_dir("[B]1.[/B] Ajouter un Compte unique ou une Bank", 'iptv_tobal', artworkPath + 'Logo Importer.png')
-    add_dir("[B]2.[/B] Sélectionner une Adresse MAC", 'iptv_tobal2', artworkPath + 'Logo Importer.png')
+    add_dir("[B]1.[/B] Ajouter un Compte", 'iptv_tobal', artworkPath + 'Logo Codes.png', "Permet de renseigner un code Rentry pour télécharger un compte Unique ou un compte Liste.")
+    add_dir("[B]2.[/B] Sélectionner une adresse MAC", 'iptv_tobal2', artworkPath + 'Logo Importer.png', "Permet de choisir une adresse MAC présente dans la Liste importée.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 ################################################
 
 def men_iptv_xtream():
      #Menu
-    xbmcplugin.setPluginCategory(__handle__, "MENU IPTV XTREAM")
+    xbmcplugin.setPluginCategory(__handle__, "Menu IPTV Xtream")
     xbmcplugin.setContent(__handle__, 'files')
-    add_dir("[B]1.[/B]Ajouter le compte - Fournisseur 1", 'iptv_xt1', artworkPath + 'Logo Importer.png')
-    add_dir("[B]2.[/B]Ajouter le compte - Fournisseur 2", 'iptv_xt2', artworkPath + 'Logo Importer.png')
-    add_dir("[B]3.[/B]Ajouter le compte - Fournisseur 3", 'iptv_xt3', artworkPath + 'logo Importer.png')
+    add_dir("[B]1.[/B] Importer compte Fournisseur 1", 'iptv_xt1', artworkPath + 'Logo Importer.png', "Permet d'importer le compte 1.")
+    add_dir("[B]2.[/B] Importer compte Fournisseur 2", 'iptv_xt2', artworkPath + 'Logo Importer.png', "Permet d'importer le compte 2.")
+    add_dir("[B]3.[/B] Importer compte Fournisseur 3", 'iptv_xt3', artworkPath + 'logo Importer.png', "Permet d'importer le compte 3.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 ############################################## FIN LISTE DES MENUS ###############################################
+
+
 def fav_auto_sav():
     import sav_auto_fav
     sav_auto_fav.sav_auto()
@@ -304,6 +336,42 @@ def autowidget():
 
 ##############################################
 
+def log_updates():
+    #Affichage des logs de mises à jour du plugin (Script Externe)
+    import log_updates
+
+def bazoland_news():
+    #Affichage des news (Script Externe)
+    import bazoland_news
+    
+##############################################
+
+def rep_jurialmunkey():
+    #Installation de référenciel (Script Externe)
+    import install_repo_jurialmunkey
+
+def rep_vstream():
+    #Installation de référenciel (Script Externe)
+    import install_repo_vstream
+
+def rep_autowidget():
+    #Installation de référenciel (Script Externe)
+    import install_repo_autowidget
+
+def rep_kodinerds():
+    #Installation de référenciel (Script Externe)
+    import install_repo_kodinerds
+
+def rep_michaz():
+    #Installation de référenciel (Script Externe)
+    import install_repo_michaz
+
+def rep_catchuptv():
+    #Installation de référenciel (Script Externe)
+    import install_repo_catchuptv
+
+##############################################
+
 import xbmcaddon
 import requests
 import re
@@ -335,7 +403,7 @@ def au_maj():
     shutil.copytree(source_dir, destination_dir, dirs_exist_ok=True)
     #shutil.copytree(source_dir2, destination_dir2, dirs_exist_ok=True)
     #shuexecutebuiltintil.copytree(source_dir3, destination_dir3, dirs_exist_ok=True)
-    xbmc.executebuiltin("Notification(EXTRACTION OK, icons installés)")
+    xbmc.executebuiltin("Notification(EXTRACTION OK, icônes installés)")
     xbmc.sleep(2000)
     xbmc.executebuiltin("Notification(FICHIER TEMP,Effacement en cours...)")
     # suppression dossier temporaire
@@ -382,12 +450,23 @@ def dl_skin6():
 def dl_skin7():
    import bazoland
 
+##############################################
 
 def dl_skin8():
     import bazoland2
 
 ##############################################
 
+def dl_skin9():
+    import pack_arctic_fuse
+    
+##############################################
+
+def install_af():
+    import install_arctic_fuse
+    
+##############################################
+    
 def dbt():
     import dbt
     dbt.code()
@@ -545,15 +624,15 @@ def actuskin():
 
 # MENU NETTOYAGE
 def nettoye():
-    xbm
+    xbmc
     #menu nettoyage
-    xbmcplugin.setPluginCadminategory(__handle__, "NETTOYER KODI")
+    xbmcplugin.setPluginCategory(__handle__, "Nettoyer Kodi")
     xbmcplugin.setContent(__handle__, 'files')
-    add_dir("[COLOR red]NETTOYER TadminOUT D'UN COUP : [/COLOR]clic ici", 'vider_cache', artworkPath + 'icone.png')
-    add_dir("[COLOR deepskyblue]Vider Cache uniquement[/COLOR]", 'cache_seul', artworkPath + 'icone.png')
-    add_dir("[COLOR deepskyblue]Vider Tmp uniquement[/COLOR]", 'tmp_seul', artworkPath + 'icone.png')
-    add_dir("[COLOR deepskyblue]Vider Packages uniquement[/COLOR]", 'package_seul', artworkPath + 'icone.png')
-    add_dir("[COLOR deepskyblue]Vider Thumbnails uniquement[/COLOR]", 'thumb_seul', artworkPath + 'icone.png')
+    add_dir("[B][COLOR red]Vider Kodi en un seul clic[/COLOR][/B]", 'vider_cache', artworkPath + 'Logo Vider.png', "Vider en un seul clic, TOUS les dossiers Cache, Temp, Packages et Thumbnails de Kodi")
+    add_dir("[B][COLOR deepskyblue]Vider Cache uniquement[/COLOR][/B]", 'cache_seul', artworkPath + 'Logo Vider.png', "Vider uniquement le dossier Cache de Kodi")
+    add_dir("[B][COLOR deepskyblue]Vider Temp uniquement[/COLOR][/B]", 'tmp_seul', artworkPath + 'Logo Vider.png', "Vider uniquement le dossier Temp de Kodi")
+    add_dir("[B][COLOR deepskyblue]Vider Packages uniquement[/COLOR][/B]", 'package_seul', artworkPath + 'Logo Vider.png', "Vider uniquement le dossier Packages de Kodi")
+    add_dir("[B][COLOR deepskyblue]Vider Thumbnails uniquement[/COLOR][/B]", 'thumb_seul', artworkPath + 'Logo Vider.png', "Vider uniquement le dossier Thumbnails de Kodi")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)  
 
 ##############################################
@@ -601,7 +680,7 @@ def vider_cache():
 
 def del_icon_aw():
     # Nettoyer tout
-    xbmc.executebuiltin("Notification(ICON, Effacement en cours...)")
+    xbmc.executebuiltin("Notification(Ic, Effacement en cours...)")
 
     # Suppression du dossier temporaire
     dirPath = xbmcvfs.translatePath('special://home/userdata/addon_data/iconvod')
@@ -698,6 +777,7 @@ def router(paramstring):
         'men_ext':(men_ext, ""),
         'men_skin':(men_skin,""),
         'modif_option':(modif_option, ""),
+        'men_repos':(men_repos, ""),
         'alloptions':(alloptions, ""),
         'ajout_cpt_ctv': (ajout_cpt_ctv, ""),
         'ref_import': (ref_import, ""),
@@ -742,13 +822,13 @@ def router(paramstring):
         'men_iptv_xtream': (men_iptv_xtream,""),
         'iptv_xt1': (iptv_xt1, ""),
         #'iptvx1': (iptvx1, ""),
-       # 'iptvx2': (iptvx2, ""),
+        #'iptvx2': (iptvx2, ""),
         'iptv_xt2': (iptv_xt2, ""),
         'iptv_xt3': (iptv_xt3, ""),
         'vodt': (vodt, ""),
         'pv': (pv, ""),
         'mv': (mv,""),
-       # 'vm': (vm, ""),
+        #'vm': (vm, ""),
         'dbt': (dbt, ""),
         #'dbtd': (dbtd, ""),
         'dl_skin7': (dl_skin7, ""),
@@ -756,12 +836,15 @@ def router(paramstring):
         #'cuuu': (cuuu,""),
         'pbazo': (pbazo,""),
         'dl_skin8': (dl_skin8, ""),
+        'dl_skin9': (dl_skin9, ""),
+        'install_af': (install_af, ""),
         'sr': (sr, ""),
         'del_icon_aw': (del_icon_aw, ""),
         'cache_vst': (cache_vst, ""),
         'mv1': (mv1,""),
         'men_skin_bazoluc': (men_skin_bazoluc, ""),
         'men_skin_bazoland': (men_skin_bazoland, ""),
+        'men_skin_osmoze': (men_skin_osmoze, ""),
         'kodi21': (kodi21, ""),
         'sav_serv': (sav_serv, ""),
         'res_serv': (res_serv, ""),
@@ -777,6 +860,18 @@ def router(paramstring):
         'fav_auto_sav': (fav_auto_sav, ""),
         'fav_cat': (fav_cat, ""),
         'r_fav_cat': (r_fav_cat, ""),
+        
+        #Lecture des News et logs de l'addon
+        'log_updates': (log_updates, ""),
+        'bazoland_news': (bazoland_news, ""),    
+        
+        #Téléchargement des référenrciels
+        'rep_jurialmunkey': (rep_jurialmunkey, ""),
+        'rep_vstream': (rep_vstream, ""),
+        'rep_autowidget': (rep_autowidget, ""),
+        'rep_kodinerds': (rep_kodinerds, ""),
+        'rep_michaz': (rep_michaz, ""),
+        'rep_catchuptv': (rep_catchuptv, ""),
             }
     if params:
         fn = params['action']

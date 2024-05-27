@@ -17,7 +17,7 @@ def dl():
         with ZipFile(BytesIO(zipresp.read())) as zfile:
             zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data/pvr.iptvsimple'))
 
-    xbmc.executebuiltin("Notification(EXTRACTION OK, pvr foxx ok)")
+    xbmc.executebuiltin("Notification(EXTRACTION OK, Liste VAVOO ok)")
     xbmc.sleep(2000)
     xbmc.executebuiltin("Notification(FICHIER TEMP, Effacement en cours...)")
 

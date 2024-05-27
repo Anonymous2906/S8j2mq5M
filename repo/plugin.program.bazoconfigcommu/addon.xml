@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.bazoconfigcommu" version="1.1.7" name="BazoLand" provider-name="Bazo, Osmoze, Magnum, Luc">
+<addon id="plugin.program.bazoconfigcommu" version="1.1.8" name="BazoLand" provider-name="Bazo, Osmoze, Magnum, Luc">
 	<requires>
         <import addon="script.module.requests" />
 	</requires>
@@ -8,29 +8,43 @@
     </extension>
     <extension point="xbmc.addon.metadata">
         <summary lang="en">BazoLand</summary>
-        <description lang="fr">Configurer KODI en quelques minutes, spécialement conçu pour notre communauté.</description>
-        <disclaimer lang="fr">En cas de bugs, voir avec Bazo ou Osmoze.</disclaimer>
+        <description lang="fr">Configurer KODI en quelques minutes, spécialement conçu pour la communauté de Bazoland.</description>
+        <disclaimer lang="fr">En cas de bugs, contacter Bazo ou Osmoze sur Discord.</disclaimer>
         <language>en</language>
         <platform>all</platform>
         <forum></forum>
         <website></website>
         <source></source>
     <news>
-VERSION 1.0.0 - 05/08/2023
+Version 1.1.8 - Osmoze06 - 27 Mai 2024
+- Ajout du script pour la lecture du changelog de l'addon
+- Ajout du script pour la lecture des news de la communauté
+- Correction de la notification d'installation de la liste PVR VAVOO
+- Ajout du skin Arctic Fuse pour vStream + IPTV PVR
+- Dissociation des installations des référentiels
+
+Version 1.1.7 - Magnum - 25 Mai 2024
+- Corrections orthographe
+
+Version 1.0.4 - 22 Décembre 2023
+- Ajout "Config AH2 Foxx"
+
+Version 1.0.3 - 11 Décembre 2023
+- Ajout "Config AH2 et AH2 light Bazoluc"
+
+Version 1.0.2 - 22 Novembre 2023
+- Corrections mineures
+
+Version 1.0.1 - 20 Novembre 2023
+- Corrections orthographe
+- Ajout des skins HK3
+- Ajout du support HK3
+
+Version 1.0.0 - 05 Août 2023
 - Création initiale
-VERTION 1.0.1 - 20/11/2023
-- correction ortographe
-- ajout des skin hk3
-- ajout du support hk3
-VERTION 1.0.2 - 22/11/2023
--correction mineur
-VERTION 1.0.3 - 11/12/2023
-ajout config ah2 et ah2 light bazoluc
-VERTION 1.0.4 - 22/12/2023
-ajout config ah2 foxx
     </news>		
         <assets>
-            <icon>icon.png</icon>
+            <icon>Logo Bazoland.png</icon>
             <fanart>fanart.jpg</fanart>
         </assets>		
     </extension>

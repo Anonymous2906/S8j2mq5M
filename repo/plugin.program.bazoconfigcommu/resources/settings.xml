@@ -1,12 +1,12 @@
 <settings>
     <!-- Général -->
     <category label="Code Principal">
-        <setting label="Injecter vos comptes" type="lsep" />
+        <setting label="Renseignez votre compte" type="lsep" />
         <setting id="cu" label="[B]Code Unique[/B]" type="text" default="xxxxxx"/>
     </category>
 
     <category label="Codes Secondaires">
-        <setting label="Configuration des comptes" type="lsep" />
+        <setting label="Configuration des autres comptes" type="lsep" />
         <setting id="numAnotepad0" label="Config HK3" type="text" default="xxxxxx" />
         <setting id="vst" label="Config Torrent Bazoland" type="text" default="xxxxxx" />
         <setting id="dbtd" label="Db Torrent" type="text" default="xxxxxx" />
@@ -16,9 +16,9 @@
     </category>
     <category label="Profil Bazoland">
         <setting id="pseudo" label="Pseudo" type="text" default="" />
-        <setting id="startup_delay" type="text" label="Délai au démarrage (minutes) service bazoland fav online" default="1" />
-        <setting id="backup_interval" type="text" label="Intervalle de sauvegarde (minutes) service bazoland fav online" default="2" />
-        <setting id="script_status" type="text" label="État du service fav maj vst mettre start pour mettre en route" default="stop" />
+        <setting id="startup_delay" type="text" label="Délai au démarrage (minutes) du Service Bazoland Fav Online" default="1" />
+        <setting id="backup_interval" type="text" label="Intervalle de sauvegarde (minutes) du Service Bazoland Fav Online" default="2" />
+        <setting id="script_status" type="text" label="État du service Fav Maj Vst, écrivez start pour mettre en route" default="stop" />
 
     </category>
 </settings>

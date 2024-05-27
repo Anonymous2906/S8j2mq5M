@@ -1,2 +1,26 @@
-V1.0.0
-Création Initiale du programme
+[COLOR deepskyblue][B] Version 1.1.8 [/B][/COLOR] - Osmoze06 - 27 Mai 2024
+- Ajout du script pour la lecture du changelog de l'addon
+- Ajout du script pour la lecture des news de la communauté
+- Correction notification d'installation de la liste PVR Vavoo
+- Ajout du skin Arctic Fuse pour vStream + IPTV PVR
+- Dissociation des installations des référentiels
+
+[COLOR deepskyblue][B] Version 1.1.7 [/B][/COLOR] - Magnum - 25 Mai 2024
+- Corrections orthographe
+
+[COLOR deepskyblue][B] Version 1.0.4 [/B][/COLOR] - 22 Décembre 2023
+- Ajout "Config AH2 Foxx"
+
+[COLOR deepskyblue][B] Version 1.0.3 [/B][/COLOR] - 11 Décembre 2023
+- Ajout "Config AH2 et AH2 light Bazoluc"
+
+[COLOR deepskyblue][B] Version 1.0.2 [/B][/COLOR] - 22 Novembre 2023
+- Corrections mineures
+
+[COLOR deepskyblue][B] Version 1.0.1 [/B][/COLOR] - 20 Novembre 2023
+- Corrections orthographe
+- Ajout des skins HK3
+- Ajout du support HK3
+
+[COLOR deepskyblue][B] Version 1.0.0 [/B][/COLOR] - 05 Août 2023
+- Création initiale
