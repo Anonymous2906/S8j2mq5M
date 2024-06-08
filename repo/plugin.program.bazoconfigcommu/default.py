@@ -377,14 +377,11 @@ def rep_catchuptv():
 
 def send_signalements():
     #Envoi de notification de signalement (Script Externe)
-    #import send_signalements
+    import send_signalements
+    send_signalements.main()
     
 ##############################################
 
-    
-import xbmcaddon
-import requests
-import re
 
 def cuu():
     import codeunique

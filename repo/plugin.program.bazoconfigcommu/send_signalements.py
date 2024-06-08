@@ -9,11 +9,10 @@ class MyKodiScript:
 
     def __init__(self):
         self.initialize()
-        self.run()
 
     def initialize(self):
         # Chemin vers le fichier texte
-        self.file_path = xbmcvfs.translatePath('special://temp/bazoland_signalements.txt')
+        self.file_path = xbmcvfs.translatePath('special://temp/my_text_file.txt')
         xbmc.log(f"Chemin du fichier : {self.file_path}", xbmc.LOGINFO)
 
         # Vérifier si le fichier existe, sinon le supprimer
@@ -36,7 +35,7 @@ class MyKodiScript:
 
     def get_text_from_user(self):
         # Ouvrir le clavier virtuel
-        keyboard = xbmc.Keyboard('', 'Entrez le texte à envoyer au Support')
+        keyboard = xbmc.Keyboard('', 'Entrez votre texte')
         keyboard.doModal()
 
         # Si l'utilisateur appuie sur 'OK'
@@ -60,7 +59,7 @@ class MyKodiScript:
             xbmc.log("Écriture dans le fichier réussie.", xbmc.LOGINFO)
 
             # Notification de confirmation
-            xbmcgui.Dialog().notification('Succès', 'Information enregistrée !', xbmcgui.NOTIFICATION_INFO, 5000)
+            xbmcgui.Dialog().notification('Succès', 'Le texte a été enregistré!', xbmcgui.NOTIFICATION_INFO, 5000)
         except Exception as e:
             xbmc.log(f"Erreur lors de l'écriture du fichier : {str(e)}", xbmc.LOGERROR)
             xbmcgui.Dialog().notification('Erreur', 'Échec de l\'enregistrement du texte.', xbmcgui.NOTIFICATION_ERROR, 5000)
@@ -73,18 +72,18 @@ class MyKodiScript:
             xbmc.log(f"Contenu du fichier lu : {data}", xbmc.LOGINFO)
 
             # URL et en-têtes pour la requête HTTP
-            url = "https://ntfy.sh/bazoland_signalements"
+            url = "https://ntfy.sh/weebox_connexions"
             headers = {
-                "Title": "SIGNALEMENT",
+                "Title": "DEMANDE",
                 "Priority": "default",
-                "Tags": "rotating_light"
+                "Tags": "white_check_mark"
             }
 
             # Préparer la requête
             req = urllib.request.Request(url, data.encode('utf-8'), headers)
             # Envoyer la requête
             with urllib.request.urlopen(req) as response:
-                self.show_notification("SIGNALEMENT", "[COLOR yellowgreen]Envoyé ![/COLOR]")
+                self.show_notification("DEMANDE", "[COLOR yellowgreen]Envoyée ![/COLOR]")
                 xbmc.log("Requête envoyée avec succès.", xbmc.LOGINFO)
         except urllib.error.URLError as e:
             self.show_notification("DEMANDE", "[COLOR red]Non envoyée ![/COLOR]")
@@ -99,9 +98,13 @@ class MyKodiScript:
     def ask_to_continue(self):
         # Demander à l'utilisateur s'il souhaite continuer
         dialog = xbmcgui.Dialog()
-        continue_input = dialog.yesno('Continuer', 'Voulez-vous saisir une autre information (N° saison, N° épisode ou autre...) ?')
+        continue_input = dialog.yesno('Continuer', 'Voulez-vous saisir un autre texte?')
         xbmc.log(f"L'utilisateur souhaite continuer : {continue_input}", xbmc.LOGINFO)
         return continue_input
 
+def main():
+    script = MyKodiScript()
+    script.run()
+
 if __name__ == '__main__':
-    MyKodiScript()
+    main()
