@@ -119,7 +119,7 @@ Version 1.0.0 - 05 Août 2023
 - Création initiale
     </news>		
         <assets>
-            <icon>Logo Bazoland.png</icon>
+            <icon>icone.png</icon>
             <fanart>fanart.jpg</fanart>
         </assets>		
     </extension>
