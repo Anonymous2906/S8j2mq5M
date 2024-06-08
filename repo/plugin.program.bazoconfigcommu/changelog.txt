@@ -1,4 +1,4 @@
-[COLOR deepskyblue][B] Version 1.1.9 [/B][/COLOR] - Bazo, Osmoze06 - 08 Juin 2024
+[COLOR deepskyblue][B] Version 1.2.0 [/B][/COLOR] - Bazo, Osmoze06 - 08 Juin 2024
 - Ajout de la fonction pour envoyer un signalement directement depuis KODI
 - Refonte du système de synchronisation de la database vStream
 - Mise à jour d'autoexec (pour la synchronisation)
