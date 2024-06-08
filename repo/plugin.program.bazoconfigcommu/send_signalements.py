@@ -35,7 +35,7 @@ class MyKodiScript:
 
     def get_text_from_user(self):
         # Ouvrir le clavier virtuel
-        keyboard = xbmc.Keyboard('', 'Entrez votre texte')
+        keyboard = xbmc.Keyboard('', 'Entrez le texte à envoyer')
         keyboard.doModal()
 
         # Si l'utilisateur appuie sur 'OK'
@@ -59,7 +59,7 @@ class MyKodiScript:
             xbmc.log("Écriture dans le fichier réussie.", xbmc.LOGINFO)
 
             # Notification de confirmation
-            xbmcgui.Dialog().notification('Succès', 'Le texte a été enregistré!', xbmcgui.NOTIFICATION_INFO, 5000)
+            xbmcgui.Dialog().notification('SSuccès', 'Information enregistrée !', xbmcgui.NOTIFICATION_INFO, 5000)
         except Exception as e:
             xbmc.log(f"Erreur lors de l'écriture du fichier : {str(e)}", xbmc.LOGERROR)
             xbmcgui.Dialog().notification('Erreur', 'Échec de l\'enregistrement du texte.', xbmcgui.NOTIFICATION_ERROR, 5000)
@@ -74,19 +74,19 @@ class MyKodiScript:
             # URL et en-têtes pour la requête HTTP
             url = "https://ntfy.sh/weebox_connexions"
             headers = {
-                "Title": "DEMANDE",
+                "Title": "SIGNALEMENT",
                 "Priority": "default",
-                "Tags": "white_check_mark"
+                "Tags": "rotating_light"
             }
 
             # Préparer la requête
             req = urllib.request.Request(url, data.encode('utf-8'), headers)
             # Envoyer la requête
             with urllib.request.urlopen(req) as response:
-                self.show_notification("DEMANDE", "[COLOR yellowgreen]Envoyée ![/COLOR]")
+                self.show_notification("SIGNALEMENT", "[COLOR yellowgreen]Envoyée ![/COLOR]")
                 xbmc.log("Requête envoyée avec succès.", xbmc.LOGINFO)
         except urllib.error.URLError as e:
-            self.show_notification("DEMANDE", "[COLOR red]Non envoyée ![/COLOR]")
+            self.show_notification("SIGNALEMENT", "[COLOR red]Non envoyée ![/COLOR]")
             xbmc.log(f"Erreur lors de l'envoi de la requête : {str(e)}", xbmc.LOGERROR)
         except Exception as e:
             xbmc.log(f"Erreur lors de la lecture du fichier ou de l'envoi de la requête : {str(e)}", xbmc.LOGERROR)
@@ -98,7 +98,7 @@ class MyKodiScript:
     def ask_to_continue(self):
         # Demander à l'utilisateur s'il souhaite continuer
         dialog = xbmcgui.Dialog()
-        continue_input = dialog.yesno('Continuer', 'Voulez-vous saisir un autre texte?')
+        continue_input = dialog.yesno('Continuer', 'Voulez-vous saisir une autre information (N° saison, N° épisode ou autre...) ?')
         xbmc.log(f"L'utilisateur souhaite continuer : {continue_input}", xbmc.LOGINFO)
         return continue_input
 
