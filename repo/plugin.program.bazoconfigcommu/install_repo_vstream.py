@@ -25,8 +25,8 @@ for repository_name in repository_names:
         xbmc.executebuiltin("Notification(INSTALLATION, Référentiel " + repository_name + " déjà installé !)")
 
 # Une fois que tous les référentiels sont installés, vous pouvez afficher une notification pour indiquer qu'un redémarrage est nécessaire
-    xbmc.executebuiltin("Notification(FERMETURE DE KODI, Veuillez redémarrer...)")
-xbmc.sleep(2000)
-xbmc.executebuiltin('Quit')
+    xbmc.executebuiltin("Notification(REDEMARRAGE, Veuillez redémarrer KODI à la fin de vos installations...)")
+#xbmc.sleep(2000)
+#xbmc.executebuiltin('Quit')
 
 sys.exit()

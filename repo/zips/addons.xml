@@ -67,7 +67,7 @@
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.program.bazoconfigcommu" version="1.1.8" name="BazoLand" provider-name="Bazo, Osmoze, Magnum, Luc">
+</addon><addon id="plugin.program.bazoconfigcommu" version="1.1.9" name="BazoLand" provider-name="Bazo, Osmoze, Magnum, Luc">
 	<requires>
         <import addon="script.module.requests" />
 	</requires>
@@ -84,6 +84,13 @@
         <website />
         <source />
     <news>
+Version 1.1.9 - Bazo, Osmoze06 - 08 Juin 2024
+- Ajout de la fonction pour envoyer un signalement directement depuis KODI
+- Refonte du système de synchronisation de la database vStream
+- Mise à jour d'autoexec (pour la synchronisation)
+- Correction de l'installation des référenciels pour ne plus quitter
+- Correction du problème d'affichage du logo de l'addon depuis le repo
+	
 Version 1.1.8 - Osmoze06 - 27 Mai 2024
 - Ajout du script pour la lecture du changelog de l'addon
 - Ajout du script pour la lecture des news de la communauté
@@ -528,7 +535,7 @@ Version 1.0.0 - 05 Août 2023
     <fanart>fanart.jpg</fanart>
   </assets>
 </extension>
-</addon><addon id="service.autoexec" name="Autoexec Service" version="1.0.2" provider-name="Service_Bazoland">
+</addon><addon id="service.autoexec" name="Autoexec Service" version="1.0.3" provider-name="Service_Bazoland">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 	</requires>

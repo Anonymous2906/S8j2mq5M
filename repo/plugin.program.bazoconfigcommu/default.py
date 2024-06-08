@@ -72,6 +72,7 @@ def modif_option():
     add_dir("[B][COLOR red]Nettoyer KODI[/COLOR][/B]", 'nettoye', artworkPath + 'Logo Nettoyer.png', "Menu pour nettoyer tous les dossiers de Kodi, en une fois ou séparément (Cache, Temp, Packages et Thumbnails).")
     add_dir("Vider cache vStream ", 'cache_vst', artworkPath + 'Logo Vider.png', "Vider le cache de vStream.")
     add_dir ("Gestion Backup", 'gb', artworkPath + 'Logo Backup.png', "Menu de gestion des Backups pour les Favoris et les Config.")
+    add_dir ("Signalement", 'send_signalements', artworkPath + 'Logo Signaler.png', "Envoyer un signalement de liens morts, de bugs ou autres.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 ###############################################
@@ -89,8 +90,8 @@ def gconf():
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
     
 def fav():
-    add_dir("Sauvegarder Fav vStream", "fav_sync", artworkPath + 'Logo Sauvegarder.png', "Permet de sauvegarder les Favoris vStream.")
-    add_dir("Restaurer Fav vStream", "sfav", artworkPath + 'Logo Restaurer.png', "Permet de restaurer les Favoris vStream.")
+    add_dir("Sauvegarder Fav vStream", "fav_txt", artworkPath + 'Logo Sauvegarder.png', "Permet de sauvegarder les Favoris vStream.")
+    add_dir("Restaurer Fav vStream", "fav_txt_r", artworkPath + 'Logo Restaurer.png', "Permet de restaurer les Favoris vStream.")
     add_dir("Sauvegarder Fav Catchup", "fav_cat", artworkPath + 'Logo Sauvegarder.png', "Permet de sauvegarder les Favoris Catchup.")
     add_dir("Restaurer Fav Catchup", "r_fav_cat", artworkPath + 'Logo Restaurer.png', "Permet de restaurer les Favoris Catchup.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True,)
@@ -231,8 +232,10 @@ def men_iptv_xtream():
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 ############################################## FIN LISTE DES MENUS ###############################################
-
-
+def fav_txt_r():
+    import restaurer_fav
+def fav_txt():
+    import recuperer_fav
 def fav_auto_sav():
     import sav_auto_fav
     sav_auto_fav.sav_auto()
@@ -372,6 +375,13 @@ def rep_catchuptv():
 
 ##############################################
 
+def send_signalements():
+    #Envoi de notification de signalement (Script Externe)
+    #import send_signalements
+    
+##############################################
+
+    
 import xbmcaddon
 import requests
 import re
@@ -861,9 +871,10 @@ def router(paramstring):
         'fav_cat': (fav_cat, ""),
         'r_fav_cat': (r_fav_cat, ""),
         
-        #Lecture des News et logs de l'addon
+        #Lecture des News, logs et envoi de signalements de l'addon
         'log_updates': (log_updates, ""),
-        'bazoland_news': (bazoland_news, ""),    
+        'bazoland_news': (bazoland_news, ""),
+        'send_signalements': (send_signalements, ""),        
         
         #Téléchargement des référenrciels
         'rep_jurialmunkey': (rep_jurialmunkey, ""),
@@ -872,6 +883,8 @@ def router(paramstring):
         'rep_kodinerds': (rep_kodinerds, ""),
         'rep_michaz': (rep_michaz, ""),
         'rep_catchuptv': (rep_catchuptv, ""),
+        'fav_txt': (fav_txt, ""),
+        'fav_txt_r': (fav_txt_r, ""),
             }
     if params:
         fn = params['action']
