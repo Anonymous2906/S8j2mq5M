@@ -59,7 +59,7 @@ class MyKodiScript:
             xbmc.log("Écriture dans le fichier réussie.", xbmc.LOGINFO)
 
             # Notification de confirmation
-            xbmcgui.Dialog().notification('SSuccès', 'Information enregistrée !', xbmcgui.NOTIFICATION_INFO, 5000)
+            xbmcgui.Dialog().notification('Succès', 'Information enregistrée !', xbmcgui.NOTIFICATION_INFO, 5000)
         except Exception as e:
             xbmc.log(f"Erreur lors de l'écriture du fichier : {str(e)}", xbmc.LOGERROR)
             xbmcgui.Dialog().notification('Erreur', 'Échec de l\'enregistrement du texte.', xbmcgui.NOTIFICATION_ERROR, 5000)
@@ -72,7 +72,7 @@ class MyKodiScript:
             xbmc.log(f"Contenu du fichier lu : {data}", xbmc.LOGINFO)
 
             # URL et en-têtes pour la requête HTTP
-            url = "https://ntfy.sh/weebox_connexions"
+            url = "https://ntfy.sh/bazoland_signalements"
             headers = {
                 "Title": "SIGNALEMENT",
                 "Priority": "default",

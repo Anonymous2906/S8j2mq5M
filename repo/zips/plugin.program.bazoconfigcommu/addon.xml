@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.bazoconfigcommu" version="1.2.2" name="BazoLand" provider-name="Bazo, Osmoze, Magnum, Luc">
+<addon id="plugin.program.bazoconfigcommu" version="1.2.3" name="BazoLand" provider-name="Bazo, Osmoze, Magnum, Luc">
 	<requires>
         <import addon="script.module.requests" />
 	</requires>
@@ -16,6 +16,11 @@
         <website></website>
         <source></source>
     <news>
+	
+Version 1.2.3 - Osmoze06 - 09 Juin 2024
+- Correction adresse serveur de signalement
+- Correction d'orthographe
+	
 Version 1.2.2 - Bazo, Osmoze06 - 08 Juin 2024
 - Ajout de la fonction pour envoyer un signalement directement depuis KODI
 - Refonte du système de synchronisation de la database vStream

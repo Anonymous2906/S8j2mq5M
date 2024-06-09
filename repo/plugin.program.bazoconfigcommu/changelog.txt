@@ -1,9 +1,16 @@
-[COLOR deepskyblue][B] Version 1.2.1 [/B][/COLOR] - Bazo, Osmoze06 - 08 Juin 2024
+[COLOR deepskyblue][B] Version 1.2.3 [/B][/COLOR] - Osmoze06 - 09 Juin 2024
+- Correction adresse serveur de signalement
+- Correction d'orthographe
+
+[COLOR deepskyblue][B] Version 1.2.2 [/B][/COLOR] - Bazo, Osmoze06 - 08 Juin 2024
 - Ajout de la fonction pour envoyer un signalement directement depuis KODI
 - Refonte du système de synchronisation de la database vStream
 - Mise à jour d'autoexec (pour la synchronisation)
 - Correction de l'installation des référenciels pour ne plus quitter
 - Correction du problème d'affichage du logo de l'addon depuis le repo
+
+[COLOR deepskyblue][B] Version 1.1.9 [/B][/COLOR] - Osmoze06 - 08 Juin 2024
+- Problèmes de mise à jour repo, obligation de montée de version 1.2.2
 
 [COLOR deepskyblue][B] Version 1.1.8 [/B][/COLOR] - Osmoze06 - 27 Mai 2024
 - Ajout du script pour la lecture du changelog de l'addon
