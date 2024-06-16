@@ -173,7 +173,7 @@ Version 1.0.0 - 05 Août 2023
       <screenshot>screenshot-02.jpg</screenshot>
     </assets>
   </extension>
-</addon><addon id="plugin.video.vstream" name="vStream" version="2.9.3~Bazoland1" provider-name="venom-xbmc-addons">
+</addon><addon id="plugin.video.vstream" name="vStream" version="2.9.3~Bazoland2" provider-name="venom-xbmc-addons">
     <requires>
 
         <trycatch>
@@ -185,10 +185,10 @@ Version 1.0.0 - 05 Août 2023
                 <import addon="xbmc.python" version="2.24.0" />
             </catch>
         </trycatch>
-        <import addon="repository.vstream" />
+        
         <import addon="script.module.pyqrcode" />
         <import addon="script.module.requests" />
-        <import addon="script.module.dnspython" optional="true" />
+        
         
     </requires>
 
