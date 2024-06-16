@@ -1,6 +1,6 @@
 [COLOR deepskyblue][B] Version 1.2.5 [/B][/COLOR] - Osmoze06 - 16 Juin 2024
 - Bookmark Online pour Vstream - 2.9.3
-- Mise à jour du service Bazoland 1.0.5- Actualisation des modifications Vstream
+- Service Bazoland 1.0.5- Actualisation des modifications Vstream
 
 [COLOR deepskyblue][B] Version 1.2.3 [/B][/COLOR] - Osmoze06 - 09 Juin 2024
 - Correction adresse serveur de signalement
