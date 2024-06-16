@@ -173,7 +173,7 @@ Version 1.0.0 - 05 Août 2023
       <screenshot>screenshot-02.jpg</screenshot>
     </assets>
   </extension>
-</addon><addon id="plugin.video.vstream" name="vStream" version="2.9.3~Bazoland.1" provider-name="venom-xbmc-addons">
+</addon><addon id="plugin.video.vstream" name="vStream" version="2.9.3~Bazoland1" provider-name="venom-xbmc-addons">
     <requires>
 
         <trycatch>
