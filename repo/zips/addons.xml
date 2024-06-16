@@ -67,7 +67,7 @@
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.program.bazoconfigcommu" version="1.2.4" name="BazoLand" provider-name="Bazo, Osmoze, Magnum, Luc">
+</addon><addon id="plugin.program.bazoconfigcommu" version="1.2.5" name="BazoLand" provider-name="Bazo, Osmoze, Magnum, Luc">
 	<requires>
         <import addon="script.module.requests" />
 	</requires>
@@ -84,9 +84,9 @@
         <website />
         <source />
     <news>
-Version 1.2.4 - Osmoze06 - 16 Juin 2024
-- Bookmark Online pour Vstream - 2.9.3~Bazoland.1
-- Correction d'orthographe
+Version 1.2.5 - Osmoze06 - 16 Juin 2024
+- Bookmark Online pour Vstream - 2.9.3
+- Service Bazoland 1.0.5- Actualisation des modifications Vstream
 
 Version 1.2.3 - Osmoze06 - 09 Juin 2024
 - Correction adresse serveur de signalement
@@ -543,7 +543,7 @@ Version 1.0.0 - 05 Août 2023
     <fanart>fanart.jpg</fanart>
   </assets>
 </extension>
-</addon><addon id="service.autoexec" name="Autoexec Service" version="1.0.4" provider-name="Service_Bazoland">
+</addon><addon id="service.autoexec" name="Autoexec Service" version="1.0.5" provider-name="Service_Bazoland">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 	</requires>
