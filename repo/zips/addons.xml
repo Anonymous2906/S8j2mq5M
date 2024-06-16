@@ -67,7 +67,7 @@
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.program.bazoconfigcommu" version="1.2.3" name="BazoLand" provider-name="Bazo, Osmoze, Magnum, Luc">
+</addon><addon id="plugin.program.bazoconfigcommu" version="1.2.4" name="BazoLand" provider-name="Bazo, Osmoze, Magnum, Luc">
 	<requires>
         <import addon="script.module.requests" />
 	</requires>
@@ -84,7 +84,10 @@
         <website />
         <source />
     <news>
-	
+Version 1.2.4 - Osmoze06 - 16 Juin 2024
+- Bookmark Online pour Vstream - 2.9.3~Bazoland.1
+- Correction d'orthographe
+
 Version 1.2.3 - Osmoze06 - 09 Juin 2024
 - Correction adresse serveur de signalement
 - Correction d'orthographe

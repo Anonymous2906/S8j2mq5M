@@ -1,3 +1,6 @@
+[COLOR deepskyblue][B] Version 1.2.4 [/B][/COLOR] - Osmoze06 - 16 Juin 2024
+- Bookmark Online pour Vstream - 2.9.3~Bazoland.1
+
 [COLOR deepskyblue][B] Version 1.2.3 [/B][/COLOR] - Osmoze06 - 09 Juin 2024
 - Correction adresse serveur de signalement
 - Correction d'orthographe

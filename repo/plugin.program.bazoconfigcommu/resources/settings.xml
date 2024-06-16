@@ -2,23 +2,22 @@
     <!-- Général -->
     <category label="Code Principal">
         <setting label="Renseignez votre compte" type="lsep" />
-        <setting id="cu" label="[B]Code Unique[/B]" type="text" default="xxxxxx"/>
+        <setting id="cu" label="[B]Code Unique[/B]" type="text" default=""/>
     </category>
 
     <category label="Codes Secondaires">
         <setting label="Configuration des autres comptes" type="lsep" />
-        <setting id="numAnotepad0" label="Config HK3" type="text" default="xxxxxx" />
-        <setting id="vst" label="Config Torrent Bazoland" type="text" default="xxxxxx" />
-        <setting id="dbtd" label="Db Torrent" type="text" default="xxxxxx" />
-        <setting id="iptvx1" label="IPTVx1" type="text" default="xxxxxx" />
-        <setting id="iptvx2" label="IPTVx2" type="text" default="xxxxxx" />
-        <setting id="iptvx3" label="IPTVx3" type="text" default="xxxxxx" />
+        <setting id="numAnotepad0" label="Config HK3" type="text" default="" />
+        <setting id="vst" label="Config Torrent Bazoland" type="text" default="" />
+        <setting id="dbtd" label="Db Torrent" type="text" default="" />
+        <setting id="iptvx1" label="IPTVx1" type="text" default="" />
+        <setting id="iptvx2" label="IPTVx2" type="text" default="" />
+        <setting id="iptvx3" label="IPTVx3" type="text" default="" />
     </category>
     <category label="Profil Bazoland">
-        <setting id="pseudo" label="Pseudo" type="text" default="" />
-        <setting id="startup_delay" type="text" label="Délai au démarrage (minutes) du Service Bazoland Fav Online" default="1" />
-        <setting id="backup_interval" type="text" label="Intervalle de sauvegarde (minutes) du Service Bazoland Fav Online" default="2" />
-        <setting id="script_status" type="text" label="État du service Fav Maj Vst, écrivez start pour mettre en route" default="stop" />
-
+        <setting id="pseudo" label="[B]Pseudo[/B]" type="text" default="" />
+        <setting label="Synchronisation du Bookmark" type="lsep" />
+		<setting id="server" label="Adresse Serveur" type="text" default="http://bazoland.atspace.tv/" />
+        <setting id="server_status" type="bool" label="Activation" default="false" />
     </category>
 </settings>

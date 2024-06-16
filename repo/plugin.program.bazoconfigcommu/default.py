@@ -24,6 +24,36 @@ import subprocess
 artworkPath = xbmcvfs.translatePath('special://home/addons/plugin.program.bazoconfigcommu/resources/media/')
 fanart = artworkPath + "fanart.jpg"
 
+############################################## BOOKMARK ONLINE ###############################################
+
+# Initialiser les paramètres de l'add-on
+addon = xbmcaddon.Addon()
+
+def cree_profil_bookmark():
+    # Création du dossier profil pour le bookmark online (Script Externe)
+    try:
+        # Assurez-vous que le script externe est importé correctement
+        import cree_profil_bookmark
+        xbmcgui.Dialog().notification('SYNCHRONISATION', 'Bookmark en ligne actif', xbmcgui.NOTIFICATION_INFO, 5000)
+        xbmc.log('Script executed successfully', level=xbmc.LOGINFO)
+    except Exception as e:
+        xbmcgui.Dialog().notification('Bookmark Sync', f'Failed to execute script: {str(e)}', xbmcgui.NOTIFICATION_ERROR, 5000)
+        xbmc.log(f'Failed to execute script: {str(e)}', level=xbmc.LOGERROR)
+
+def execute_script():
+    # Récupérer la valeur de 'server_status'
+    server_status = addon.getSettingBool('server_status')
+    
+    # Vérifier l'état de 'server_status' et exécuter le script si activé
+    if server_status:
+        cree_profil_bookmark()
+
+# Appeler la fonction d'exécution du script au démarrage de l'add-on
+execute_script()
+
+############################################## FIN ###############################################
+
+
 def notice(content):
     log(content, xbmc.LOGINFO)
 
@@ -381,7 +411,6 @@ def send_signalements():
     send_signalements.main()
     
 ##############################################
-
 
 def cuu():
     import codeunique
