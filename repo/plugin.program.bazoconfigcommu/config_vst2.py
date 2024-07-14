@@ -32,9 +32,18 @@ def code():
         xbmc.executebuiltin("Notification(Aucune clé Rentry.co trouvée, time=5000)")
 
 def extract_rentry():
-    addon = xbmcaddon.Addon()
-    num_rentry = addon.getSetting("vst")
-    url = f"http://tobal.duckdns.org:805/api/public/dl/{num_rentry.strip()}?inline=true"
+    addon = xbmcaddon.Addon("plugin.program.bazoconfigcommu")  # Assurez-vous d'utiliser le bon ID de l'addon
+    pseudo = addon.getSetting("pseudo")
+    vst = addon.getSetting("vst")
+
+    if not pseudo:
+        xbmc.executebuiltin("Notification(Aucun pseudo trouvé dans les paramètres de l'addon, time=5000)")
+        return None
+    if not vst:
+        xbmc.executebuiltin("Notification(Aucune clé VST trouvée dans les paramètres de l'addon, time=5000)")
+        return None
+
+    url = f"http://tobal.duckdns.org/profils/{pseudo}/past_config/{vst.strip()}?inline=true"
 
     try:
         response = requests.get(url)

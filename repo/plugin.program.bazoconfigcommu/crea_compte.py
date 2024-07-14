@@ -29,6 +29,20 @@ def creer_dossier_pseudo():
             ftp.mkd("backups")
             ftp.mkd("fav_vst")
             ftp.mkd("fav_catchup")
+            ftp.quit()
+
+            ftp = ftplib.FTP()
+            ftp.connect("tobal.duckdns.org", 50)  # Connexion au serveur FTP sur le port 50
+            ftp.login("bazoland", "tobalbazo")
+            ftp.cwd("/dossier_partager/bookmark_online/html/profils")  # Accéder au dossier partagé des profils
+            ftp.mkd(pseudo)
+            ftp.quit()
+
+            # Créez les sous-dossiers backup, fav_vst et fav_catchup
+            ftp = ftplib.FTP()
+            ftp.connect("tobal.duckdns.org", 50)  # Connexion au serveur FTP sur le port 50
+            ftp.login("bazoland", "tobalbazo")
+            ftp.cwd("/dossier_partager/bookmark_online/html/profils/{}".format(pseudo))  # Accéder au dossier du pseudo
             ftp.mkd("past_config")
             ftp.quit()
 

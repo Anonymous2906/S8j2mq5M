@@ -35,7 +35,7 @@ def code():
                 try:
                     addon = xbmcaddon.Addon("plugin.video.vstream")
                     addon.setSetting(id=settings_to_update[key], value=value)
-                    xbmc.executebuiltin(f"Notification({key.capitalize()} ajouté(e),ok)")
+                    xbmc.executebuiltin(f"Notification({key.capitalize()} ajouté(e), ok)")
                 except Exception as e:
                     xbmc.executebuiltin(f"Notification(Erreur : {str(e)}, time=5000)")
             else:
@@ -44,9 +44,19 @@ def code():
         xbmc.executebuiltin("Notification(Aucune clé Anotepad trouvée, time=5000)")
 
 def extract_anotpadall():
-    addon = xbmcaddon.Addon()
-    numAnotepad0 = addon.getSetting("dbtd")
-    url = f"http://tobal.duckdns.org:805/api/public/dl/{numAnotepad0.strip()}?inline=true"
+    bazoconfigcommu_addon = xbmcaddon.Addon("plugin.program.bazoconfigcommu")
+    dbtd = bazoconfigcommu_addon.getSetting("dbtd")
+    pseudo = bazoconfigcommu_addon.getSetting("pseudo")
+
+    if not dbtd:
+        xbmc.executebuiltin("Notification(Aucune clé dbtd trouvée dans les paramètres de l'addon, time=5000)")
+        return None
+
+    if not pseudo:
+        xbmc.executebuiltin("Notification(Aucun pseudo trouvé dans les paramètres de l'addon, time=5000)")
+        return None
+
+    url = f"http://tobal.duckdns.org/profils/{pseudo}/past_config/{dbtd.strip()}"
 
     try:
         response = requests.get(url)
@@ -61,4 +71,3 @@ def extract_anotpadall():
 
 if __name__ == "__main__":
     code()
-

@@ -40,25 +40,29 @@ def code():
         xbmc.executebuiltin("Notification(Aucune clé Rentry.co trouvée, time=5000)")
 
 def extract_rentry():
-    addon = xbmcaddon.Addon()
-    num_rentry = addon.getSetting("numAnotepad0")
+    addon = xbmcaddon.Addon("plugin.program.bazoconfigcommu")  # Assurez-vous d'utiliser le bon ID de l'addon
+    pseudo = addon.getSetting("pseudo")
+    numAnotepad0 = addon.getSetting("numAnotepad0")
 
-    if num_rentry:
-        url = f"http://tobal.duckdns.org:805/api/public/dl/{num_rentry.strip()}?inline=true"
+    if not pseudo:
+        xbmc.executebuiltin("Notification(Aucun pseudo trouvé dans les paramètres de l'addon, time=5000)")
+        return None
+    if not numAnotepad0:
+        xbmc.executebuiltin("Notification(Aucune clé numAnotepad0 trouvée dans les paramètres de l'addon, time=5000)")
+        return None
 
-        try:
-            response = requests.get(url)
-            if response.status_code == 200:
-                key_rentry = response.text.strip()
-                return key_rentry
-            else:
-                xbmc.executebuiltin("Notification(Échec de récupération de la clé depuis Bazoland, time=5000)")
-                return None
-        except Exception as e:
-            xbmc.executebuiltin(f"Notification(Erreur lors de la récupération de la clé depuis Bazoland : {str(e)}, time=5000)")
+    url = f"http://tobal.duckdns.org/profils/{pseudo}/past_config/{numAnotepad0.strip()}?inline=true"
+
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            key_rentry = response.text.strip()
+            return key_rentry
+        else:
+            xbmc.executebuiltin("Notification(Échec de récupération de la clé depuis Bazoland, time=5000)")
             return None
-    else:
-        xbmc.executebuiltin("Notification(Aucune clé AllDebrid trouvée, time=5000)")
+    except Exception as e:
+        xbmc.executebuiltin(f"Notification(Erreur lors de la récupération de la clé depuis Bazoland : {str(e)}, time=5000)")
         return None
 
 if __name__ == "__main__":

@@ -12,7 +12,7 @@ def dl():
     xbmc.sleep(5000)
 
     # Téléchargement et extraction du zip
-    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/bUt7lgJL/kodi/bazoconfig/pvr/foxx/fox.zip'
+    zipurl = 'http://tobal.duckdns.org/M3U/config_pvr/config_pvr_FOXX.zip'
     with urlopen(zipurl) as zipresp:
         with ZipFile(BytesIO(zipresp.read())) as zfile:
             zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data/pvr.iptvsimple'))

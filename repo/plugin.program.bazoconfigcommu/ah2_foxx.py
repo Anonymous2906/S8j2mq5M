@@ -1,36 +1,99 @@
 import xbmc
 import xbmcvfs
+import xbmcgui
 import shutil
-from zipfile import ZipFile
-from io import BytesIO
 from urllib.request import urlopen
+from zipfile import ZipFile
+import os
 
-def dl():
+# Fonction pour télécharger et extraire le fichier ZIP avec une boîte de dialogue de progression
+def download_and_extract(url, save_path):
+    progress_dialog = xbmcgui.DialogProgress()
+    progress_dialog.create('Téléchargement de la Mise à Jour', 'Téléchargement en cours...')
+    req = urlopen(url)
+    total_size = int(req.headers['Content-Length'])
+    downloaded = 0
+    block_size = 8192  # Taille des blocs à télécharger
+    with open(save_path, 'wb') as f:
+        while True:
+            buffer = req.read(block_size)
+            if not buffer:
+                break
+            downloaded += len(buffer)
+            f.write(buffer)
+            percent = int(downloaded * 100 / total_size)
+            progress_dialog.update(percent, 'Téléchargement: {}%'.format(percent))
+            if progress_dialog.iscanceled():
+                progress_dialog.close()
+                return False
+    progress_dialog.update(100, 'Extraction en cours...')
+    with ZipFile(save_path, 'r') as zfile:
+        zfile.extractall(os.path.dirname(save_path))
+    progress_dialog.close()
+    return True
+
+# Suppression du dossier temporaire
+dirPath = xbmcvfs.translatePath('special://home/temp/')
+try:
+    shutil.rmtree(dirPath)
+except:
+    print('Error while deleting directory')
+
+xbmc.executebuiltin("Notification(MISE A JOUR SKIN, Téléchargement en cours...)")
+
+# Création du répertoire de sauvegarde si nécessaire
+save_directory = xbmcvfs.translatePath('special://home/temp/temp/ah2_foxx/')
+xbmcvfs.mkdirs(save_directory)
+
+# Téléchargement et extraction du zip
+zipurl = 'http://tobal.duckdns.org/config_skins/ah2_foxx.zip'
+save_path = os.path.join(save_directory, 'ah2_foxx.zip')
+
+# Barre de progression pour le téléchargement et l'extraction
+download_successful = download_and_extract(zipurl, save_path)
+
+if download_successful:
+    xbmc.executebuiltin("Notification(TELECHARGEMENT ET EXTRACTION OK, Préparation...)")
+
+    # Barre de progression pour l'exécution du reste du script
+    progress_dialog = xbmcgui.DialogProgress()
+    progress_dialog.create('Mise à Jour en cours...', 'Veuillez patienter...')
+    progress = 0
+
     # Désactiver l'addon autowidget
     xbmc.executeJSONRPC('{"jsonrpc": "2.0", "id":1, "method": "Addons.SetAddonEnabled", "params": { "addonid": "plugin.program.autowidget", "enabled": false }}')
-    xbmc.sleep(5000)
+    xbmc.sleep(3000)
 
-    # Téléchargement et extraction du zip
-    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/xZ1i0UZB/kodi/bazoconfig/add/ah2-foxx.zip'
-    with urlopen(zipurl) as zipresp:
-        with ZipFile(BytesIO(zipresp.read())) as zfile:
-            zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data'))
+    # Copie des fichiers extraits
+    source_dir1 = xbmcvfs.translatePath('special://home/temp/temp/ah2_foxx/')
+    destination_dir1 = xbmcvfs.translatePath('special://home/profile/addon_data')
 
-    xbmc.executebuiltin("Notification(EXTRACTION OK, skin installé)")
-    xbmc.sleep(2000)
-    xbmc.executebuiltin("Notification(FICHIER TEMP, Effacement en cours...)")
 
-    # Suppression du dossier temporaire
-    dirPath = xbmcvfs.translatePath('special://home/temp/temp/')
-    try:
-       shutil.rmtree(dirPath)
-    except:
-       print('Error while deleting directory')
+
+    files_to_copy = [
+        (source_dir1, destination_dir1),
+    ]
+
+    total_files = len(files_to_copy)
+
+    for source, destination in files_to_copy:
+        if os.path.isdir(source):
+            shutil.copytree(source, destination, dirs_exist_ok=True)
+        else:
+            shutil.copy(source, destination)
+        progress += 1
+        progress_percent = int(progress * 100 / total_files)
+        progress_dialog.update(progress_percent, 'Copie des fichiers: {}%'.format(progress_percent))
 
     # Réactiver l'addon autowidget
     xbmc.executeJSONRPC('{"jsonrpc": "2.0", "id":1, "method": "Addons.SetAddonEnabled", "params": { "addonid": "plugin.program.autowidget", "enabled": true }}')
-    xbmc.sleep(5000)
-    xbmc.executebuiltin("Notification(TERMINE , ...)")
+    xbmc.sleep(3000)
 
-# Appel de la fonction dl
-dl()
+    progress_dialog.close()
+    xbmc.executebuiltin("Notification(MISE A JOUR, Terminée !)")
+    shutil.rmtree(dirPath)
+    xbmc.sleep(2000)
+    xbmc.executebuiltin('ReloadSkin')
+
+else:
+    xbmc.executebuiltin("Notification(TELECHARGEMENT ET EXTRACTION ANNULÉS, Préparation annulée)")

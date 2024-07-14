@@ -1,4 +1,5 @@
 import xbmc
+import xbmcaddon
 import xbmcvfs
 import zipfile
 import urllib.request
@@ -23,6 +24,61 @@ def extract_zip(zip_path, extract_path):
     except Exception as e:
         xbmc.log(f"Failed to extract file: {e}", xbmc.LOGERROR)
         return False
+
+def extract_settings_from_url():
+    url = "http://tobal.duckdns.org/config_vstream/config_vst_pastebin.txt"
+    try:
+        with urllib.request.urlopen(url) as response:
+            if response.status == 200:
+                return response.read().decode('utf-8').strip()
+            else:
+                xbmc.executebuiltin("Notification(Échec de récupération des paramètres depuis l'URL, time=5000)")
+                return None
+    except Exception as e:
+        xbmc.executebuiltin(f"Notification(Erreur lors de l'extraction du contenu depuis l'URL : {str(e)}, time=5000)")
+        return None
+
+def update_settings():
+    settings_to_update = {
+        'hpast': 'pastebin_url',
+        'dossier1': 'pastebin_label_1',
+        'past1': 'pastebin_id_1',
+        'dossier2': 'pastebin_label_2',
+        'past2': 'pastebin_id_2',
+        'dossier3': 'pastebin_label_3',
+        'past3': 'pastebin_id_3',
+        'dossier4': 'pastebin_label_4',
+        'past4': 'pastebin_id_4',
+        'dossier5': 'pastebin_label_5',
+        'past5': 'pastebin_id_5',
+        'dossier6': 'pastebin_label_6',
+        'past6': 'pastebin_id_6',
+        'dossier7': 'pastebin_label_7',
+        'past7': 'pastebin_id_7',
+        'dossier8': 'bazoland_label_1',
+        'past8': 'bazoland_id_1'
+    }
+
+    key_param = extract_settings_from_url()
+
+    if key_param:
+        key_values = key_param.split('\n')
+        for key_value in key_values:
+            key, value = key_value.split('=')
+            key = key.strip().lower()
+            value = value.strip()
+
+            if key in settings_to_update:
+                try:
+                    addon = xbmcaddon.Addon("plugin.video.vstream")
+                    addon.setSetting(id=settings_to_update[key], value=value)
+                    xbmc.executebuiltin(f"Notification({key.capitalize()} ajouté(e), ok)")
+                except Exception as e:
+                    xbmc.executebuiltin(f"Notification(Erreur : {str(e)}, time=5000)")
+            else:
+                xbmc.executebuiltin(f"Notification(Clé inconnue : {key}, time=5000)")
+    else:
+        xbmc.executebuiltin("Notification(Aucune clé trouvée, time=5000)")
 
 def main():
     # Chemins des fichiers
@@ -64,6 +120,9 @@ def main():
     # Recharger le skin
     xbmc.executebuiltin('ReloadSkin')
     xbmc.log("Reloaded skin", xbmc.LOGINFO)
+
+    # Mettre à jour les paramètres de pastebin
+    update_settings()
 
 if __name__ == '__main__':
     main()

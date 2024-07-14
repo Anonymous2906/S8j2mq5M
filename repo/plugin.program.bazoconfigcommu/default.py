@@ -163,9 +163,9 @@ def vodt():
     xbmcplugin.setPluginCategory(__handle__, "Menu vStream")
     xbmcplugin.setContent(__handle__, 'files')
     add_dir("[B]1.[/B] Installation de vStream", 'addons2', artworkPath + 'Logo Installer.png', "Permet d'installer vStream.")
-    add_dir("[B]2.[/B] Patch Bazoland",'mv', artworkPath + 'Logo Importer.png', "Permet d'ajouter des modifications spéciales de Bazoland à vStream, l'addon d'origine ne les proposant pas (à effectuer après chaque MAJ de vStream).")
-    add_dir("[B]3.[/B] Importer Paramètres", 'mv1', artworkPath + 'Logo Importer.png', "Permet d'importer les paramètres de vStream en un clic.")
-    add_dir("[B]4.[/B] Importer DB Torrent", 'dbt', artworkPath + 'Logo Importer.png', "Permet d'importer la DB Torrent.")
+    add_dir("[B]2.[/B] Importer Paramètres", 'mv1', artworkPath + 'Logo Importer.png', "Permet d'importer les paramètres de vStream en un clic.")
+    add_dir("[B]3.[/B] Importer DB Torrent", 'dbt', artworkPath + 'Logo Importer.png', "Permet d'importer la DB Torrent.")
+    add_dir("[B]4.[/B]Insallation du Service", 'install_autoexec', artworkPath + 'Logo Installer.png', "Installation d'autoexec pour l'actualisation des paramètres au démarrage.")    
     add_dir("Paramètres de vStream", 'pv', artworkPath + 'Logo Parametres.png', "Permet d'ouvrir les paramètres de vStream.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
@@ -178,7 +178,8 @@ def men_pvr():
     add_dir("[B]2.[/B] Installation de Vavoo",'vavooto', artworkPath + 'Logo Installer.png', "Permet d'installer l'addon Vavoo TV qui propose gratuitement des chaînes TV en français.")
     add_dir("[B]3.[/B] Importer liste TV m3u Vavoo",'vavoopvr', artworkPath + 'Logo Importer.png', "Permet d'importer une liste TV au format m3u pour Vavoo PVR.")
     add_dir("[B]4.[/B] Importer liste TV m3u Foxx",'foxxpvr', artworkPath + 'Logo Importer.png', "Permet d'importer une liste TV au format m3u pour Foxx PVR.")
-    add_dir("[B]5.[/B] Installation de CatchupTV",'catchuptv', artworkPath + 'Logo Installer.png', "Permet d'installer l'addon Catchup TV pour le replay des chaînes TV.")
+    add_dir("[B]5.[/B] Importer liste TV m3u Catchup + Vavoo",'catchuppvr', artworkPath + 'Logo Importer.png', "Permet d'importer une liste TV au format m3u pour Catchup et Vavoo PVR.")
+    add_dir("[B]6.[/B] Installation de CatchupTV",'catchuptv', artworkPath + 'Logo Installer.png', "Permet d'installer l'addon Catchup TV pour le replay des chaînes TV.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
 ###############################################
@@ -214,7 +215,10 @@ def men_skin_bazoland():
     add_dir("Importer icônes", 'au_maj', artworkPath + 'Logo Importer.png', "Permet d'importer les icônes additionnelles pour les skins.")
     add_dir("[B]AutoWidget :[/B] Installer l'addon", 'autowidget', artworkPath + 'Logo Installer.png', "Permet d'installer l'addon Autowidget pour les skins.")
     add_dir("[B]Arctic Horizon 2[/B] avec HK3 + vStream + IPTV", 'dl_skin7', artworkPath + 'Logo AH 2.png', "Permet de télécharger une configuration du skin Arctic Horizon 2 avec HK3 + vStream + IPTV.")
+    add_dir("[B] Arctic Horizon 2[/B] avec HK3 + Vstream (on continue fusioner) + iptv", 'dl_skin10', artworkPath + 'Logo AH 2.png', "Permet de Télécharger une configuration du skin Arctic Horizon 2 avec Hk3 + vStream (on continue fusioné) + iptv")
     add_dir("[B]Estuary v2 [/B] avec HK3 + vStream + IPTV", 'dl_skin8', artworkPath + 'Logo Estuary V2.png', "Permet de télécharger une configuration du skin Estuary v2 avec HK3 + vStream + IPTV.")
+    add_dir("[B] Mimic [/B] avec VST + iptv", 'dl_skin11', artworkPath + 'Logo Mimic.png', "Permet de telecharger une configuration du skin Mimic avec vst + iptv")
+    add_dir("[B] Mimic [/B] avec hk3 + vst (on continu fusioner) + iptv", 'dl_skin12', artworkPath + 'Logo Mimic.png', "Permet de telecharger une configuration du skin Mimic avec HK3 + vst (on continue fusioné) + iptv")
     add_dir("[B][COLOR red]Supprimer Icônes et Autowidget pour mise à jour[/COLOR][/B]", 'del_icon_aw', artworkPath + 'Logo Supprimer.png', "Supprimer les dossiers Icônes additionnelles et Autowidget des skins afin de réinstaller un skin proprement.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
 
@@ -260,6 +264,19 @@ def men_iptv_xtream():
     add_dir("[B]2.[/B] Importer compte Fournisseur 2", 'iptv_xt2', artworkPath + 'Logo Importer.png', "Permet d'importer le compte 2.")
     add_dir("[B]3.[/B] Importer compte Fournisseur 3", 'iptv_xt3', artworkPath + 'logo Importer.png', "Permet d'importer le compte 3.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
+
+# MENU NETTOYAGE
+def nettoye():
+    xbmc
+    #menu nettoyage
+    xbmcplugin.setPluginCategory(__handle__, "Nettoyer Kodi")
+    xbmcplugin.setContent(__handle__, 'files')
+    add_dir("[B][COLOR red]Vider Kodi en un seul clic[/COLOR][/B]", 'vider_cache', artworkPath + 'Logo Vider.png', "Vider en un seul clic, TOUS les dossiers Cache, Temp, Packages et Thumbnails de Kodi")
+    add_dir("[B][COLOR deepskyblue]Vider Cache uniquement[/COLOR][/B]", 'cache_seul', artworkPath + 'Logo Vider.png', "Vider uniquement le dossier Cache de Kodi")
+    add_dir("[B][COLOR deepskyblue]Vider Temp uniquement[/COLOR][/B]", 'tmp_seul', artworkPath + 'Logo Vider.png', "Vider uniquement le dossier Temp de Kodi")
+    add_dir("[B][COLOR deepskyblue]Vider Packages uniquement[/COLOR][/B]", 'package_seul', artworkPath + 'Logo Vider.png', "Vider uniquement le dossier Packages de Kodi")
+    add_dir("[B][COLOR deepskyblue]Vider Thumbnails uniquement[/COLOR][/B]", 'thumb_seul', artworkPath + 'Logo Vider.png', "Vider uniquement le dossier Thumbnails de Kodi")
+    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)  
 
 ############################################## FIN LISTE DES MENUS ###############################################
 def fav_txt_r():
@@ -311,73 +328,58 @@ def repo():
     #Installation de tous les référentiels nécéssaires
     import install_repositories
 
-##############################################
+################## INSTALLATION DES ADDONS ##################
 
 def addons():
     #Installation de l'addon U2Pplay (Script Externe)
     import install_u2p
 
-##############################################
-
 def addons2():
     #Installation de l'addon VStream (Script Externe)
     import install_vstream
 
-##############################################    
-
 def pvr():
     #Installation de l'addon PVR Simple Client (Script Externe)
-    import install_pvr
-
-##############################################  
+    import install_pvr 
 
 def vavooto():
     #Installation de l'addon Vavooto (Script Externe)
-    import install_vavoo
-
-##############################################  
-
-def vavoopvr():
-    #Installation de la liste m3u Vavooto (Script Externe)
-    import vavoopvr
-    vavoopvr.dl()
-    
-##############################################  
-
-def foxxpvr():
-    #Installation de la liste m3u FOXX (Script Externe)
-    import foxxpvr
-    foxxpvr.dl()
-    
-##############################################  
-
+    import install_vavoo 
+ 
 def catchuptv():
     #Installation de l'addon Catchup TV & More beta (Script Externe)
-    import install_catchuptv
-
-##############################################    
+    import install_catchuptv   
 
 def upnext():
     #Installation de l'addon UPNext (Script Externe)
     import install_upnext
 
-##############################################
-
 def autowidget():
     #Installation de l'addon AutoWidget (Script Externe)
     import install_autowidget
 
-##############################################
+def install_autoexec():
+    #Installation du service autoexec (Script Externe)
+    import install_autoexec    
 
-def log_updates():
-    #Affichage des logs de mises à jour du plugin (Script Externe)
-    import log_updates
+################## INSTALLATION DES PARAMETRES PVR ##################
 
-def bazoland_news():
-    #Affichage des news (Script Externe)
-    import bazoland_news
-    
-##############################################
+def vavoopvr():
+    #Installation de la liste m3u VAVOOTO (Script Externe)
+    import vavoopvr
+    vavoopvr.dl() 
+
+def foxxpvr():
+    #Installation de la liste m3u FOXX (Script Externe)
+    import foxxpvr
+    foxxpvr.dl()
+
+def catchuppvr():
+    #Installation de la liste m3u CATCHUP / VOVOOTO (Script Externe)
+    import catchuppvr
+    catchuppvr.dl()    
+   
+################## INSTALLATION DES REFERENCIELS ##################
 
 def rep_jurialmunkey():
     #Installation de référenciel (Script Externe)
@@ -403,8 +405,17 @@ def rep_catchuptv():
     #Installation de référenciel (Script Externe)
     import install_repo_catchuptv
 
-##############################################
 
+################## DIVERS ##################
+
+def log_updates():
+    #Affichage des logs de mises à jour du plugin (Script Externe)
+    import log_updates
+
+def bazoland_news():
+    #Affichage des news (Script Externe)
+    import bazoland_news
+    
 def send_signalements():
     #Envoi de notification de signalement (Script Externe)
     import send_signalements
@@ -424,12 +435,12 @@ def au_maj():
     # mise a jour icone aura
     # telechargement et extraction du zip
     xbmc.sleep(5000)
-    zipurl = 'http://tobal.duckdns.org:805/api/public/dl/42iiVP9Z/kodi/bazoconfig/icon/icon.zip'
+    zipurl = 'http://tobal.duckdns.org/config_skins/iconvodBlanc.zip'
     xbmc.sleep(5000)
     with urlopen(zipurl) as zipresp:
         with ZipFile(BytesIO(zipresp.read())) as zfile:
             zfile.extractall(xbmcvfs.translatePath('special://home/temp/temp/addon_data/iconvod'))
- # copie des fichiers extraie
+    # copie des fichiers extraie
     source_dir = xbmcvfs.translatePath('special://home/temp/temp/addon_data/iconvod')
     destination_dir = xbmcvfs.translatePath('special://home/userdata/addon_data/')
     #source_dir2 = xbmcvfs.translatePath('special://home/temp/temp/addons')
@@ -450,15 +461,14 @@ def au_maj():
        print('Error while deleting directory')
     xbmc.sleep(1000)
     xbmc.executebuiltin("Notification(TERMINE , ...)")
-
 ##############################################
 
 # INSTALLER LE SKIN estuarry v2 bazoluc
 def dl_skin():
     import estuary_iptv
 
-##############################################
-    
+
+
 def dl_skin2():
     import estuary_hk3
 
@@ -484,23 +494,30 @@ def dl_skin6():
 ##############################################
 
 def dl_skin7():
-   import bazoland
+   import bazoland_ah2_2
 
 ##############################################
-
 def dl_skin8():
-    import bazoland2
+    import bazoland_estuary
 
 ##############################################
 
 def dl_skin9():
     import pack_arctic_fuse
-    
+##############################################
+def dl_skin10():
+    import bazoland_ah2_1
+##############################################
+def dl_skin11():
+    import mimic_vst
+##############################################
+def dl_skin12():
+    import mimic2
 ##############################################
 
 def install_af():
     import install_arctic_fuse
-    
+
 ##############################################
     
 def dbt():
@@ -516,28 +533,13 @@ def pv():
 
 ##############################################
 
-def mv():
-    import config_vst
-    # Appeler la fonction code() de config_hk3.py
-    config_vst.dl()
 def mv1():
     import config_vst2
     config_vst2.code()
 
-
 ##############################################
 
 def back_db():
-    # installer le skin cosmic bazoluc iptv
-    # telechargement et extraction du zip
-    #xbmc.sleep(5000)
-    #zipurl = 'http://tobal.duckdns.org:805/api/public/dl/bDj_Ruq9/kodi/bazoconfig/backup_db/mediasNewSauve.bd.zip'
-    #xbmc.sleep(5000)
-    #with urlopen(zipurl) as zipresp:
-        #with ZipFile(BytesIO(zipresp.read())) as zfile:
-            #zfile.extractall(xbmcvfs.translatePath('special://home/userdata/addon_data/plugin.video.sendtokodiU2P'))
-    #xbmc.executebuiltin( 'RunPlugin(plugin://plugin.video.sendtokodiU2P/?action=gestiondb)')
-    #showInfoNotification("db telechargé cliquez sur restauration")
     import back_db
     
 ###############################################
@@ -618,10 +620,6 @@ def anote():
         showInfoNotification("Erreur lors de l'extraction du contenu Anotepad : " + str(e))
         return None
 
-###############################################
-
-
-###############################################
 
 ###############################################
 
@@ -658,18 +656,7 @@ def actuskin():
 
 ##############################################
 
-# MENU NETTOYAGE
-def nettoye():
-    xbmc
-    #menu nettoyage
-    xbmcplugin.setPluginCategory(__handle__, "Nettoyer Kodi")
-    xbmcplugin.setContent(__handle__, 'files')
-    add_dir("[B][COLOR red]Vider Kodi en un seul clic[/COLOR][/B]", 'vider_cache', artworkPath + 'Logo Vider.png', "Vider en un seul clic, TOUS les dossiers Cache, Temp, Packages et Thumbnails de Kodi")
-    add_dir("[B][COLOR deepskyblue]Vider Cache uniquement[/COLOR][/B]", 'cache_seul', artworkPath + 'Logo Vider.png', "Vider uniquement le dossier Cache de Kodi")
-    add_dir("[B][COLOR deepskyblue]Vider Temp uniquement[/COLOR][/B]", 'tmp_seul', artworkPath + 'Logo Vider.png', "Vider uniquement le dossier Temp de Kodi")
-    add_dir("[B][COLOR deepskyblue]Vider Packages uniquement[/COLOR][/B]", 'package_seul', artworkPath + 'Logo Vider.png', "Vider uniquement le dossier Packages de Kodi")
-    add_dir("[B][COLOR deepskyblue]Vider Thumbnails uniquement[/COLOR][/B]", 'thumb_seul', artworkPath + 'Logo Vider.png', "Vider uniquement le dossier Thumbnails de Kodi")
-    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)  
+
 
 ##############################################
 
@@ -844,6 +831,7 @@ def router(paramstring):
         'vavooto': (vavooto, ""),
         'vavoopvr': (vavoopvr, ""),
         'foxxpvr': (foxxpvr, ""),        
+        'catchuppvr': (catchuppvr, ""),
         'catchuptv': (catchuptv, ""),
         'upnext': (upnext, ""),        
         'autowidget': (autowidget, ""), 
@@ -863,7 +851,6 @@ def router(paramstring):
         'iptv_xt3': (iptv_xt3, ""),
         'vodt': (vodt, ""),
         'pv': (pv, ""),
-        'mv': (mv,""),
         #'vm': (vm, ""),
         'dbt': (dbt, ""),
         #'dbtd': (dbtd, ""),
@@ -901,6 +888,7 @@ def router(paramstring):
         'log_updates': (log_updates, ""),
         'bazoland_news': (bazoland_news, ""),
         'send_signalements': (send_signalements, ""),        
+        'install_autoexec': (install_autoexec, ""),
         
         #Téléchargement des référenrciels
         'rep_jurialmunkey': (rep_jurialmunkey, ""),
@@ -911,6 +899,9 @@ def router(paramstring):
         'rep_catchuptv': (rep_catchuptv, ""),
         'fav_txt': (fav_txt, ""),
         'fav_txt_r': (fav_txt_r, ""),
+        'dl_skin10': (dl_skin10, ""),
+        'dl_skin11': (dl_skin11, ""),
+        'dl_skin12': (dl_skin12, ""),
             }
     if params:
         fn = params['action']

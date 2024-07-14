@@ -16,12 +16,17 @@ def code():
     }
 
     addon = xbmcaddon.Addon("plugin.program.bazoconfigcommu")
-    numAnotepad0 = addon.getSetting("cu")
-    if not numAnotepad0:
-        xbmc.executebuiltin("Notification(Aucune clé trouvée dans les paramètres de l'addon, time=5000)")
+    pseudo = addon.getSetting("pseudo")
+    cu = addon.getSetting("cu")
+
+    if not pseudo:
+        xbmc.executebuiltin("Notification(Aucun pseudo trouvé dans les paramètres de l'addon, time=5000)")
+        return
+    if not cu:
+        xbmc.executebuiltin("Notification(Aucune clé CU trouvée dans les paramètres de l'addon, time=5000)")
         return
 
-    rentry_url = f"http://tobal.duckdns.org:805/api/public/dl/{numAnotepad0.strip()}?inline=true"
+    rentry_url = f"http://tobal.duckdns.org/profils/{pseudo}/past_config/{cu.strip()}?inline=true"
 
     try:
         response = requests.get(rentry_url)
