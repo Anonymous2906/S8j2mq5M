@@ -30,6 +30,8 @@ def download_and_extract(url, save_path):
     with ZipFile(save_path, 'r') as zfile:
         zfile.extractall(os.path.dirname(save_path))
     progress_dialog.close()
+    # Supprimer le fichier ZIP après extraction
+    os.remove(save_path)
     return True
 
 # Suppression du dossier temporaire
@@ -66,9 +68,7 @@ if download_successful:
 
     # Copie des fichiers extraits
     source_dir1 = xbmcvfs.translatePath('special://home/temp/temp/skin.estuary.modv2_VST-HK3_IPTV/')
-    destination_dir1 = xbmcvfs.translatePath('special://home/profile/addon_data')
-
-
+    destination_dir1 = xbmcvfs.translatePath('special://home/userdata/addon_data')
 
     files_to_copy = [
         (source_dir1, destination_dir1),
@@ -97,4 +97,3 @@ if download_successful:
 
 else:
     xbmc.executebuiltin("Notification(TELECHARGEMENT ET EXTRACTION ANNULÉS, Préparation annulée)")
-

@@ -164,7 +164,7 @@ def vodt():
     xbmcplugin.setContent(__handle__, 'files')
     add_dir("[B]1.[/B] Installation de vStream", 'addons2', artworkPath + 'Logo Installer.png', "Permet d'installer vStream.")
     add_dir("[B]2.[/B] Importer Paramètres", 'mv1', artworkPath + 'Logo Importer.png', "Permet d'importer les paramètres de vStream en un clic.")
-    add_dir("[B]3.[/B] Importer DB Torrent", 'dbt', artworkPath + 'Logo Importer.png', "Permet d'importer la DB Torrent.")
+    #add_dir("[B]3.[/B] Importer DB Torrent", 'dbt', artworkPath + 'Logo Importer.png', "Permet d'importer la DB Torrent.")
     add_dir("[B]4.[/B]Insallation du Service", 'install_autoexec', artworkPath + 'Logo Installer.png', "Installation d'autoexec pour l'actualisation des paramètres au démarrage.")    
     add_dir("Paramètres de vStream", 'pv', artworkPath + 'Logo Parametres.png', "Permet d'ouvrir les paramètres de vStream.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)

@@ -29,6 +29,7 @@ def download_and_extract(url, save_path):
     progress_dialog.update(100, 'Extraction en cours...')
     with ZipFile(save_path, 'r') as zfile:
         zfile.extractall(os.path.dirname(save_path))
+    os.remove(save_path)  # Suppression du fichier ZIP après extraction
     progress_dialog.close()
     return True
 
@@ -66,9 +67,7 @@ if download_successful:
 
     # Copie des fichiers extraits
     source_dir1 = xbmcvfs.translatePath('special://home/temp/temp/ah2_hk3_light/')
-    destination_dir1 = xbmcvfs.translatePath('special://home/profile/addon_data')
-
-
+    destination_dir1 = xbmcvfs.translatePath('special://home/userdata/addon_data')
 
     files_to_copy = [
         (source_dir1, destination_dir1),

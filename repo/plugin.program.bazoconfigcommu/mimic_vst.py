@@ -29,6 +29,7 @@ def download_and_extract(url, save_path):
     progress_dialog.update(100, 'Extraction en cours...')
     with ZipFile(save_path, 'r') as zfile:
         zfile.extractall(os.path.dirname(save_path))
+    os.remove(save_path)  # Supprimer le fichier ZIP après l'extraction
     progress_dialog.close()
     return True
 
@@ -36,13 +37,13 @@ def download_and_extract(url, save_path):
 dirPath = xbmcvfs.translatePath('special://home/temp/')
 try:
     shutil.rmtree(dirPath)
-except:
-    print('Error while deleting directory')
+except Exception as e:
+    xbmc.log('Error while deleting directory: {}'.format(e), level=xbmc.LOGERROR)
 
 xbmc.executebuiltin("Notification(MISE A JOUR SKIN, Téléchargement en cours...)")
 
 # Création du répertoire de sauvegarde si nécessaire
-save_directory = xbmcvfs.translatePath('special://home/temp/temp/skin.mimic.lr_VSTseul_IPTV/')
+save_directory = xbmcvfs.translatePath('special://home/temp/temp/')
 xbmcvfs.mkdirs(save_directory)
 
 # Téléchargement et extraction du zip
@@ -65,10 +66,8 @@ if download_successful:
     xbmc.sleep(3000)
 
     # Copie des fichiers extraits
-    source_dir1 = xbmcvfs.translatePath('special://home/temp/temp/skin.mimic.lr_VSTseul_IPTV')
-    destination_dir1 = xbmcvfs.translatePath('special://home/profile/addon_data')
-
-
+    source_dir1 = xbmcvfs.translatePath('special://home/temp/temp/skin.mimic.lr_VSTseul_IPTV/addon_data')
+    destination_dir1 = xbmcvfs.translatePath('special://home/userdata/addon_data')
 
     files_to_copy = [
         (source_dir1, destination_dir1),
@@ -91,7 +90,13 @@ if download_successful:
 
     progress_dialog.close()
     xbmc.executebuiltin("Notification(MISE A JOUR, Terminée !)")
-    shutil.rmtree(dirPath)
+
+    # Supprimer le répertoire temporaire
+    try:
+        shutil.rmtree(dirPath)
+    except Exception as e:
+        xbmc.log('Error while deleting temporary directory: {}'.format(e), level=xbmc.LOGERROR)
+
     xbmc.sleep(2000)
     xbmc.executebuiltin('ReloadSkin')
 

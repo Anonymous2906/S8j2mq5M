@@ -30,6 +30,10 @@ def download_and_extract(url, save_path):
     with ZipFile(save_path, 'r') as zfile:
         zfile.extractall(os.path.dirname(save_path))
     progress_dialog.close()
+
+    # Suppression du fichier ZIP après extraction
+    os.remove(save_path)
+
     return True
 
 # Suppression du dossier temporaire
@@ -66,9 +70,7 @@ if download_successful:
 
     # Copie des fichiers extraits
     source_dir1 = xbmcvfs.translatePath('special://home/temp/temp/skin.arctic.horizon.2_HK3-VST_IPTV/')
-    destination_dir1 = xbmcvfs.translatePath('special://home/profile/addon_data')
-
-
+    destination_dir1 = xbmcvfs.translatePath('special://home/userdata/addon_data')
 
     files_to_copy = [
         (source_dir1, destination_dir1),

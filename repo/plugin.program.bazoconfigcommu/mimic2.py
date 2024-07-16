@@ -29,6 +29,8 @@ def download_and_extract(url, save_path):
     progress_dialog.update(100, 'Extraction en cours...')
     with ZipFile(save_path, 'r') as zfile:
         zfile.extractall(os.path.dirname(save_path))
+    # Suppression du fichier ZIP après extraction
+    os.remove(save_path)
     progress_dialog.close()
     return True
 
@@ -66,9 +68,7 @@ if download_successful:
 
     # Copie des fichiers extraits
     source_dir1 = xbmcvfs.translatePath('special://home/temp/temp/skin.mimic.lr_EnCoursFusionne_HK3_VST_IPTV')
-    destination_dir1 = xbmcvfs.translatePath('special://home/profile/addon_data')
-
-
+    destination_dir1 = xbmcvfs.translatePath('special://home/userdata/addon_data')
 
     files_to_copy = [
         (source_dir1, destination_dir1),
@@ -91,10 +91,15 @@ if download_successful:
 
     progress_dialog.close()
     xbmc.executebuiltin("Notification(MISE A JOUR, Terminée !)")
-    shutil.rmtree(dirPath)
+
+    # Supprimer le dossier temporaire une fois de plus
+    try:
+        shutil.rmtree(dirPath)
+    except:
+        print('Error while deleting directory')
+
     xbmc.sleep(2000)
     xbmc.executebuiltin('ReloadSkin')
 
 else:
     xbmc.executebuiltin("Notification(TELECHARGEMENT ET EXTRACTION ANNULÉS, Préparation annulée)")
-
