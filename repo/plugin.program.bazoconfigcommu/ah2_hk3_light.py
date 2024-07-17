@@ -37,18 +37,18 @@ def download_and_extract(url, save_path):
 dirPath = xbmcvfs.translatePath('special://home/temp/')
 try:
     shutil.rmtree(dirPath)
-except:
-    print('Error while deleting directory')
+except Exception as e:
+    print('Error while deleting directory:', e)
 
-xbmc.executebuiltin("Notification(MISE A JOUR SKIN, Téléchargement en cours...)")
+#xbmc.executebuiltin("Notification(MISE A JOUR SKIN, Téléchargement en cours...)")
 
 # Création du répertoire de sauvegarde si nécessaire
-save_directory = xbmcvfs.translatePath('special://home/temp/temp/ah2_hk3_light/')
+save_directory = xbmcvfs.translatePath('special://home/temp/temp/hk3-ah2-light/')
 xbmcvfs.mkdirs(save_directory)
 
 # Téléchargement et extraction du zip
-zipurl = 'http://tobal.duckdns.org/config_skins/ah2/ah2_hk3_light.zip'
-save_path = os.path.join(save_directory, 'ah2_hk3_light.zip')
+zipurl = 'http://tobal.duckdns.org/config_skins/ah2/hk3-ah2-light.zip'
+save_path = os.path.join(save_directory, 'hk3-ah2-light.zip')
 
 # Barre de progression pour le téléchargement et l'extraction
 download_successful = download_and_extract(zipurl, save_path)
@@ -66,7 +66,7 @@ if download_successful:
     xbmc.sleep(3000)
 
     # Copie des fichiers extraits
-    source_dir1 = xbmcvfs.translatePath('special://home/temp/temp/ah2_hk3_light/')
+    source_dir1 = xbmcvfs.translatePath('special://home/temp/temp/hk3-ah2-light/')
     destination_dir1 = xbmcvfs.translatePath('special://home/userdata/addon_data')
 
     files_to_copy = [
@@ -90,7 +90,9 @@ if download_successful:
 
     progress_dialog.close()
     xbmc.executebuiltin("Notification(MISE A JOUR, Terminée !)")
-    shutil.rmtree(dirPath)
+
+    # Suppression du dossier temporaire
+    shutil.rmtree(xbmcvfs.translatePath('special://home/temp/temp/'))
     xbmc.sleep(2000)
     xbmc.executebuiltin('ReloadSkin')
 

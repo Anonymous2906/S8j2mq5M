@@ -33,15 +33,6 @@ def download_and_extract(url, save_path):
     progress_dialog.close()
     return True
 
-# Suppression du dossier temporaire
-dirPath = xbmcvfs.translatePath('special://home/temp/')
-try:
-    shutil.rmtree(dirPath)
-except Exception as e:
-    xbmc.log('Error while deleting directory: {}'.format(e), level=xbmc.LOGERROR)
-
-xbmc.executebuiltin("Notification(MISE A JOUR SKIN, Téléchargement en cours...)")
-
 # Création du répertoire de sauvegarde si nécessaire
 save_directory = xbmcvfs.translatePath('special://home/temp/temp/')
 xbmcvfs.mkdirs(save_directory)
@@ -92,8 +83,9 @@ if download_successful:
     xbmc.executebuiltin("Notification(MISE A JOUR, Terminée !)")
 
     # Supprimer le répertoire temporaire
+    temp_dir_path = xbmcvfs.translatePath('special://home/temp/temp/')
     try:
-        shutil.rmtree(dirPath)
+        shutil.rmtree(temp_dir_path)
     except Exception as e:
         xbmc.log('Error while deleting temporary directory: {}'.format(e), level=xbmc.LOGERROR)
 

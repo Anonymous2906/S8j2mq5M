@@ -34,22 +34,13 @@ def download_and_extract(url, save_path):
     progress_dialog.close()
     return True
 
-# Suppression du dossier temporaire
-dirPath = xbmcvfs.translatePath('special://home/temp/')
-try:
-    shutil.rmtree(dirPath)
-except:
-    print('Error while deleting directory')
-
-xbmc.executebuiltin("Notification(MISE A JOUR SKIN, Téléchargement en cours...)")
-
 # Création du répertoire de sauvegarde si nécessaire
-save_directory = xbmcvfs.translatePath('special://home/temp/temp/hk3_estuary')
+save_directory = xbmcvfs.translatePath('special://home/temp/temp/hk3-estuary')
 xbmcvfs.mkdirs(save_directory)
 
 # Téléchargement et extraction du zip
-zipurl = 'http://tobal.duckdns.org/config_skins/estuary/hk3_estuary.zip'
-save_path = os.path.join(save_directory, 'hk3_estuary.zip')
+zipurl = 'http://tobal.duckdns.org/config_skins/estuary/hk3-estuary.zip'
+save_path = os.path.join(save_directory, 'hk3-estuary.zip')
 
 # Barre de progression pour le téléchargement et l'extraction
 download_successful = download_and_extract(zipurl, save_path)
@@ -67,7 +58,7 @@ if download_successful:
     xbmc.sleep(3000)
 
     # Copie des fichiers extraits
-    source_dir1 = xbmcvfs.translatePath('special://home/temp/temp/hk3_estuary/')
+    source_dir1 = xbmcvfs.translatePath('special://home/temp/temp/hk3-estuary/')
     destination_dir1 = xbmcvfs.translatePath('special://home/userdata/addon_data')
 
     files_to_copy = [
@@ -91,7 +82,11 @@ if download_successful:
 
     progress_dialog.close()
     xbmc.executebuiltin("Notification(MISE A JOUR, Terminée !)")
+
+    # Supprimer le dossier temporaire après la mise à jour
+    dirPath = xbmcvfs.translatePath('special://home/temp/')
     shutil.rmtree(dirPath)
+
     xbmc.sleep(2000)
     xbmc.executebuiltin('ReloadSkin')
 

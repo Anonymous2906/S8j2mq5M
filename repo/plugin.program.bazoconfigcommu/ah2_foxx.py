@@ -34,20 +34,20 @@ def download_and_extract(url, save_path):
     return True
 
 # Suppression du dossier temporaire
-dirPath = xbmcvfs.translatePath('special://home/temp/')
-try:
-    shutil.rmtree(dirPath)
-except:
-    print('Error while deleting directory')
+#dirPath = xbmcvfs.translatePath('special://home/temp/')
+#try:
+#    shutil.rmtree(dirPath)
+#except:
+#    print('Error while deleting directory')
 
-xbmc.executebuiltin("Notification(MISE A JOUR SKIN, Téléchargement en cours...)")
+#xbmc.executebuiltin("Notification(MISE A JOUR SKIN, Téléchargement en cours...)")
 
 # Création du répertoire de sauvegarde si nécessaire
 save_directory = xbmcvfs.translatePath('special://home/temp/temp/ah2_foxx/')
 xbmcvfs.mkdirs(save_directory)
 
 # Téléchargement et extraction du zip
-zipurl = 'http://tobal.duckdns.org/config_skins/ah2_foxx.zip'
+zipurl = 'http://tobal.duckdns.org/config_skins/ah2/ah2_foxx.zip'
 save_path = os.path.join(save_directory, 'ah2_foxx.zip')
 
 # Barre de progression pour le téléchargement et l'extraction

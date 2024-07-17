@@ -1,7 +1,10 @@
-[COLOR deepskyblue][B] Version 1.2.7 [/B][/COLOR] - Bazo - 16 Juillet 2024
-- Correction script d'installation des Skins
+[COLOR deepskyblue][B] Version 1.2.8 [/B][/COLOR] - Bazo - 17 Juillet 2024
+- Correction scripts d'installation des Skins
 
-[COLOR deepskyblue][B] Version 1.2.6 [/B][/COLOR] - Bazo, Osmoze06 - 14 Juillet 2024
+[COLOR deepskyblue][B] Version 1.2.7 [/B][/COLOR] - Bazo - 16 Juillet 2024
+- Correction scripts d'installation des Skins
+
+[COLOR deepskyblue][B] Version 1.2.6 [/B][/COLOR] - Osmoze06 - 14 Juillet 2024
 - Redirection et renommage des dB Pastes via Autoexec
 - Ajout des Skins de Luc
 - Redirection et nouvelles listes m3u pour PVR (Foxx, Vavoo et Catchup)

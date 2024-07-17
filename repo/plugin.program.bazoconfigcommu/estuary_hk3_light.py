@@ -44,12 +44,12 @@ except:
 xbmc.executebuiltin("Notification(MISE A JOUR SKIN, Téléchargement en cours...)")
 
 # Création du répertoire de sauvegarde si nécessaire
-save_directory = xbmcvfs.translatePath('special://home/temp/temp/hk3_light')
+save_directory = xbmcvfs.translatePath('special://home/temp/temp/hk3-light')
 xbmcvfs.mkdirs(save_directory)
 
 # Téléchargement et extraction du zip
-zipurl = 'http://tobal.duckdns.org/config_skins/estuary/hk3_light.zip'
-save_path = os.path.join(save_directory, 'hk3_light.zip')
+zipurl = 'http://tobal.duckdns.org/config_skins/estuary/hk3-light.zip'
+save_path = os.path.join(save_directory, 'hk3-light.zip')
 
 # Barre de progression pour le téléchargement et l'extraction
 download_successful = download_and_extract(zipurl, save_path)
@@ -67,7 +67,7 @@ if download_successful:
     xbmc.sleep(3000)
 
     # Copie des fichiers extraits
-    source_dir1 = xbmcvfs.translatePath('special://home/temp/temp/hk3_light/')
+    source_dir1 = xbmcvfs.translatePath('special://home/temp/temp/hk3-light/')
     destination_dir1 = xbmcvfs.translatePath('special://home/userdata/addon_data')
 
     files_to_copy = [
