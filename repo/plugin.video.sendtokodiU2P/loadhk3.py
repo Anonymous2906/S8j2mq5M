@@ -268,7 +268,8 @@ class BDMedia:
     def joinBD(self):
         cnx = sqlite3.connect(self.database)
         cur = cnx.cursor()
-
+        log("self.database : " + str(self.database), xbmc.LOGINFO)
+        log("combine.bd : " + str(os.path.join(CHEMIN, "combine.bd")), xbmc.LOGINFO)
         cnx2 = sqlite3.connect(os.path.join(CHEMIN, "combine.bd"))
         cur2 = cnx2.cursor()
 

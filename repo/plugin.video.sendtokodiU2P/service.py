@@ -1271,6 +1271,7 @@ def addDirectoryEpisodes(name, isFolder=True, parameters={}, media="" ):
     return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=isFolder)
 
 def getVerifLinks(numId, typM="movie"):
+    #notice(numId)
     cr = Crypt()
     sql = "SELECT link, release, taille FROM filmsPubLink WHERE numId={}".format(numId)
     paramstring = []
@@ -1282,10 +1283,12 @@ def getVerifLinks(numId, typM="movie"):
         else:
             l[2] = int(float(l[2]))
         paramstring.append(l)
+    
     linksDarkino = [x for x in paramstring if len(x[0]) == 12]
     links = [x for x in paramstring if x not in linksDarkino]
+  
     dictLiensfichier = cr.extractLinks([x[0] for x in links])
-    links = [x for x in links if dictLiensfichier[x[0]]]
+    links = [x for x in links if x[0] in dictLiensfichier]
     if linksDarkino:
         linkOk, linkOut = cr.validLinkDark([x[0] for x in linksDarkino])
         linksDarkino = [x for x in linksDarkino if x[0] not in linkOut]
@@ -5525,6 +5528,7 @@ def rskin3():
     addon.setSetting(id="rskin", value="false")
 
 def importBDhk3():
+    log("------------------------ importBDhk3 ------------------------", xbmc.LOGINFO)
     cr = Crypt()
     filecode = __addon__.getSetting("numdatabase")
     hebergDB = __addon__.getSetting("hebergdb")
@@ -5545,7 +5549,7 @@ def importBDhk3():
         else:
             dictLiens = cr.debridDarkibox(link.split("/")[-1], ApikeyDarkibox)
             linkD = dictLiens["o"][0]
-    #notice(linkD)
+    notice(linkD)
     r = requests.get(linkD, timeout=3)
     open(os.path.join(__repAddonData__, "combine.bd"), 'wb').write(r.content)
     time.sleep(0.2)
