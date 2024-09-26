@@ -212,6 +212,7 @@ def men_skin_bazoland():
       #Menu Skins
     xbmcplugin.setPluginCategory(__handle__, "Menu Bazoland")
     xbmcplugin.setContent(__handle__, 'files')
+    add_dir("[B]Arctic Fuse [/B] menu choix config af bazoland ", 'men_af_bazoland', artworkPath + 'Logo Arctic Fuse.png', "acceder au menu des choix de config pour le skin arctic fuse")
     add_dir("Importer icônes", 'au_maj', artworkPath + 'Logo Importer.png', "Permet d'importer les icônes additionnelles pour les skins.")
     add_dir("[B]AutoWidget :[/B] Installer l'addon", 'autowidget', artworkPath + 'Logo Installer.png', "Permet d'installer l'addon Autowidget pour les skins.")
     add_dir("[B]Arctic Horizon 2[/B] avec HK3 + vStream + IPTV", 'dl_skin7', artworkPath + 'Logo AH 2.png', "Permet de télécharger une configuration du skin Arctic Horizon 2 avec HK3 + vStream + IPTV.")
@@ -221,6 +222,15 @@ def men_skin_bazoland():
     add_dir("[B] Mimic [/B] avec hk3 + vst (on continu fusioner) + iptv", 'dl_skin12', artworkPath + 'Logo Mimic.png', "Permet de telecharger une configuration du skin Mimic avec HK3 + vst (on continue fusioné) + iptv")
     add_dir("[B][COLOR red]Supprimer Icônes et Autowidget pour mise à jour[/COLOR][/B]", 'del_icon_aw', artworkPath + 'Logo Supprimer.png', "Supprimer les dossiers Icônes additionnelles et Autowidget des skins afin de réinstaller un skin proprement.")
     xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)
+
+def men_af_bazoland():
+    xbmcplugin.setPluginCategory(__handle__, "Menu Af Bazoland")
+    xbmcplugin.setContent(__handle__, 'files')
+    add_dir("[B]AutoWidget :[/B] Installer l'addon", 'autowidget', artworkPath + 'Logo Installer.png', "Permet d'installer l'addon Autowidget pour les skins.")
+    add_dir("[B]Arctic fuse [/B] avec vst", 'dl_skin13', artworkPath + 'Logo Arctic Fuse.png', "configuration af avec vst et iptv (foxx et noos)")
+    add_dir("[B]Arctic fuse [/B] avec hk3", 'dl_skin14', artworkPath + 'Logo Arctic Fuse.png', "configuration af avec hk3 et iptv (Foxx et noos)")
+    add_dir("[B]Arctic fuse [/B] avec hk3 et vst", 'dl_skin15', artworkPath + 'Logo Arctic Fuse.png', "configuration af avec hk3 vst et iptv (Foxx et noos)")
+    xbmcplugin.endOfDirectory(handle=__handle__, succeeded=True)    
 
 def men_skin_osmoze():
       #Menu Skins
@@ -513,6 +523,15 @@ def dl_skin11():
 ##############################################
 def dl_skin12():
     import mimic2
+##############################################
+def dl_skin13():
+    import bazoland_af_vst_iptv
+##############################################
+def dl_skin14():
+    import bazoland_af_hk3_iptv
+##############################################
+def dl_skin15():
+    import bazoland_af_hk3_vst_iptv
 ##############################################
 
 def install_af():
@@ -902,6 +921,10 @@ def router(paramstring):
         'dl_skin10': (dl_skin10, ""),
         'dl_skin11': (dl_skin11, ""),
         'dl_skin12': (dl_skin12, ""),
+        'dl_skin13': (dl_skin13, ""),
+        'dl_skin14': (dl_skin14, ""),
+        'dl_skin15': (dl_skin15, ""),
+        'men_af_bazoland': (men_af_bazoland, ""),
             }
     if params:
         fn = params['action']
