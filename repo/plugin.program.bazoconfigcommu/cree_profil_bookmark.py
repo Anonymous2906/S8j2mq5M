@@ -32,7 +32,7 @@ def creer_dossier_pseudo():
 
                 # Définir les chemins des fichiers locaux
                 requete_path = xbmcvfs.translatePath("special://home/addons/plugin.program.bazoconfigcommu/resources/requete.php")
-                vstream_path = xbmcvfs.translatePath("special://home/userdata/addon_data/plugin.video.vstream/vstream.db")
+                vstream_path = xbmcvfs.translatePath("special://home/addons/plugin.program.bazoconfigcommu/resources/vstream.db")
                 
                 # Copier les fichiers dans le dossier créé
                 ftp.cwd(pseudo)
