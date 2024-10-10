@@ -21,9 +21,9 @@ def creer_dossier_pseudo():
         try:
             # Connectez-vous au serveur FTP et créez le dossier
             with ftplib.FTP() as ftp:
-                ftp.connect("bazoland.atspace.tv", 21)  # Connexion au serveur FTP sur le port 21
-                ftp.login("4469528_bazoland", "YDY3+J7g7Pjdt)LN")
-                ftp.cwd("bazoland.atspace.tv/profils")  # Accéder au dossier partagé des profils
+                ftp.connect("tobal.duckdns.org",50)  # Connexion au serveur FTP sur le port 21
+                ftp.login("tobal", "pqx862g5")
+                ftp.cwd("/dossier_partager/bookmark_online/html/bookmark_online/profils/")  # Accéder au dossier partagé des profils
                 try:
                     ftp.mkd(pseudo)
                 except ftplib.error_perm:
@@ -32,7 +32,7 @@ def creer_dossier_pseudo():
 
                 # Définir les chemins des fichiers locaux
                 requete_path = xbmcvfs.translatePath("special://home/addons/plugin.program.bazoconfigcommu/resources/requete.php")
-                vstream_path = xbmcvfs.translatePath("special://home/addons/plugin.program.bazoconfigcommu/resources/vstream.db")
+                vstream_path = xbmcvfs.translatePath("special://home/userdata/addons/plugin.program.bazoconfigcommu/vstream.db")
                 
                 # Copier les fichiers dans le dossier créé
                 ftp.cwd(pseudo)
