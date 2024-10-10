@@ -18,11 +18,11 @@ def force_server_value():
 
             server_setting = root.find("./setting[@id='server']")
             if server_setting is not None:
-                server_setting.text = 'http://tobal.duckdns.org/'
+                server_setting.text = 'http://tobal.duckdns.org'
             else:
                 new_setting = ET.SubElement(root, 'setting')
                 new_setting.set('id', 'server')
-                new_setting.text = 'http://tobal.duckdns.org/'
+                new_setting.text = 'http://tobal.duckdns.org'
 
             tree.write(settings_file, encoding='ISO-8859-1', xml_declaration=True)
             xbmc.log("Server value forced successfully", xbmc.LOGINFO)

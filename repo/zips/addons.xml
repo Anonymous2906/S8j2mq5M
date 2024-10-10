@@ -543,7 +543,7 @@ Version 1.0.0 - 05 Août 2023
     <fanart>fanart.jpg</fanart>
   </assets>
 </extension>
-</addon><addon id="service.autoexec" name="Autoexec Service" version="1.0.8" provider-name="Service_Bazoland">
+</addon><addon id="service.autoexec" name="Autoexec Service" version="1.0.9" provider-name="Service_Bazoland">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 	</requires>
