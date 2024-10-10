@@ -3,7 +3,35 @@ import xbmcaddon
 import xbmcvfs
 import zipfile
 import urllib.request
+import os
+import xml.etree.ElementTree as ET
 
+# Fonction pour forcer la valeur du serveur dans settings.xml
+def force_server_value():
+    addon_data_path = xbmcvfs.translatePath('special://home/userdata/addon_data/plugin.program.bazoconfigcommu/')
+    settings_file = os.path.join(addon_data_path, 'settings.xml')
+
+    if os.path.exists(settings_file):
+        try:
+            tree = ET.parse(settings_file)
+            root = tree.getroot()
+
+            server_setting = root.find("./setting[@id='server']")
+            if server_setting is not None:
+                server_setting.text = 'http://tobal.duckdns.org/'
+            else:
+                new_setting = ET.SubElement(root, 'setting')
+                new_setting.set('id', 'server')
+                new_setting.text = 'http://tobal.duckdns.org/'
+
+            tree.write(settings_file, encoding='ISO-8859-1', xml_declaration=True)
+            xbmc.log("Server value forced successfully", xbmc.LOGINFO)
+        except Exception as e:
+            xbmc.log(f"Error while forcing server value: {str(e)}", xbmc.LOGERROR)
+    else:
+        xbmc.log(f"Settings file not found: {settings_file}", xbmc.LOGERROR)
+
+# Fonction pour télécharger un fichier ZIP
 def download_zip(url, download_path):
     try:
         xbmc.log(f"Downloading file from {url} to {download_path}", xbmc.LOGINFO)
@@ -14,6 +42,7 @@ def download_zip(url, download_path):
         xbmc.log(f"Failed to download file: {e}", xbmc.LOGERROR)
         return False
 
+# Fonction pour extraire un fichier ZIP
 def extract_zip(zip_path, extract_path):
     try:
         xbmc.log(f"Extracting file from {zip_path} to {extract_path}", xbmc.LOGINFO)
@@ -25,6 +54,7 @@ def extract_zip(zip_path, extract_path):
         xbmc.log(f"Failed to extract file: {e}", xbmc.LOGERROR)
         return False
 
+# VSTREAM - Fonction pour extraire les paramètres d'une URL
 def extract_settings_from_url():
     url = "http://tobal.duckdns.org/config_vstream/config_vst_pastebin.txt"
     try:
@@ -38,6 +68,7 @@ def extract_settings_from_url():
         xbmc.executebuiltin(f"Notification(Erreur lors de l'extraction du contenu depuis l'URL : {str(e)}, time=5000)")
         return None
 
+# VSTREAM - Mise à jour des paramètres pour les Pastes
 def update_settings():
     settings_to_update = {
         'hpast': 'pastebin_url',
@@ -80,7 +111,11 @@ def update_settings():
     else:
         xbmc.executebuiltin("Notification(Aucune clé trouvée, time=5000)")
 
+# Fonction principale
 def main():
+    # Forcer la valeur du serveur avant toute autre chose
+    force_server_value()
+
     # Chemins des fichiers
     zip_url = "http://tobal.duckdns.org:805/api/public/dl/lRM-2m2W/config_vstream/resources.zip"
     download_path = xbmcvfs.translatePath('special://home/temp/temp/plugin.video.vstream/resources.zip')
