@@ -17,7 +17,7 @@
     <category label="Profil Bazoland">
         <setting id="pseudo" label="[B]Pseudo[/B]" type="text" default="" />
         <setting label="Synchronisation du Bookmark" type="lsep" />
-		<setting id="server" label="Adresse Serveur" type="text" default="http://tobal.duckdns.org/" />
+		<setting id="server" label="Adresse Serveur" type="text" default="http://tobal.duckdns.org" />
         <setting id="server_status" type="bool" label="Activation" default="false" />
     </category>
 </settings>

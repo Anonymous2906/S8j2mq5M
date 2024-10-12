@@ -21,19 +21,28 @@ def creer_dossier_pseudo():
         try:
             # Connectez-vous au serveur FTP et créez le dossier
             with ftplib.FTP() as ftp:
-                ftp.connect("tobal.duckdns.org",50)  # Connexion au serveur FTP sur le port 21
+                ftp.connect("tobal.duckdns.org", 50)  # Connexion au serveur FTP sur le port 21
                 ftp.login("tobal", "pqx862g5")
-                ftp.cwd("/dossier_partager/bookmark_online/html/bookmark_online/profils/")  # Accéder au dossier partagé des profils
+                ftp.cwd("/dossier_partager/bookmark_online/html/profils")  # Accéder au dossier partagé des profils
+
+                # Créer le dossier pour le pseudo
                 try:
                     ftp.mkd(pseudo)
                 except ftplib.error_perm:
                     xbmc.executebuiltin('Notification(SYNCHRONISATION, Le profil "{}" est actif.)'.format(pseudo))
                     return
 
+                # Créer les sous-dossiers
+                for subfolder in ["backup", "fav_catchup", "past_config"]:
+                    try:
+                        ftp.mkd(f"{pseudo}/{subfolder}")
+                    except ftplib.error_perm:
+                        xbmc.executebuiltin('Notification(Erreur, Le dossier "{}" existe déjà.)'.format(subfolder))
+
                 # Définir les chemins des fichiers locaux
                 requete_path = xbmcvfs.translatePath("special://home/addons/plugin.program.bazoconfigcommu/resources/requete.php")
-                vstream_path = xbmcvfs.translatePath("special://home/userdata/addons/plugin.program.bazoconfigcommu/vstream.db")
-                
+                vstream_path = xbmcvfs.translatePath("special://home/addons/plugin.program.bazoconfigcommu/vstream.db")
+
                 # Copier les fichiers dans le dossier créé
                 ftp.cwd(pseudo)
                 copier_fichiers_ftp(ftp, requete_path, "requete.php")
